@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="40dp"
+        android:src="@mipmap/wallet"
+        />
+    <TextView
+        android:id="@+id/tv_wallet"
+        android:textSize="25sp"
+        android:layout_marginTop="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginTop="10dp"
+        android:textSize="22sp"
+        android:textColor="@color/primary_dark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/tv_email"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:id="@+id/redeem_text"
+        android:hint="Enter your Promo Code"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/tv_promo_money"
+        android:textSize="10sp"
+        android:layout_marginTop="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        />
+
+
+    <!--<android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_redeem"
+        android:layout_marginTop="20dp"
+        android:text="Redeeem"
+        android:background="@color/primary"
+        android:textColor="@android:color/white"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content" />-->
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_redeem"
+       >
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="80dp"
+            app:srcCompat="@mipmap/ic_redeem"
+            android:adjustViewBounds="false"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/btn_redeem1"/>
+
+
+        <TextView
+            android:textSize="20sp"
+            android:text="REDEEM "
+            android:textStyle="bold|italic"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/blue"
+            android:id="@+id/tc"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="40dp" />
+
+
+    </LinearLayout>
+
+    <ProgressBar
+        style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:id="@+id/progress2"
+        android:visibility="invisible"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:indeterminate="true"
+        android:layout_height="10dp" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_chg_password"
+        android:text="Change Password"
+        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/first_slide_buttons"
+        android:layout_weight="0.07" />
+
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btn_logout"
+        android:layout_marginTop="20dp"
+        android:text="Logout"
+        android:background="@color/first_slide_buttons"
+        android:textColor="@android:color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

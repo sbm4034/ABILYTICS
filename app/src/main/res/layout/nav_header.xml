@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="#283593"
+    android:paddingBottom="20dp"
+    android:paddingTop="20dp"
+      android:orientation="vertical"
+    android:layout_height="190dp"
+    android:baselineAligned="false">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_personwhite"
+
+
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_gravity="center"
+        android:id="@+id/tv_emailnav"
+        android:textColor="#ffffff" />
+
+</LinearLayout>
