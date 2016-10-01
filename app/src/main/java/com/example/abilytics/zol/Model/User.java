@@ -11,10 +11,15 @@ public class User {
         private String money;
         private String promo_code;
         private String value;
+        private String otp;
+
+
 
         public String getName() {
             return name;
         }
+
+        public void setOtp(String otp){this.otp=otp;}
 
     public String getMoney() {
         return money;

@@ -2,6 +2,7 @@ package com.example.abilytics.zol;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
@@ -28,7 +29,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private EditText et_email,et_password,et_name;
     private TextView tv_login;
     private ProgressBar progress;
-
+    private String email;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +64,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             case R.id.btn_register:
 
                 String name = et_name.getText().toString();
-                String email = et_email.getText().toString();
+                email = et_email.getText().toString();
                 String password = et_password.getText().toString();
 
                 if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
@@ -106,6 +107,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 ServerResponse resp = response.body();
                 Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
                 progress.setVisibility(View.INVISIBLE);
+                gotoVerifyOtp();
             }
 
             @Override
@@ -127,6 +129,13 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         ft.addToBackStack(null);
         ft.commit();
     }
+    private void gotoVerifyOtp(){
+
+        Intent intent=new Intent(getActivity().getBaseContext(),VerifyOtpFragment.class);
+        intent.putExtra("email",email);
+        getActivity().startActivity(intent);
+    }
+
 
 
 }

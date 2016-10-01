@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
         {
             finish();
         }
+        else if(getIntent().getIntExtra("fragment",0)==1)
+        {
+            goToLogin();
+        }
         initFragment();
 
         //initNavigationDrawer();
@@ -139,17 +143,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void initFragment(){
-        Fragment fragment;
+
         if(pref.getBoolean(Constants.IS_LOGGED_IN,false)){
             Intent intent=new Intent(getApplicationContext(),Profile.class);
             startActivity(intent);
         }else {
-            fragment = new LoginFragment();
-            FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.replace(R.id.fragment_frame,fragment);
-            ft.commit();
+           goToLogin();
         }
 
+    }
+    public void goToLogin()
+    {   Fragment fragment;
+        fragment = new LoginFragment();
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.replace(R.id.fragment_frame,fragment);
+        ft.commit();
     }
 
 }
