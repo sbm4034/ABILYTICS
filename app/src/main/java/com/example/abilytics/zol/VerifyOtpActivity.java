@@ -22,11 +22,8 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-/**
- * Created by shubham on 10/1/2016.
- */
 public class VerifyOtpActivity extends AppCompatActivity implements View.OnClickListener {
-    AppCompatButton btn_otp;
+    AppCompatButton btn_otp,btn_resend;
     EditText otp;
     String o,email;
     ProgressBar progressBar;
@@ -38,8 +35,10 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
         btn_otp = (AppCompatButton)findViewById(R.id.btn_otp);
         otp=(EditText)findViewById(R.id.otp);
         progressBar=(ProgressBar)findViewById(R.id.progress_otp);
+        btn_resend=(AppCompatButton)findViewById(R.id.btn_resend);
         btn_otp.setOnClickListener(this);
         email=getIntent().getStringExtra("email");
+        btn_resend.setOnClickListener(this);
 
     }
 
@@ -51,6 +50,10 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
                 progressBar.setVisibility(View.VISIBLE);
                 o=otp.getText().toString();
                 otpProcess();
+                break;
+            case R.id.btn_resend:
+                progressBar.setVisibility(View.VISIBLE);
+                resendProcess();
                 break;
 
         }
@@ -108,6 +111,59 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
             }
         });
     }
+
+
+    //resend otp
+    public void resendProcess()
+    {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
+
+        User user = new User();
+        user.setEmail(email);
+        ServerRequest request = new ServerRequest();
+        request.setOperation(Constants.RESENDOTP_OPERATION);
+        request.setUser(user);
+        Call<ServerResponse> response = requestInterface.operation(request);
+
+        response.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, retrofit2.Response<ServerResponse> response) {
+
+                ServerResponse resp = response.body();
+                progressBar.setVisibility(View.INVISIBLE);
+
+                if(resp.getResult().equals(Constants.SUCCESS)) {
+                    Toast.makeText(getApplicationContext(),"Click on verify button",Toast.LENGTH_SHORT).show();
+                    onClick(getCurrentFocus());
+                }
+                else {
+                    Toast.makeText(getApplicationContext(),"Service unavailable,Try again after some time",Toast.LENGTH_SHORT).show();
+                    View view=getCurrentFocus();
+                    if (view != null) {
+                        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    }
+                    onClick(view);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                progressBar.setVisibility(View.INVISIBLE);
+                Log.d(Constants.TAG,"failed");
+                Snackbar.make(getCurrentFocus(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
+
+
+            }
+        });
+    }
+
 
     private void goToLogin(){
 
