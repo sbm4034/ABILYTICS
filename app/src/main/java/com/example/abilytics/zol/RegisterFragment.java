@@ -131,7 +131,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     }
     private void gotoVerifyOtp(){
 
-        Intent intent=new Intent(getActivity().getBaseContext(),VerifyOtpFragment.class);
+        Intent intent=new Intent(getActivity().getBaseContext(),VerifyOtpActivity.class);
         intent.putExtra("email",email);
         getActivity().startActivity(intent);
     }

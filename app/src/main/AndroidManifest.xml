@@ -22,14 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".IntroActivity"
-            android:theme="@style/Theme.Intro"></activity>
+
         <activity
             android:name=".Profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".VerifyOtpFragment"
+            android:name=".VerifyOtpActivity"
             android:screenOrientation="portrait" />
     </application>
 

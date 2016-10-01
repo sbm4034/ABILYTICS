@@ -32,13 +32,11 @@ dependencies {
     compile 'com.squareup.retrofit2:retrofit:2.0.0'
     compile 'com.squareup.retrofit2:converter-gson:2.0.0'
     compile 'com.android.support:design:24.2.1'
-    compile 'com.github.TangoAgency:material-intro-screen:0.0.3'
     compile 'com.android.support:support-v4:24.2.1'
-    compile 'com.google.android.gms:play-services:9.4.0'
 }
 repositories {
-    maven {
+   /* maven {
         url "https://jitpack.io"
-    }
+    }*/
 }
 

@@ -30,7 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by shubham on 10/1/2016.
  */
-public class VerifyOtpFragment extends AppCompatActivity implements View.OnClickListener {
+public class VerifyOtpActivity extends AppCompatActivity implements View.OnClickListener {
     AppCompatButton btn_otp;
     EditText otp;
     String o,email;
