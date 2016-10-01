@@ -59,11 +59,12 @@ public class Profile extends AppCompatActivity {
                 int id = menuItem.getItemId();
                 switch(id){
                     case R.id.home:
+                        drawerLayout.closeDrawers();
                         fr = new ProfileFragment();
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
                         ft.replace(R.id.fragment_frame, fr);
                         ft.commit();
-                        drawerLayout.closeDrawers();
+
                         break;
                     case R.id.exit:
                         drawerLayout.closeDrawers();
@@ -73,11 +74,13 @@ public class Profile extends AppCompatActivity {
                         startActivity(intent);
                         break;
                     case R.id.about_us:
-                        drawerLayout.closeDrawers();
+
                         fr = new AboutFragment();
                         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                         fragmentTransaction.replace(R.id.fragment_frame, fr);
                         fragmentTransaction.commit();
+                        drawerLayout.closeDrawers();
+                        break;
 
 
 
@@ -141,6 +144,10 @@ public class Profile extends AppCompatActivity {
             getFragmentManager().popBackStack();
         }
 
+    }
+
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 
 

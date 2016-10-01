@@ -18,7 +18,7 @@
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginLeft="40dp"
-        android:src="@mipmap/wallet"
+        android:src="@mipmap/ic_redeem"
         />
     <TextView
         android:id="@+id/tv_wallet"
@@ -62,43 +62,15 @@
         />
 
 
-    <!--<android.support.v7.widget.AppCompatButton
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_redeem"
         android:layout_marginTop="20dp"
         android:text="Redeeem"
-        android:background="@color/primary"
+        android:background="@color/first_slide_background"
         android:textColor="@android:color/white"
-        android:layout_width="178dp"
-        android:layout_height="wrap_content" />-->
-
-    <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_redeem"
-       >
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="80dp"
-            app:srcCompat="@mipmap/ic_redeem"
-            android:adjustViewBounds="false"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/btn_redeem1"/>
+        android:layout_height="wrap_content" />
 
-
-        <TextView
-            android:textSize="20sp"
-            android:text="REDEEM "
-            android:textStyle="bold|italic"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/blue"
-            android:id="@+id/tc"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="40dp" />
-
-
-    </LinearLayout>
 
     <ProgressBar
         style="@style/Base.Widget.AppCompat.ProgressBar"

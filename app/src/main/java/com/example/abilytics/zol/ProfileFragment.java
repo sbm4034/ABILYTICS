@@ -42,8 +42,7 @@ import static com.example.abilytics.zol.R.id.btn_redeem;
 public class ProfileFragment  extends Fragment implements View.OnClickListener{
     private TextView tv_name,tv_email,tv_message,tv_wallet,tv_promo_money;
     private SharedPreferences pref;
-    private AppCompatButton btn_change_password,btn_logout;
-    private LinearLayout btn_redeem;
+    private AppCompatButton btn_change_password,btn_logout,btn_redeem;
     private EditText et_old_password,et_new_password;
     private AlertDialog dialog;
     private ProgressBar progress;
@@ -55,6 +54,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        ((Profile) getActivity()).setActionBarTitle("Abilytics India Ltd.");
         initViews(view);
         return view;
     }
@@ -76,14 +76,14 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         tv_wallet=(TextView)view.findViewById(R.id.tv_wallet);
         btn_change_password = (AppCompatButton)view.findViewById(R.id.btn_chg_password);
         btn_logout = (AppCompatButton)view.findViewById(R.id.btn_logout);
-        btn_redeem=(LinearLayout) view.findViewById(R.id.btn_redeem);
+        btn_redeem=(AppCompatButton) view.findViewById(R.id.btn_redeem);
         progress=(ProgressBar)view.findViewById(R.id.progress2);
         redeeemText=(EditText)view.findViewById(R.id.redeem_text);
 
         btn_change_password.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
         btn_redeem.setOnClickListener(this);
-
+        tv_email.setVisibility(View.INVISIBLE);
     }
 
     private void showDialog(){
@@ -175,19 +175,20 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString(Constants.WALLET,resp.getUser().getMoney());
                     editor.apply();
-                    ;
+                    tv_wallet.setText("Pts: "+resp.getUser().getMoney());
+                    Toast toast=Toast.makeText(getActivity(),"Points Added To Wallet:" +resp.getUser().getPromo_money(),Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER,0,0);
+                    toast.show();
                 }
-                tv_wallet.setText("Pts: "+resp.getUser().getMoney());
-               Toast toast=Toast.makeText(getActivity(),"Points Added To Wallet:" +resp.getUser().getPromo_money(),Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER,0,0);
-                toast.show();
-
-
+                else
+                {   Log.d("kfkef","fwfjkbsfkdsdfjk");
+                    Snackbar.make(getView(), "Redeem point does not exist", Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                Snackbar.make(getView(), "Redeem point does not exist", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
                 progress.setVisibility(View.INVISIBLE);
             }
         });

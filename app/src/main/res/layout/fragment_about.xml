@@ -1,13 +1,90 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.abilytics.zol.AboutFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center"
+        android:layout_width="200dp"
+        android:layout_height="120dp"
+        app:srcCompat="@mipmap/email"
+        android:adjustViewBounds="false"
+        android:id="@+id/Email"/>
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Click on the link below to contact"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/primary_dark"
+        />
 
-</FrameLayout>
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="info@abilytics.in"
+        android:layout_gravity="center"
+        android:textSize="25sp"
+        android:id="@+id/clickEmail"
+        android:textColor="@color/blue"
+        android:background="#E0E0E0"
+
+        />
+
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_gravity="center"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        app:srcCompat="@mipmap/ic_redeem"
+        android:adjustViewBounds="false"
+        />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call us "
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:textColor="@color/primary_dark"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-10dp"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            app:srcCompat="@mipmap/ic_call"
+            android:adjustViewBounds="false"
+            />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="+91-9999697908"
+        android:layout_gravity="center_horizontal"
+        android:textSize="25sp"
+        android:id="@+id/mbl"
+        android:background="#E0E0E0"
+        android:textColor="@color/blue"
+        />
+    </LinearLayout>
+
+
+</LinearLayout>

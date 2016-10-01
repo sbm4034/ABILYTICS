@@ -123,17 +123,17 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                     et_email.setVisibility(View.GONE);
                     et_code.setVisibility(View.VISIBLE);
                     et_password.setVisibility(View.VISIBLE);
-                    tv_timer.setVisibility(View.VISIBLE);
+                    //tv_timer.setVisibility(View.VISIBLE);
                     btn_reset.setText("Change Password");
                     isResetInitiated = true;
-                    startCountdownTimer();
+                   // startCountdownTimer();
 
                 } else {
 
                     Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
+                   // Toast.makeText(getActivity(),resp.getMessage(),Toast.LENGTH_SHORT).show();
 
                 }
-                Log.d("b",resp.getMessage().toString());
                 progress.setVisibility(View.INVISIBLE);
             }
 
@@ -142,7 +142,8 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
                 progress.setVisibility(View.INVISIBLE);
                 Log.d(Constants.TAG,"failed");
-                Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(), "Internet not Connected", Snackbar.LENGTH_LONG).show();
+
 
             }
         });
@@ -156,10 +157,9 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 .build();
 
         RequestInterface requestInterface = retrofit.create(RequestInterface.class);
-
         User user = new User();
         user.setEmail(email);
-       // user.setcode(code);
+        user.setOtp(code);
         user.setPassword(password);
         ServerRequest request = new ServerRequest();
         request.setOperation(Constants.RESET_PASSWORD_FINISH);
@@ -176,7 +176,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                 if(resp.getResult().equals(Constants.SUCCESS)){
 
                     Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
-                    countDownTimer.cancel();
+                    //countDownTimer.cancel();
                     isResetInitiated = false;
                     goToLogin();
 
@@ -186,7 +186,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
                 }
                 progress.setVisibility(View.INVISIBLE);
-                Log.d(Constants.TAG,resp.getMessage().toString());
+                Log.d(Constants.TAG, resp.getMessage());
             }
 
             @Override
@@ -200,7 +200,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
         });
     }
 
-    private void startCountdownTimer(){
+    /*private void startCountdownTimer(){
         countDownTimer = new CountDownTimer(120000, 1000) {
 
             public void onTick(long millisUntilFinished) {
@@ -213,6 +213,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
             }
         }.start();
     }
+    */
 
     private void goToLogin(){
 
