@@ -1,7 +1,5 @@
 package com.example.abilytics.zol;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,13 +7,10 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.abilytics.zol.Model.ServerRequest;
@@ -34,14 +29,15 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
     AppCompatButton btn_otp;
     EditText otp;
     String o,email;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_otp);
+        setContentView(R.layout.activity_otp);
         btn_otp = (AppCompatButton)findViewById(R.id.btn_otp);
         otp=(EditText)findViewById(R.id.otp);
-
+        progressBar=(ProgressBar)findViewById(R.id.progress_otp);
         btn_otp.setOnClickListener(this);
         email=getIntent().getStringExtra("email");
 
@@ -52,7 +48,8 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.btn_otp:
-                 o=otp.getText().toString();
+                progressBar.setVisibility(View.VISIBLE);
+                o=otp.getText().toString();
                 otpProcess();
                 break;
 
@@ -84,10 +81,12 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
                 if(resp.getResult().equals(Constants.SUCCESS)) {
                     Snackbar.make(getCurrentFocus(),resp.getMessage(), Snackbar.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(),"Verified,Login with your password ",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                     goToLogin();
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"please enter the valid otp or click on resend ",Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.INVISIBLE);
                     View view=getCurrentFocus();
                     if (view != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

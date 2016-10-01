@@ -37,7 +37,6 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
     private EditText et_email,et_password;
     private TextView tv_register;
     private TextView tv_reset;
-    private TextInputLayout textInputEmail,textInputpassword;
     private ProgressBar progress;
     private SharedPreferences pref;
 
@@ -58,11 +57,6 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         tv_register = (TextView)view.findViewById(R.id.tv_register);
         et_email = (EditText)view.findViewById(R.id.et_email);
         et_password = (EditText)view.findViewById(R.id.et_password);
-       textInputEmail=(TextInputLayout)view.findViewById(R.id.textInputEmail);
-        textInputpassword=(TextInputLayout)view.findViewById(R.id.textInputPassword);
-        et_email.addTextChangedListener(new MyTextWatcher(et_email));
-        et_password.addTextChangedListener(new MyTextWatcher(et_password));
-
         progress = (ProgressBar)view.findViewById(R.id.progress);
         tv_reset = (TextView)view.findViewById(R.id.tv_reset);
         btn_login.setOnClickListener(this);
@@ -80,7 +74,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
                 break;
 
             case R.id.btn_login:
-                if(submitform()) {
+
                     String email = et_email.getText().toString();
                     String password = et_password.getText().toString();
 
@@ -93,7 +87,6 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
 
                         Snackbar.make(getView(), "Fields are empty !", Snackbar.LENGTH_LONG).show();
                     }
-                }
                 break;
             case R.id.tv_reset:
                 goToResetPassword();
@@ -170,95 +163,4 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         Intent intent=new Intent(getActivity(),Profile.class);
         startActivity(intent);
     }
-
-
-
-
-
-
-
-
-
-
-
-    // validate form
-
-    private boolean submitform() {
-
-        if (!validateEmail()) {
-            return true;
-        }
-
-        if (!validatePassword()) {
-            return true;
-        }
-
-        return true;
-    }
-
-
-
-    private boolean validateEmail() {
-        String emails = et_email.getText().toString().trim();
-
-        if (emails.isEmpty() || !isValidEmail(emails)) {
-            textInputEmail.setError(getString(R.string.error_email));
-            requestFocus(et_email);
-            return false;
-        } else {
-            textInputEmail.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private boolean validatePassword() {
-        if (et_password.getText().toString().trim().isEmpty()) {
-            textInputpassword.setError(getString(R.string.error_pass));
-            requestFocus(et_password);
-            return false;
-        } else {
-            textInputpassword.setErrorEnabled(false);
-        }
-
-        return true;
-    }
-
-    private static boolean isValidEmail(String email) {
-        return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    private class MyTextWatcher implements TextWatcher {
-
-        private View view;
-
-        private MyTextWatcher(View view) {
-            this.view = view;
-        }
-
-        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        }
-
-        public void afterTextChanged(Editable editable) {
-            switch (view.getId()) {
-                case R.id.et_email:
-                    validateEmail();
-                    break;
-                case R.id.et_password:
-                    validatePassword();
-                    break;
-            }
-        }
-    }
-
-
 }
