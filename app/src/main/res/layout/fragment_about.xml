@@ -7,11 +7,11 @@
     tools:context="com.example.abilytics.zol.AboutFragment">
 
     <ImageView
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center"
         android:layout_width="200dp"
         android:layout_height="120dp"
-        app:srcCompat="@mipmap/email"
+        app:srcCompat="@drawable/email"
         android:adjustViewBounds="false"
         android:id="@+id/Email"/>
     <TextView
@@ -65,9 +65,9 @@
         android:layout_height="wrap_content">
         <ImageView
             android:layout_marginLeft="60dp"
-            android:layout_marginTop="-10dp"
+            android:layout_marginTop="-5dp"
             android:layout_width="50dp"
-            android:layout_height="60dp"
+            android:layout_height="40dp"
             app:srcCompat="@mipmap/ic_call"
             android:adjustViewBounds="false"
             />

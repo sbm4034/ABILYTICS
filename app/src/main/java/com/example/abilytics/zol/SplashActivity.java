@@ -16,12 +16,14 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
            @Override
            public void run() {
+
                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                    TaskStackBuilder.create(getApplication())
                            .addNextIntentWithParentStack(new Intent(getApplication(), MainActivity.class))
                            //.addNextIntent(new Intent(getApplication(), IntroActivity.class))
                            .startActivities();
                }
+
 
            }
        },1500);

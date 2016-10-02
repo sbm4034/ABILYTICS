@@ -170,8 +170,9 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
                 progress.setVisibility(View.INVISIBLE);
                 ServerResponse resp = response.body();
                // Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
-                tv_promo_money.setText(resp.getUser().getPromo_money());
+
                 if(resp.getResult().equals(Constants.SUCCESS)){
+                    tv_promo_money.setText(resp.getUser().getPromo_money());
                     SharedPreferences.Editor editor = pref.edit();
                     editor.putString(Constants.WALLET,resp.getUser().getMoney());
                     editor.apply();

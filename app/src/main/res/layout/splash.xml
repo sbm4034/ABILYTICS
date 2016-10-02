@@ -4,26 +4,25 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:background="@color/blue"
+    android:background="#ffffff"
     android:weightSum="1"
     android:layout_gravity="center">
 
     <ImageView
+        android:layout_marginTop="170dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/imageView"
-        android:layout_weight="0.36"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center_horizontal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_marginTop="40dp"
         android:layout_gravity="center_horizontal"
-        android:text="ABILYITCS"
-
+        android:text="@string/company_name"
         android:layout_height="wrap_content"
-        android:textColor="#FFFFFF"
+        android:textColor="@color/third_slide_background"
         android:textStyle="normal|bold"
         android:textSize="20sp" />
 </LinearLayout>

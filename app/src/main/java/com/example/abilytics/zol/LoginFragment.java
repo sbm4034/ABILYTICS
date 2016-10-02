@@ -26,6 +26,9 @@ import com.example.abilytics.zol.Model.ServerRequest;
 import com.example.abilytics.zol.Model.ServerResponse;
 import com.example.abilytics.zol.Model.User;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
@@ -35,7 +38,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
     private AppCompatButton btn_login;
 
     private EditText et_email,et_password;
-    private TextView tv_register;
+    private TextView tv_register,greeting_login;
     private TextView tv_reset;
     private ProgressBar progress;
     private SharedPreferences pref;
@@ -59,9 +62,12 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         et_password = (EditText)view.findViewById(R.id.et_password);
         progress = (ProgressBar)view.findViewById(R.id.progress);
         tv_reset = (TextView)view.findViewById(R.id.tv_reset);
+        greeting_login=(TextView)view.findViewById(R.id.greeting_login);
         btn_login.setOnClickListener(this);
         tv_register.setOnClickListener(this);
         tv_reset.setOnClickListener(this);
+        String greets=getTimeFromAndroid();
+        greeting_login.setText(greets);
     }
 
     @Override
@@ -163,4 +169,28 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         Intent intent=new Intent(getActivity(),Profile.class);
         startActivity(intent);
     }
+
+    //time of day
+
+    private String getTimeFromAndroid() {
+        String greeting=null;
+        Date dt = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        int hours = c.get(Calendar.HOUR_OF_DAY);
+        int min = c.get(Calendar.MINUTE);
+
+
+        if(hours>=0 && hours<=12){
+            greeting = "Good Morning";
+        } else if(hours>=12 && hours<=16){
+            greeting = "Good Afternoon";
+        } else if(hours>=16 && hours<=21){
+            greeting = "Good Evening";
+        } else if(hours>=21 && hours<=24){
+            greeting = "Good Night";
+        }
+        return greeting;
+    }
+
 }

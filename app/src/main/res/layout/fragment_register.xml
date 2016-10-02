@@ -42,7 +42,7 @@
         <EditText
             android:hint="Mobile Number"
             android:id="@+id/et_email"
-            android:drawableLeft="@drawable/ic_email"
+            android:drawableLeft="@drawable/ic_mobile"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

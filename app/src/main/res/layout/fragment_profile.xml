@@ -44,7 +44,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-
+    <android.support.design.widget.TextInputLayout
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -52,6 +56,7 @@
         android:id="@+id/redeem_text"
         android:hint="Enter your Promo Code"
         android:layout_gravity="center_horizontal" />
+    </android.support.design.widget.TextInputLayout>
     <TextView
         android:id="@+id/tv_promo_money"
         android:textSize="10sp"
