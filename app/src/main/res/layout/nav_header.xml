@@ -12,8 +12,7 @@
         android:layout_gravity="center"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:src="@drawable/ic_person"
-
+        android:src="@drawable/ic_edit"
 
         />
     <TextView

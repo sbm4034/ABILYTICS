@@ -81,10 +81,9 @@
         style="@style/Base.Widget.AppCompat.ProgressBar"
         android:id="@+id/progress2"
         android:visibility="invisible"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:indeterminate="true"
-        android:layout_height="10dp" />
+        android:layout_height="wrap_content" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_chg_password"

@@ -14,18 +14,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
+
     <TextView
-        android:id="@+id/greeting_login"
+        android:text="@string/company_name"
         android:textSize="22sp"
         android:textAlignment="center"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+
     <TextView
-        android:text="Abilytics Login "
+        android:id="@+id/greeting_login"
         android:textSize="22sp"
         android:textAlignment="center"
+        android:textColor="@color/primary"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -41,7 +44,7 @@
             android:hint="Mobile Number"
             android:id="@+id/et_email"
             android:drawableLeft="@drawable/ic_mobile"
-            android:inputType="textEmailAddress"
+            android:inputType="phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -78,6 +81,7 @@
         android:id="@+id/tv_register"
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
+        android:textSize="15sp"
         android:text="Not Registered ? Register Now !"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -85,7 +89,8 @@
         android:id="@+id/tv_reset"
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
-        android:text="Forget !"
+        android:text="Reset Password "
+        android:textSize="15sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
