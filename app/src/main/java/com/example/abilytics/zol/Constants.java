@@ -21,8 +21,10 @@ public class Constants {
     public static final String EMAIL = "email";
     public static final String UNIQUE_ID = "unique_id";
     public static final String WALLET = "money";
+    public static final String DOB = "dob";
+    public static final String PLACE = "place";
 
-    public static final String TAG = "Learn2Crack";
+    public static final String TAG = "ABILYTICS";
     public static final String RESET_PASSWORD_INITIATE = "forget";
     public static final String RESET_PASSWORD_FINISH = "checkOtpPassword";
 }

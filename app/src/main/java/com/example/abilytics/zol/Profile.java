@@ -81,6 +81,14 @@ public class Profile extends AppCompatActivity {
                         fragmentTransaction.commit();
                         drawerLayout.closeDrawers();
                         break;
+                    case R.id.edit_profile:
+                        fr = new Edit_profile_frag();
+                        FragmentTransaction f = getFragmentManager().beginTransaction();
+                        f.replace(R.id.fragment_frame, fr);
+                        f.commit();
+                        drawerLayout.closeDrawers();
+
+                        break;
 
 
 

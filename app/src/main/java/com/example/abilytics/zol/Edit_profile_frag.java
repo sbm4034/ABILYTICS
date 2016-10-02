@@ -2,17 +2,19 @@ package com.example.abilytics.zol;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.support.design.widget.Snackbar;
 
 import com.example.abilytics.zol.Model.ServerRequest;
 import com.example.abilytics.zol.Model.ServerResponse;
@@ -23,71 +25,61 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Created by gautam on 10/2/16.
+ */
 
-public class RegisterFragment extends Fragment implements View.OnClickListener {
-    private AppCompatButton btn_register;
-    private EditText et_email,et_password,et_name,et_dob,et_place;
-    private TextView tv_login;
+public class Edit_profile_frag extends Fragment implements View.OnClickListener{
+    private AppCompatButton btn_submit;
+    private EditText et_password,et_name,et_dob,et_place;
+    SharedPreferences pref;
     private ProgressBar progress;
     private String email;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_register,container,false);
+    public View onCreateView(LayoutInflater inflater, Bundle savedInstanceState, ViewGroup viewgroup)
+    {
+        View view = inflater.inflate(R.layout.edit_profile_fragment, viewgroup, false);
+        ((Profile) getActivity()).setActionBarTitle("Edit Profile");
         initViews(view);
         return view;
     }
+    public void initViews(View view)
+    {
 
-    private void initViews(View view){
-
-        btn_register = (AppCompatButton)view.findViewById(R.id.btn_register);
-        tv_login = (TextView)view.findViewById(R.id.tv_login);
+        btn_submit = (AppCompatButton)view.findViewById(R.id.btn_register);
         et_name = (EditText)view.findViewById(R.id.et_name);
-        et_email = (EditText)view.findViewById(R.id.et_email);
+
         et_password = (EditText)view.findViewById(R.id.et_password);
         et_dob = (EditText)view.findViewById(R.id.et_dob);
         et_place = (EditText)view.findViewById(R.id.et_place);
+        pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
+        et_name.setText(pref.getString(Constants.NAME,null));
+        email=pref.getString(Constants.EMAIL,null);
+        et_dob.setText(pref.getString(Constants.DOB,null));
+        et_place.setText(pref.getString(Constants.PLACE,null));
 
         progress = (ProgressBar)view.findViewById(R.id.progress);
 
-        btn_register.setOnClickListener(this);
-        tv_login.setOnClickListener(this);
+        btn_submit.setOnClickListener(this);
+
     }
-
     @Override
-    public void onClick(View v) {
-
-        switch (v.getId()){
-            case R.id.tv_login:
-                goToLogin();
-                break;
-
-            case R.id.btn_register:
+    public void onClick(View view) {
+        switch (view.getId())
+        {
+            case R.id.btn_submit:
 
                 String name = et_name.getText().toString();
-                email = et_email.getText().toString();
                 String password = et_password.getText().toString();
                 String dob=et_dob.getText().toString();
                 String place=et_place.getText().toString();
-
-                if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-
-                    progress.setVisibility(View.VISIBLE);
-                    registerProcess(name,email,password,dob,place);
-
-                } else {
-
-                    Snackbar.make(getView(), "Fields are empty !", Snackbar.LENGTH_LONG).show();
-                }
+                submit(name,password,dob,place,email);
                 break;
 
         }
-
     }
+    public void submit(String name,String password,String dob,String place, String email)
 
-    private void registerProcess(String name, String email,String password,String dob,String place){
-
+    {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -113,34 +105,29 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 ServerResponse resp = response.body();
                 Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
                 progress.setVisibility(View.INVISIBLE);
-                gotoVerifyOtp();
+                goToProfile();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
                 progress.setVisibility(View.INVISIBLE);
-                Log.d(Constants.TAG,"failed");
+                Log.d(Constants.TAG, "failed");
                 Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
 
             }
         });
     }
-
-    private void goToLogin(){
-
-        Fragment login = new LoginFragment();
+    public  void goToProfile()
+    {
+        Fragment fragment;
+        fragment = new ProfileFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
-        ft.replace(R.id.fragment_frame,login);
-        ft.addToBackStack(null);
+        ft.replace(R.id.fragment_frame,fragment);
         ft.commit();
     }
-    private void gotoVerifyOtp(){
 
-        Intent intent=new Intent(getActivity().getBaseContext(),VerifyOtpActivity.class);
-        intent.putExtra("email",email);
-        getActivity().startActivity(intent);
-    }
+
 
 
 

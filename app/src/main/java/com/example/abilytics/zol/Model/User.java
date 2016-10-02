@@ -12,6 +12,8 @@ public class User {
         private String promo_code;
         private String value;
         private String otp;
+        private String dob;
+        private String place;
 
 
 
@@ -20,6 +22,18 @@ public class User {
         }
 
         public void setOtp(String otp){this.otp=otp;}
+    public String getDob() {
+        return dob;
+    }
+    public String getPlace() {
+        return place;
+    }
+
+    public void setDob(String dob){this.dob=dob;}
+    public void setPlace(String place){this.place=place;}
+
+
+
 
     public String getMoney() {
         return money;
