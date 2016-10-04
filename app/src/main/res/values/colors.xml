@@ -20,4 +20,5 @@
 
     <color name="custom_slide_background">#3F51B5</color>
     <color name="custom_slide_buttons">#1A237E</color>
+    <color name="red_light">#EF5350</color>
 </resources>

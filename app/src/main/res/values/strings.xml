@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Abilytics</string>
+    <string name="app_name">Wipocab</string>
     <string name="error_pass">Error password</string>
     <string name="error_email">Error Email</string>
     <string name="show">show</string>

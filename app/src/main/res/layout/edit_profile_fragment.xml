@@ -10,7 +10,7 @@
     >
 
     <TextView
-        android:text="Register to Abilytics"
+        android:text="Edit Profile"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
         android:textAlignment="center"

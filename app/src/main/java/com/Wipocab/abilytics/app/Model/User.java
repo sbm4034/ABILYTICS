@@ -1,4 +1,4 @@
-package com.example.abilytics.zol.Model;
+package com.Wipocab.abilytics.app.Model;
 
 public class User {
 

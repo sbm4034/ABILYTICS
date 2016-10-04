@@ -1,4 +1,4 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -7,24 +7,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.AppCompatButton;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.abilytics.zol.Model.ServerRequest;
-import com.example.abilytics.zol.Model.ServerResponse;
-import com.example.abilytics.zol.Model.User;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.User;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -146,7 +140,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
 
                 progress.setVisibility(View.INVISIBLE);
                 Log.d(Constants.TAG,"failed");
-                Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 
             }
         });

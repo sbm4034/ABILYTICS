@@ -1,4 +1,4 @@
-package com.example.abilytics.zol.Model;
+package com.Wipocab.abilytics.app.Model;
 
 /**
  * Created by gautam on 9/6/16.

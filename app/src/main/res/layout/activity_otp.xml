@@ -9,6 +9,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="OTP VERIFICATION"
+        android:textColor="@color/third_slide_background"
+        android:textStyle="bold"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
         android:layout_gravity="center"

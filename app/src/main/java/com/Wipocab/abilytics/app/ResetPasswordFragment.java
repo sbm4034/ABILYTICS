@@ -1,9 +1,8 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
@@ -14,12 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.abilytics.zol.Model.ServerRequest;
-import com.example.abilytics.zol.Model.ServerResponse;
-import com.example.abilytics.zol.Model.User;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -68,6 +65,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                     if (!email.isEmpty()) {
                         progress.setVisibility(View.VISIBLE);
                         initiateResetPasswordProcess(email);
+                      //  et_email.setVisibility(View.INVISIBLE);
                     } else {
 
                         Snackbar.make(getView(), "Fields are empty !", Snackbar.LENGTH_LONG).show();
@@ -78,6 +76,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                     String password = et_password.getText().toString();
 
                     if(!code.isEmpty() && !password.isEmpty()){
+
 
                         progress.setVisibility(View.VISIBLE);
                         finishResetPasswordProcess(email,code,password);
@@ -192,7 +191,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
                 progress.setVisibility(View.INVISIBLE);
                 Log.d(Constants.TAG,"failed");
-                Snackbar.make(getView(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 
             }
         });

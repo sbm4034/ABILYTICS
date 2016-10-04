@@ -1,8 +1,7 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,22 +10,19 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.abilytics.zol.Model.ServerRequest;
-import com.example.abilytics.zol.Model.ServerResponse;
-import com.example.abilytics.zol.Model.User;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.User;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -36,8 +32,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static com.example.abilytics.zol.R.id.btn_redeem;
 
 public class ProfileFragment  extends Fragment implements View.OnClickListener{
     private TextView tv_name,tv_email,tv_message,tv_wallet,tv_promo_money;
@@ -83,6 +77,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         btn_change_password.setOnClickListener(this);
         btn_logout.setOnClickListener(this);
         btn_redeem.setOnClickListener(this);
+
         tv_email.setVisibility(View.INVISIBLE);
     }
 

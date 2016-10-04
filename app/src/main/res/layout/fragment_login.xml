@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.abilytics.zol.MainActivity"
+    tools:context="com.Wipocab.abilytics.app.MainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
@@ -19,8 +19,10 @@
         android:text="@string/company_name"
         android:textSize="22sp"
         android:textAlignment="center"
+        android:textColor="@color/third_slide_background"
         android:layout_marginBottom="20dp"
         android:layout_width="wrap_content"
+        android:textStyle="bold"
         android:layout_height="wrap_content" />
 
 
@@ -81,7 +83,7 @@
         android:id="@+id/tv_register"
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:text="Not Registered ? Register Now !"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
@@ -90,7 +92,7 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
         android:text="Reset Password "
-        android:textSize="15sp"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 

@@ -1,4 +1,4 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 import org.junit.Test;
 

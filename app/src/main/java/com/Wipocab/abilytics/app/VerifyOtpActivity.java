@@ -1,4 +1,4 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.abilytics.zol.Model.ServerRequest;
-import com.example.abilytics.zol.Model.ServerResponse;
-import com.example.abilytics.zol.Model.User;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.User;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -157,7 +157,7 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 progressBar.setVisibility(View.INVISIBLE);
                 Log.d(Constants.TAG,"failed");
-                Snackbar.make(getCurrentFocus(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getCurrentFocus(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 
 
             }

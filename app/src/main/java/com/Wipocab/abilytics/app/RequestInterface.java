@@ -1,7 +1,7 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
-import com.example.abilytics.zol.Model.ServerRequest;
-import com.example.abilytics.zol.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
 
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.abilytics.zol.AboutFragment">
+    tools:context="com.Wipocab.abilytics.app.AboutFragment">
 
     <ImageView
         android:layout_marginTop="40dp"
@@ -39,13 +39,15 @@
         />
 
 
-    <ImageView
+    <TextView
         android:layout_marginTop="30dp"
         android:layout_gravity="center"
         android:layout_width="100dp"
         android:layout_height="80dp"
-        app:srcCompat="@mipmap/ic_redeem"
-        android:adjustViewBounds="false"
+        android:text="OR"
+        android:textColor="@color/primary"
+        android:gravity="center"
+        android:textSize="40sp"
         />
 
     <TextView

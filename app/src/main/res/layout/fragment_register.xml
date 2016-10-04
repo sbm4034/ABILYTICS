@@ -13,6 +13,8 @@
         android:text="Register to Abilytics"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
+        android:textColor="@color/third_slide_background"
+        android:textStyle="bold"
         android:textAlignment="center"
         android:layout_marginBottom="10dp"
         android:layout_width="wrap_content"
@@ -112,6 +114,7 @@
         android:id="@+id/tv_login"
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
+        android:textSize="20sp"
         android:text="Already Registered ? Login Now !"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

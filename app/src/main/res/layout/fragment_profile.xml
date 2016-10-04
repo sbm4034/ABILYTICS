@@ -55,6 +55,7 @@
         android:layout_marginTop="30dp"
         android:id="@+id/redeem_text"
         android:hint="Enter your Promo Code"
+        android:inputType="number"
         android:layout_gravity="center_horizontal" />
     </android.support.design.widget.TextInputLayout>
     <TextView
@@ -71,7 +72,7 @@
         android:id="@+id/btn_redeem"
         android:layout_marginTop="20dp"
         android:text="Redeeem"
-        android:background="@color/first_slide_background"
+        android:background="@color/primary_dark"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -79,10 +80,12 @@
 
     <ProgressBar
         style="@style/Base.Widget.AppCompat.ProgressBar"
+        android:layout_marginTop="10dp"
         android:id="@+id/progress2"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:indeterminate="true"
+        android:layout_marginBottom="10dp"
         android:layout_height="wrap_content" />
 
     <android.support.v7.widget.AppCompatButton
@@ -91,7 +94,7 @@
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/first_slide_buttons"
+        android:background="@color/primary_dark"
         android:layout_weight="0.07" />
 
 
@@ -99,7 +102,7 @@
         android:id="@+id/btn_logout"
         android:layout_marginTop="20dp"
         android:text="Logout"
-        android:background="@color/first_slide_buttons"
+        android:background="@color/primary_dark"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

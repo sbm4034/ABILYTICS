@@ -1,4 +1,4 @@
-package com.example.abilytics.zol;
+package com.Wipocab.abilytics.app;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
@@ -13,16 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class Profile extends AppCompatActivity {
+public class Profile extends AppCompatActivity{
     private SharedPreferences pref;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
     NavigationView navigationView;
     private TextView tv_emailnav;
+    private LinearLayout header;
     int pointer=0;
 
 
@@ -38,13 +40,15 @@ public class Profile extends AppCompatActivity {
         navText();
 
 
+
     }
 
     private void navText() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
-        tv_emailnav=(TextView)headerView.findViewById(R.id.tv_emailnav);
-        tv_emailnav.setText(pref.getString(Constants.EMAIL,""));
+        tv_emailnav = (TextView) headerView.findViewById(R.id.tv_emailnav);
+        tv_emailnav.setText(pref.getString(Constants.EMAIL, ""));
+
 
     }
 
@@ -81,14 +85,14 @@ public class Profile extends AppCompatActivity {
                         fragmentTransaction.commit();
                         drawerLayout.closeDrawers();
                         break;
-                    case R.id.edit_profile:
+                    case R.id.profile:
                         fr = new Edit_profile_frag();
                         FragmentTransaction f = getFragmentManager().beginTransaction();
                         f.replace(R.id.fragment_frame, fr);
                         f.commit();
                         drawerLayout.closeDrawers();
-
                         break;
+
 
 
 
@@ -115,8 +119,6 @@ public class Profile extends AppCompatActivity {
 
         actionBarDrawerToggle.syncState();
     }
-
-
 
     private void initFragment(){
         Fragment fragment;
@@ -157,9 +159,6 @@ public class Profile extends AppCompatActivity {
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
     }
-
-
-
 
 
 
