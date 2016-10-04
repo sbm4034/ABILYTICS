@@ -11,6 +11,8 @@
 
     <TextView
         android:text="Edit Profile"
+        android:textColor="@color/third_slide_background"
+        android:textStyle="bold"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
         android:textAlignment="center"

@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,7 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
     SharedPreferences pref;
     private ProgressBar progress;
     private String email;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_profile_fragment, container, false);
@@ -51,6 +53,11 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
         progress = (ProgressBar)view.findViewById(R.id.progress);
 
         btn_submit.setOnClickListener(this);
+
+        materialDialog=new MaterialDialog.Builder(getActivity())
+                .content(R.string.loading)
+                .progress(true, 0);
+        dialog=materialDialog.build();
 
     }
 
@@ -75,7 +82,8 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
                 String name = et_name.getText().toString();
                 String dob=et_dob.getText().toString();
                 String place=et_place.getText().toString();
-                progress.setVisibility(View.VISIBLE);
+               // progress.setVisibility(View.VISIBLE);
+                dialog.show();
                 submit(name,dob,place,email);
                 break;
 
@@ -119,13 +127,15 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
                     goToProfile();
 
                 }
-                progress.setVisibility(View.INVISIBLE);
+               // progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-                progress.setVisibility(View.INVISIBLE);
+              //  progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 

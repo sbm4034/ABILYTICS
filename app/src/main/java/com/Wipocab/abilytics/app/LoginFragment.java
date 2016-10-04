@@ -2,9 +2,11 @@ package com.Wipocab.abilytics.app;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -34,8 +37,9 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
     private EditText et_email,et_password;
     private TextView tv_register,greeting_login;
     private TextView tv_reset;
-    private ProgressBar progress;
+   // private ProgressBar progress;
     private SharedPreferences pref;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,15 +50,13 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
     }
 
     private void initViews(View view){
-
-//        pref = getActivity().getPreferences(0);
         pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
 
         btn_login = (AppCompatButton)view.findViewById(R.id.btn_login);
         tv_register = (TextView)view.findViewById(R.id.tv_register);
         et_email = (EditText)view.findViewById(R.id.et_email);
         et_password = (EditText)view.findViewById(R.id.et_password);
-        progress = (ProgressBar)view.findViewById(R.id.progress);
+       // progress = (ProgressBar)view.findViewById(R.id.progress);
         tv_reset = (TextView)view.findViewById(R.id.tv_reset);
         greeting_login=(TextView)view.findViewById(R.id.greeting_login);
         btn_login.setOnClickListener(this);
@@ -62,6 +64,10 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         tv_reset.setOnClickListener(this);
         String greets=getTimeFromAndroid();
         greeting_login.setText(greets);
+        materialDialog=new MaterialDialog.Builder(getActivity())
+                .content(R.string.loading)
+                .progress(true, 0);
+       dialog=materialDialog.build();
     }
 
     @Override
@@ -79,8 +85,8 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
                     String password = et_password.getText().toString();
 
                     if (!email.isEmpty() && !password.isEmpty()) {
-
-                        progress.setVisibility(View.VISIBLE);
+                        //  progress.setVisibility(View.VISIBLE);
+                        dialog.show();
                         loginProcess(email, password);
 
                     } else {
@@ -132,13 +138,15 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
                     goToProfile();
 
                 }
-                progress.setVisibility(View.INVISIBLE);
+              //  progress.setVisibility(View.INVISIBLE);
+               dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-                progress.setVisibility(View.INVISIBLE);
+                //progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 

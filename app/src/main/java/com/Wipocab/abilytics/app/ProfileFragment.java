@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -43,7 +44,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
     private EditText redeeemText;
     private TextView tv_emailnav;
     String greeting=null;
-
+    MaterialDialog.Builder materialDialog; MaterialDialog mdialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -79,6 +80,11 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         btn_redeem.setOnClickListener(this);
 
         tv_email.setVisibility(View.INVISIBLE);
+
+        materialDialog=new MaterialDialog.Builder(getActivity())
+                .content(R.string.loading)
+                .progress(true, 0);
+        mdialog=materialDialog.build();
     }
 
     private void showDialog(){
@@ -136,7 +142,8 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
                 logout();
                 break;
             case R.id.btn_redeem:
-            progress.setVisibility(View.VISIBLE);
+        //    progress.setVisibility(View.VISIBLE);
+                mdialog.show();
                 redeem();
                 break;
 
@@ -162,10 +169,9 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         response.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                progress.setVisibility(View.INVISIBLE);
-                ServerResponse resp = response.body();
-               // Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
-
+               // progress.setVisibility(View.INVISIBLE);
+                mdialog.dismiss();
+                ServerResponse resp = response.body();;
                 if(resp.getResult().equals(Constants.SUCCESS)){
                     tv_promo_money.setText(resp.getUser().getPromo_money());
                     SharedPreferences.Editor editor = pref.edit();
@@ -185,7 +191,8 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
-                progress.setVisibility(View.INVISIBLE);
+              //  progress.setVisibility(View.INVISIBLE);
+                mdialog.dismiss();
             }
         });
 

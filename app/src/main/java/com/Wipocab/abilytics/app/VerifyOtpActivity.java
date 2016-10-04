@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,6 +28,7 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
     EditText otp;
     String o,email;
     ProgressBar progressBar;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,11 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
         email=getIntent().getStringExtra("email");
         btn_resend.setOnClickListener(this);
 
+        materialDialog=new MaterialDialog.Builder(this)
+                .content(R.string.loading)
+                .progress(true, 0);
+        dialog=materialDialog.build();
+
     }
 
     @Override
@@ -47,12 +54,14 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
 
         switch (v.getId()) {
             case R.id.btn_otp:
-                progressBar.setVisibility(View.VISIBLE);
+               // progressBar.setVisibility(View.VISIBLE);
+                dialog.show();
                 o=otp.getText().toString();
                 otpProcess();
                 break;
             case R.id.btn_resend:
-                progressBar.setVisibility(View.VISIBLE);
+               // progressBar.setVisibility(View.VISIBLE);
+                dialog.show();
                 resendProcess();
                 break;
 
@@ -84,12 +93,14 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
                 if(resp.getResult().equals(Constants.SUCCESS)) {
                     Snackbar.make(getCurrentFocus(),resp.getMessage(), Snackbar.LENGTH_LONG).show();
                     Toast.makeText(getApplicationContext(),"Verified,Login with your password ",Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
+                   // progressBar.setVisibility(View.INVISIBLE);
+                    dialog.dismiss();
                     goToLogin();
                 }
                 else {
                     Toast.makeText(getApplicationContext(),"please enter the valid otp or click on resend ",Toast.LENGTH_SHORT).show();
-                    progressBar.setVisibility(View.INVISIBLE);
+                  //  progressBar.setVisibility(View.INVISIBLE);
+                    dialog.dismiss();
                     View view=getCurrentFocus();
                     if (view != null) {
                         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -102,8 +113,7 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getCurrentFocus(), t.getLocalizedMessage(), Snackbar.LENGTH_LONG).show();
 
@@ -135,8 +145,8 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
             public void onResponse(Call<ServerResponse> call, retrofit2.Response<ServerResponse> response) {
 
                 ServerResponse resp = response.body();
-                progressBar.setVisibility(View.INVISIBLE);
-
+              //  progressBar.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 if(resp.getResult().equals(Constants.SUCCESS)) {
                     Toast.makeText(getApplicationContext(),"Click on verify button",Toast.LENGTH_SHORT).show();
                     onClick(getCurrentFocus());
@@ -155,7 +165,8 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                progressBar.setVisibility(View.INVISIBLE);
+              //  progressBar.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getCurrentFocus(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 

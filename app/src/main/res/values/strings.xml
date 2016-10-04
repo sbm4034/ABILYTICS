@@ -4,7 +4,8 @@
     <string name="error_email">Error Email</string>
     <string name="show">show</string>
     <string name="close">close</string>
-    <string name="company_name">ABILYITCS INDIA LTD.</string>
+    <string name="company_name">Wipocab</string>
+    <string name="loading">Just a sec ...</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

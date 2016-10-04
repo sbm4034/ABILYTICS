@@ -17,6 +17,7 @@ import android.support.design.widget.Snackbar;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private TextView tv_login;
     private ProgressBar progress;
     private String email;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,6 +55,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         btn_register.setOnClickListener(this);
         tv_login.setOnClickListener(this);
+
+        materialDialog=new MaterialDialog.Builder(getActivity())
+                .content(R.string.loading)
+                .progress(true, 0);
+        dialog=materialDialog.build();
     }
 
     @Override
@@ -72,8 +79,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 String place=et_place.getText().toString();
 
                 if(!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-
-                    progress.setVisibility(View.VISIBLE);
+                      dialog.show();
+                //    progress.setVisibility(View.VISIBLE);
                     registerProcess(name,email,password,dob,place);
 
                 } else {
@@ -112,14 +119,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
                 ServerResponse resp = response.body();
                 Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
-                progress.setVisibility(View.INVISIBLE);
+                //progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 gotoVerifyOtp();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-                progress.setVisibility(View.INVISIBLE);
+                //progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 

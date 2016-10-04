@@ -16,7 +16,7 @@
 
 
     <TextView
-        android:text="@string/company_name"
+        android:text="Wipocab Login"
         android:textSize="22sp"
         android:textAlignment="center"
         android:textColor="@color/third_slide_background"
@@ -76,6 +76,7 @@
         android:text="Login"
         android:background="@color/primary"
         android:textColor="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

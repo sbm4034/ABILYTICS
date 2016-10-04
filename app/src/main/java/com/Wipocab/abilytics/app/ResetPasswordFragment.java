@@ -17,6 +17,7 @@ import android.widget.ProgressBar;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
+import com.afollestad.materialdialogs.MaterialDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +32,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
     private boolean isResetInitiated = false;
     private String email;
     private CountDownTimer countDownTimer;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,6 +53,11 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
         btn_reset.setOnClickListener(this);
         progress = (ProgressBar)view.findViewById(R.id.progress);
 
+        materialDialog=new MaterialDialog.Builder(getActivity())
+                .content(R.string.loading)
+                .progress(true, 0);
+        dialog=materialDialog.build();
+
     }
 
     @Override
@@ -63,7 +70,8 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
                     email = et_email.getText().toString();
                     if (!email.isEmpty()) {
-                        progress.setVisibility(View.VISIBLE);
+                       // progress.setVisibility(View.VISIBLE);
+                        dialog.show();
                         initiateResetPasswordProcess(email);
                       //  et_email.setVisibility(View.INVISIBLE);
                     } else {
@@ -77,8 +85,8 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
                     if(!code.isEmpty() && !password.isEmpty()){
 
-
-                        progress.setVisibility(View.VISIBLE);
+                        dialog.show();
+                       // progress.setVisibility(View.VISIBLE);
                         finishResetPasswordProcess(email,code,password);
                     } else {
 
@@ -131,13 +139,15 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                    // Toast.makeText(getActivity(),resp.getMessage(),Toast.LENGTH_SHORT).show();
 
                 }
-                progress.setVisibility(View.INVISIBLE);
+               // progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
 
-                progress.setVisibility(View.INVISIBLE);
+               // progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getView(), "Internet not Connected", Snackbar.LENGTH_LONG).show();
 
@@ -182,14 +192,15 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
                     Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
 
                 }
-                progress.setVisibility(View.INVISIBLE);
+               // progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
                 Log.d(Constants.TAG, resp.getMessage());
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-
-                progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+               // progress.setVisibility(View.INVISIBLE);
                 Log.d(Constants.TAG,"failed");
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
 
