@@ -28,7 +28,9 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/otp"
-        android:layout_marginTop="150dp" />
+        android:layout_marginTop="150dp"
+        android:imeOptions="actionDone"
+        />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatButton

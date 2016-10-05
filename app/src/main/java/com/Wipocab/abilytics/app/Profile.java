@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.Wipocab.abilytics.app.Animations.GradientBackgroundPainter;
+
 
 public class Profile extends AppCompatActivity{
     private SharedPreferences pref;
@@ -26,6 +28,7 @@ public class Profile extends AppCompatActivity{
     private TextView tv_emailnav;
     private LinearLayout header;
     int pointer=0;
+    private GradientBackgroundPainter gradientBackgroundPainter;
 
 
     @Override
@@ -38,7 +41,18 @@ public class Profile extends AppCompatActivity{
         initFragment();
         initNavigationDrawer();
         navText();
+        View backgroundImage = findViewById(R.id.drawer);
 
+        final int[] drawables = new int[3];
+        drawables[0] = R.drawable.gradients_1;
+        drawables[1] = R.drawable.gradients_2;
+        drawables[2] = R.drawable.gradients_3;
+
+        gradientBackgroundPainter = new GradientBackgroundPainter(backgroundImage, drawables);
+        gradientBackgroundPainter.start();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
 
     }
@@ -92,9 +106,15 @@ public class Profile extends AppCompatActivity{
                         f.commit();
                         drawerLayout.closeDrawers();
                         break;
-
-
-
+                    case R.id.log_out:
+                        logout();
+                        break;
+                    case R.id.change_password:
+                        fr= new changepasswordfrag();
+                        FragmentTransaction o= getFragmentManager().beginTransaction();
+                        o.replace(R.id.fragment_frame,fr);
+                        o.commit();
+                        break;
 
                 }
 
@@ -158,6 +178,23 @@ public class Profile extends AppCompatActivity{
 
     public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
+    }
+
+    private void logout() {
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putBoolean(Constants.IS_LOGGED_IN,false);
+        editor.putString(Constants.EMAIL,"");
+        editor.putString(Constants.NAME,"");
+        editor.putString(Constants.UNIQUE_ID,"");
+        editor.apply();
+        goToLogin();
+    }
+
+    private void goToLogin(){
+
+        Intent intent=new Intent(this,MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 

@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -56,6 +57,7 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
 
         materialDialog=new MaterialDialog.Builder(getActivity())
                 .content(R.string.loading)
+                .widgetColor(Color.RED)
                 .progress(true, 0);
         dialog=materialDialog.build();
 

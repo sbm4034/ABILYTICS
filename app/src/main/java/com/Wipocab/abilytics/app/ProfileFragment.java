@@ -4,17 +4,19 @@ package com.Wipocab.abilytics.app;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -83,15 +85,17 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
 
         materialDialog=new MaterialDialog.Builder(getActivity())
                 .content(R.string.loading)
+                .widgetColor(Color.RED)
                 .progress(true, 0);
         mdialog=materialDialog.build();
+        keyBoard();
     }
 
     private void showDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_change_password, null);
+        View view = inflater.inflate(R.layout.frag_change_password, null);
         et_old_password = (EditText)view.findViewById(R.id.et_old_password);
         et_new_password = (EditText)view.findViewById(R.id.et_new_password);
         tv_message = (TextView)view.findViewById(R.id.tv_message);
@@ -139,7 +143,6 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
                 showDialog();
                 break;
             case R.id.btn_logout:
-                logout();
                 break;
             case R.id.btn_redeem:
         //    progress.setVisibility(View.VISIBLE);
@@ -198,22 +201,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
 
 
     }
-    private void logout() {
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putBoolean(Constants.IS_LOGGED_IN,false);
-        editor.putString(Constants.EMAIL,"");
-        editor.putString(Constants.NAME,"");
-        editor.putString(Constants.UNIQUE_ID,"");
-        editor.apply();
-        goToLogin();
-    }
 
-    private void goToLogin(){
-
-        Intent intent=new Intent(getActivity(),MainActivity.class);
-        startActivity(intent);
-        getActivity().finish();
-    }
 
     private void changePasswordProcess(String email,String old_password,String new_password){
 
@@ -287,6 +275,17 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         return greeting;
     }
 
-
-
+    //to handle click automatically
+    private void keyBoard() {
+        redeeemText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i== EditorInfo.IME_ACTION_DONE){
+                    btn_redeem.performClick();
+                    return  true;
+                }
+                return false;
+            }
+        });
+    }
 }

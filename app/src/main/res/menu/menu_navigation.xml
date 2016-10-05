@@ -14,17 +14,32 @@
             android:icon="@drawable/ic_edit"
             android:title="Edit Profile"
             />
+
         <item
             android:id="@+id/about_us"
             android:icon="@drawable/ic_about_us"
             android:title="Contact us"
             />
+        <item
+            android:id="@+id/log_out"
+            android:icon="@drawable/ic_home"
+            android:title="Log out">
+
+        </item>
 
         <item
             android:id="@+id/exit"
             android:icon="@drawable/ic_logout"
             android:title="Exit"
             />
+        <item
+            android:id="@+id/change_password"
+            android:icon="@drawable/ic_home"
+            android:title="Change Password"
+            >
+
+        </item>
+
 
     </group>
 

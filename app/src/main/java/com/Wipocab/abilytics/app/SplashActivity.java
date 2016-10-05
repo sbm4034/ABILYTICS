@@ -22,14 +22,14 @@ public class SplashActivity extends AppCompatActivity {
            @Override
            public void run() {
 
-                 TaskStackBuilder.create(getApplication())
-                        .addNextIntentWithParentStack(new Intent(getApplication(), MainActivity.class))
+               //  TaskStackBuilder.create(getApplication())
+                 //       .addNextIntentWithParentStack(new Intent(getApplication(), MainActivity.class))
                            //.addNextIntent(new Intent(getApplication(), IntroActivity.class))
-                          .startActivities();
-             //  Intent intent=new Intent(getApplication(),MainActivity.class);
-             //  intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-              // startActivity(intent);
-                         finish();
+                   //       .startActivities();
+              Intent intent=new Intent(getApplication(),MainActivity.class);
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+               startActivity(intent);
+               finish();
 
 
            }

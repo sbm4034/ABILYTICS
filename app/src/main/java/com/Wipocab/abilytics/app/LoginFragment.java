@@ -12,9 +12,11 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -68,13 +70,14 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         greeting_login.setText(greets);
         materialDialog=new MaterialDialog.Builder(getActivity())
                 .content(R.string.loading)
+                .widgetColor(Color.RED)
                 .progress(true, 0);
        dialog=materialDialog.build();
         Typeface font= Typeface.createFromAsset(getActivity().getAssets(),"greet.ttf");
         greeting_login.setTypeface(font);
         Typeface font2= Typeface.createFromAsset(getActivity().getAssets(),"billabong.ttf");
         company_name.setTypeface(font2);
-
+        keyBoard();
 
     }
 
@@ -107,6 +110,9 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
                 break;
         }
     }
+
+
+
     private void loginProcess(String email,String password){
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -205,6 +211,21 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
             greeting = "Good Night";
         }
         return greeting;
+    }
+
+
+    //to handle click automatically
+    private void keyBoard() {
+        et_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i== EditorInfo.IME_ACTION_DONE){
+                    btn_login.performClick();
+                    return  true;
+                }
+                return false;
+            }
+        });
     }
 
 }

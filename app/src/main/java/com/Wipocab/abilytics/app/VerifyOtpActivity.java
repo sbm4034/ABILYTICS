@@ -7,10 +7,13 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.app.Model.ServerRequest;
@@ -47,6 +50,7 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
                 .progress(true, 0);
         dialog=materialDialog.build();
 
+        keyBoard();
     }
 
     @Override
@@ -183,6 +187,19 @@ public class VerifyOtpActivity extends AppCompatActivity implements View.OnClick
         startActivity(intent);
     }
 
+    //to handle click automatically
+    private void keyBoard() {
+        otp.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i== EditorInfo.IME_ACTION_DONE){
+                    btn_otp.performClick();
+                    return  true;
+                }
+                return false;
+            }
+        });
+    }
 }
 
 

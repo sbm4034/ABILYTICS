@@ -13,7 +13,7 @@
         android:text="Register to Wipocab"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
-        android:textColor="@color/third_slide_background"
+        android:textColor="@color/accent"
         android:textStyle="bold"
         android:textAlignment="center"
         android:layout_marginBottom="10dp"
@@ -24,7 +24,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+         android:textColorHint="@color/accent"
+        >
 
         <EditText
             android:hint="Name"
@@ -33,6 +35,7 @@
             android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/accent"
             />
 
     </android.support.design.widget.TextInputLayout>
@@ -41,7 +44,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
+        >
 
         <EditText
             android:hint="Mobile Number"
@@ -49,7 +54,9 @@
             android:drawableLeft="@drawable/ic_mobile"
             android:inputType="phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -57,7 +64,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
+        >
 
         <EditText
             android:hint="Year/Month/Date"
@@ -65,14 +74,18 @@
             android:drawableLeft="@drawable/ic_dob"
             android:inputType="date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            />
 
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
+        >
 
         <EditText
             android:hint="City"
@@ -81,7 +94,9 @@
             android:drawablePadding="1dip"
             android:inputType="textAutoCorrect"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -90,14 +105,20 @@
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
         app:passwordToggleEnabled="true"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/accent"
+        app:passwordToggleTint="@color/accent"
+        >
 
         <EditText
             android:hint="Password"
             android:id="@+id/et_password"
             android:inputType="textPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="@color/accent"
+            android:imeOptions="actionDone"
+            />
 
     </android.support.design.widget.TextInputLayout>
 
@@ -106,8 +127,8 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_register"
         android:text="Register"
-        android:background="@color/primary"
-        android:textColor="@android:color/white"
+        android:textColor="@color/black"
+        android:background="@color/accent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:foreground="?android:attr/selectableItemBackground"

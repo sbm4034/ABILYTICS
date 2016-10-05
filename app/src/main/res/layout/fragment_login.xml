@@ -71,6 +71,7 @@
             android:id="@+id/et_password"
             android:inputType="textPassword"
             android:textColor="@color/accent"
+            android:imeOptions="actionDone"
           />
 
     </android.support.design.widget.TextInputLayout>
@@ -79,7 +80,7 @@
         android:id="@+id/btn_login"
         android:background="@color/accent"
         android:text="Login"
-        android:textColor="#000000"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

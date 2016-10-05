@@ -3,12 +3,15 @@ package com.Wipocab.abilytics.app;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -58,8 +61,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         materialDialog=new MaterialDialog.Builder(getActivity())
                 .content(R.string.loading)
+                .widgetColor(Color.RED)
                 .progress(true, 0);
         dialog=materialDialog.build();
+
+        keyBoard();
     }
 
     @Override
@@ -151,6 +157,19 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         getActivity().startActivity(intent);
     }
 
+    //to handle click automatically
+    private void keyBoard() {
+        et_password.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i== EditorInfo.IME_ACTION_DONE){
+                    btn_register.performClick();
+                    return  true;
+                }
+                return false;
+            }
+        });
+    }
 
 
 }
