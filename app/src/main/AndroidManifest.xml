@@ -13,7 +13,8 @@
         android:theme="@style/AppTheme.NoActionBar">
         <activity
             android:name="com.Wipocab.abilytics.app.MainActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.Wipocab.abilytics.app.SplashActivity"
             android:theme="@style/SplashTheme">

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -35,7 +36,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
     private AppCompatButton btn_login;
 
     private EditText et_email,et_password;
-    private TextView tv_register,greeting_login;
+    private TextView tv_register,greeting_login,company_name;
     private TextView tv_reset;
    // private ProgressBar progress;
     private SharedPreferences pref;
@@ -59,6 +60,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
        // progress = (ProgressBar)view.findViewById(R.id.progress);
         tv_reset = (TextView)view.findViewById(R.id.tv_reset);
         greeting_login=(TextView)view.findViewById(R.id.greeting_login);
+        company_name=(TextView)view.findViewById(R.id.company_name);
         btn_login.setOnClickListener(this);
         tv_register.setOnClickListener(this);
         tv_reset.setOnClickListener(this);
@@ -68,6 +70,12 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
                 .content(R.string.loading)
                 .progress(true, 0);
        dialog=materialDialog.build();
+        Typeface font= Typeface.createFromAsset(getActivity().getAssets(),"greet.ttf");
+        greeting_login.setTypeface(font);
+        Typeface font2= Typeface.createFromAsset(getActivity().getAssets(),"billabong.ttf");
+        company_name.setTypeface(font2);
+
+
     }
 
     @Override

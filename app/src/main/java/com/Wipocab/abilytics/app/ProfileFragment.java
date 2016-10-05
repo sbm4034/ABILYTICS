@@ -49,7 +49,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        ((Profile) getActivity()).setActionBarTitle("Abilytics India Ltd.");
+        ((Profile) getActivity()).setActionBarTitle("Wipocab");
         initViews(view);
         return view;
     }
