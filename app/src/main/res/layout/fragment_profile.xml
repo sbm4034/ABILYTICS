@@ -4,12 +4,23 @@
     android:orientation="vertical"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:gravity="top"
+    >
+
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_marginTop="40dp"
+        android:textSize="22sp"
+        android:layout_gravity="center"
+        android:textColor="@color/accent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
     <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -29,13 +40,6 @@
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/tv_name"
-        android:layout_marginTop="10dp"
-        android:textSize="22sp"
-        android:textColor="@color/primary_dark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/tv_email"
@@ -59,57 +63,17 @@
         android:inputType="number"
         android:layout_gravity="center_horizontal" />
     </android.support.design.widget.TextInputLayout>
-    <TextView
-        android:id="@+id/tv_promo_money"
-        android:textSize="10sp"
-        android:layout_marginTop="0dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        />
 
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_redeem"
         android:layout_marginTop="20dp"
         android:text="Redeeem"
-        android:background="@color/primary_dark"
+        android:background="@color/primary"
         android:textColor="@android:color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 
-    <ProgressBar
-        style="@style/Base.Widget.AppCompat.ProgressBar"
-        android:layout_marginTop="10dp"
-        android:id="@+id/progress2"
-        android:visibility="invisible"
-        android:layout_width="match_parent"
-        android:indeterminate="true"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content" />
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_chg_password"
-        android:text="Change Password"
-        android:textColor="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/primary_dark"
-        android:layout_weight="0.07"
-        android:foreground="?android:attr/selectableItemBackground"
-        />
-
-
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btn_logout"
-        android:layout_marginTop="20dp"
-        android:text="Logout"
-        android:background="@color/primary_dark"
-        android:textColor="@android:color/white"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        />
 
 </LinearLayout>

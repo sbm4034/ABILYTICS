@@ -114,6 +114,7 @@ public class Profile extends AppCompatActivity{
                         FragmentTransaction o= getFragmentManager().beginTransaction();
                         o.replace(R.id.fragment_frame,fr);
                         o.commit();
+                        drawerLayout.closeDrawers();
                         break;
 
                 }
