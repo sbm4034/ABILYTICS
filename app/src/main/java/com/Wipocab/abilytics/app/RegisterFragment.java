@@ -1,5 +1,6 @@
 package com.Wipocab.abilytics.app;
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -53,6 +55,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         et_password = (EditText)view.findViewById(R.id.et_password);
         et_dob = (EditText)view.findViewById(R.id.et_dob);
         et_place = (EditText)view.findViewById(R.id.et_place);
+        et_dob.setOnClickListener(this);
 
         progress = (ProgressBar)view.findViewById(R.id.progress);
 
@@ -66,6 +69,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         dialog=materialDialog.build();
 
         keyBoard();
+
     }
 
     @Override
@@ -74,6 +78,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.tv_login:
                 goToLogin();
+                break;
+            case R.id.et_dob:
+                DatePickerFragment datePickerFragment=new DatePickerFragment();
+                datePickerFragment.show(getFragmentManager(),"Date Picker");
                 break;
 
             case R.id.btn_register:
@@ -146,6 +154,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         Fragment login = new LoginFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
         ft.replace(R.id.fragment_frame,login);
         ft.addToBackStack(null);
         ft.commit();
@@ -170,6 +179,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
         });
     }
+
 
 
 }

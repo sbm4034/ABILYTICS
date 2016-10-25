@@ -1,18 +1,28 @@
 package com.Wipocab.abilytics.app;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.LayoutTransition;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,12 +39,19 @@ public class Profile extends AppCompatActivity{
     private LinearLayout header;
     int pointer=0;
     private GradientBackgroundPainter gradientBackgroundPainter;
+    private FloatingActionButton fabCreate;
+    private static final int ANIM_DURATION_TOOLBAR = 300;
+    private static final int ANIM_DURATION_FAB = 400;
+    public static final String ACTION_SHOW_LOADING_ITEM = "action_show_loading_item";
+    private ViewGroup viewGroup;
+    int n=0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
+        fabCreate=(FloatingActionButton)findViewById(R.id.fab);
         pref=getSharedPreferences("ABC", Context.MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,41 +97,81 @@ public class Profile extends AppCompatActivity{
                         drawerLayout.closeDrawers();
                         fr = new ProfileFragment();
                         FragmentTransaction ft = getFragmentManager().beginTransaction();
+                        if(n==1) {
+                            ft.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            ft.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=1;
                         ft.replace(R.id.fragment_frame, fr);
                         ft.commit();
-
                         break;
+                    case R.id.transfer:
+                        drawerLayout.closeDrawers();
+                        fr = new Transfer_frag();
+                        FragmentTransaction tf = getFragmentManager().beginTransaction();
+                        if(n<=1) {
+                            tf.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            tf.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=2;
+                        tf.replace(R.id.fragment_frame, fr);
+                        tf.commit();
+                        break;
+                    case R.id.profile:
+                        fr = new Edit_profile_frag();
+                        FragmentTransaction f = getFragmentManager().beginTransaction();
+                        if(n<=2) {
+                            f.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            f.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=3;
+                        Log.d("Tag", String.valueOf(n));
+                        f.replace(R.id.fragment_frame, fr);
+                        f.addToBackStack(null);
+                        f.commit();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.change_password:
+                        fr= new changepasswordfrag();
+                        FragmentTransaction o= getFragmentManager().beginTransaction();
+                        if(n<=3) {
+                            o.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            o.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=4;
+                        o.replace(R.id.fragment_frame,fr);
+                        o.addToBackStack(null);
+                        o.commit();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.about_us:
+                        fr = new AboutFragment();
+                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+                        if(n<=4) {
+                            fragmentTransaction.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            fragmentTransaction.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=5;;
+                        fragmentTransaction.replace(R.id.fragment_frame, fr);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                        drawerLayout.closeDrawers();
+                        break;
+                    case R.id.log_out:
+                        logout();
+                        break;
+
                     case R.id.exit:
                         drawerLayout.closeDrawers();
                         Intent intent = new Intent(Intent.ACTION_MAIN);
                         intent.addCategory(Intent.CATEGORY_HOME);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                        break;
-                    case R.id.about_us:
-
-                        fr = new AboutFragment();
-                        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_frame, fr);
-                        fragmentTransaction.commit();
-                        drawerLayout.closeDrawers();
-                        break;
-                    case R.id.profile:
-                        fr = new Edit_profile_frag();
-                        FragmentTransaction f = getFragmentManager().beginTransaction();
-                        f.replace(R.id.fragment_frame, fr);
-                        f.commit();
-                        drawerLayout.closeDrawers();
-                        break;
-                    case R.id.log_out:
-                        logout();
-                        break;
-                    case R.id.change_password:
-                        fr= new changepasswordfrag();
-                        FragmentTransaction o= getFragmentManager().beginTransaction();
-                        o.replace(R.id.fragment_frame,fr);
-                        o.commit();
-                        drawerLayout.closeDrawers();
                         break;
 
                 }
@@ -145,7 +202,10 @@ public class Profile extends AppCompatActivity{
         Fragment fragment;
         fragment = new ProfileFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_up,R.animator.slide_up_out);
         ft.replace(R.id.fragment_frame,fragment);
+
+
         ft.commit();
     }
     private Boolean exit = false;
@@ -197,6 +257,63 @@ public class Profile extends AppCompatActivity{
         startActivity(intent);
         finish();
     }
+
+    private void startIntroAnimation() {
+      fabCreate.setTranslationY(2 * 72);
+
+        int actionbarSize = dpToPx(56);
+        toolbar.setTranslationY(-actionbarSize);
+        tv_emailnav.setTranslationY(-actionbarSize);
+      //  getInboxMenuItem().getActionView().setTranslationY(-actionbarSize);
+
+        toolbar.animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(300);
+        tv_emailnav.animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(400)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        startContentAnimation();
+                    }
+                })
+                .start();
+      /*  getInboxMenuItem().getActionView().animate()
+                .translationY(0)
+                .setDuration(ANIM_DURATION_TOOLBAR)
+                .setStartDelay(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                       // startContentAnimation();
+                    }
+                })
+                .start();*/
+    }
+    public static int dpToPx(int dp) {
+        return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+         super.onCreateOptionsMenu(menu);
+        startIntroAnimation();
+        return true;
+    }
+
+    private void startContentAnimation() {
+        fabCreate.animate()
+                .translationY(0)
+                .setInterpolator(new OvershootInterpolator(1.f))
+                .setStartDelay(300)
+                .setDuration(ANIM_DURATION_FAB)
+                .start();
+       // feedAdapter.updateItems(true);
+    }
+
 
 
 

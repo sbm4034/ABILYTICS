@@ -1,6 +1,7 @@
 package com.Wipocab.abilytics.app;
 
 
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -70,6 +71,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener{
         redeeemText=(EditText)view.findViewById(R.id.redeem_text);
 
         btn_redeem.setOnClickListener(this);
+
 
         tv_email.setVisibility(View.INVISIBLE);
 

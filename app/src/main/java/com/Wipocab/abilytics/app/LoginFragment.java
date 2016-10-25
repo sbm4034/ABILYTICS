@@ -172,6 +172,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
 
         Fragment register = new RegisterFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.slide_in_up,R.animator.slide_up_out);
         ft.replace(R.id.fragment_frame,register);
         ft.addToBackStack(null);
         ft.commit();
@@ -180,6 +181,7 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
 
         Fragment reset = new ResetPasswordFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
         ft.replace(R.id.fragment_frame,reset);
         ft.addToBackStack(null);
         ft.commit();

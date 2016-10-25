@@ -13,11 +13,22 @@ public class User {
         private String value;
         private String otp;
         private String dob;
-        private String place;
+        private String place,ptssend,nosend;
 
 
+    public void setPtssend(String ptssend) {
+        this.ptssend = ptssend;
+    }
 
-        public String getName() {
+    public String getPtssend() {
+        return ptssend;
+    }
+
+    public void setNosend(String nosend) {
+        this.nosend = nosend;
+    }
+
+    public String getName() {
             return name;
         }
 

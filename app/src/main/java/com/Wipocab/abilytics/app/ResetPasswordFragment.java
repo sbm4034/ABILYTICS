@@ -233,6 +233,7 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
 
         Fragment login = new LoginFragment();
         FragmentTransaction ft = getFragmentManager().beginTransaction();
+        ft.setCustomAnimations(R.animator.fade_in,R.animator.fade_out);
         ft.replace(R.id.fragment_frame,login);
         ft.commit();
     }

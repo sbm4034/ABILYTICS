@@ -13,6 +13,7 @@ public class Constants {
     public static final String VERIFYOTP_OPERATION="verifyOtp";
     public static final String RESENDOTP_OPERATION="resendOtp";
     public static final String UPDATE_OPERATION="updateProfile";
+    public static final String TRANSFER_POINTS="transferpts";
 
     public static final String SUCCESS = "success";
     public static final String FAILURE = "failure";

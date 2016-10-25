@@ -11,7 +11,7 @@
 
     <TextView
         android:text="Edit Profile"
-        android:textColor="@color/third_slide_background"
+        android:textColor="@color/accent"
         android:textStyle="bold"
         android:textSize="22sp"
         android:layout_marginTop="20dp"
@@ -24,12 +24,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
+        android:textColorHint="@color/accent"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Name"
             android:id="@+id/et_name"
             android:drawableLeft="@drawable/ic_person"
+            android:textColor="@color/accent"
             android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -40,12 +42,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
+        android:textColorHint="@color/accent"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="Year/Month/Date"
             android:id="@+id/et_dob"
             android:drawableLeft="@drawable/ic_dob"
+            android:textColor="@color/accent"
             android:inputType="date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -55,12 +59,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
+        android:textColorHint="@color/accent"
         android:layout_height="wrap_content">
 
         <EditText
             android:hint="City"
             android:id="@+id/et_place"
             android:drawableLeft="@drawable/ic_loc"
+            android:textColor="@color/accent"
             android:drawablePadding="1dip"
             android:inputType="textAutoCorrect"
             android:layout_width="match_parent"
@@ -71,8 +77,8 @@
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btn_submit"
         android:text="Submit"
-        android:background="@color/primary"
-        android:textColor="@android:color/white"
+        android:background="@color/accent"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

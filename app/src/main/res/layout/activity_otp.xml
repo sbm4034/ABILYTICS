@@ -28,6 +28,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/otp"
+        android:textColor="@color/accent"
         android:layout_marginTop="150dp"
         android:imeOptions="actionDone"
         />

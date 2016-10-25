@@ -45,10 +45,11 @@
     </style>
 
     <style name="myEditText" parent="android:Widget.EditText">
-
-
     </style>
-
+    <style name="MyDatePicker" parent="android:Widget.DeviceDefault.DatePicker">
+        <item name="android:textColor">@color/color2</item>
+        <item name="colorAccent">@color/red_light</item>
+    </style>
 
 
 </resources>

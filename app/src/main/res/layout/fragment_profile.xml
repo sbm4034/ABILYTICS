@@ -56,6 +56,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
+        android:textColorHint="@color/accent"
         android:layout_height="wrap_content">
     <EditText
         android:layout_width="match_parent"
@@ -63,6 +64,8 @@
         android:layout_marginTop="30dp"
         android:id="@+id/redeem_text"
         android:hint="Enter your Promo Code"
+        android:textColor="@color/accent"
+        android:textColorHint="@color/accent"
         android:imeOptions="actionDone"
         android:inputType="number"
         android:layout_gravity="center_horizontal" />
@@ -73,8 +76,8 @@
         android:id="@+id/btn_redeem"
         android:layout_marginTop="20dp"
         android:text="Redeeem"
-        android:background="@color/primary"
-        android:textColor="@android:color/white"
+        android:background="@color/accent"
+        android:textColor="@color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -85,11 +88,13 @@
         android:layout_marginTop="10dp"
         android:id="@+id/layout2"
         android:orientation="vertical"
+        android:background="?android:attr/selectableItemBackground"
        >
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:clickable="true"
             android:layout_marginTop="30dp">
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"

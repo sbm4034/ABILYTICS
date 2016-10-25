@@ -3,9 +3,4 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:color="?android:colorControlHighlight"
     tools:targetApi="lollipop">
-    <item android:id="@android:id/mask">
-        <shape android:shape="oval">
-            <solid android:color="?android:colorAccent" />
-        </shape>
-    </item>
 </ripple>

@@ -72,10 +72,12 @@
             android:hint="Year/Month/Date"
             android:id="@+id/et_dob"
             android:drawableLeft="@drawable/ic_dob"
-            android:inputType="date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/accent"
+            android:inputType="none"
+            android:clickable="true"
+            android:focusable="false"
             />
 
     </android.support.design.widget.TextInputLayout>
