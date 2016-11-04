@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,9 +20,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.OvershootInterpolator;
@@ -28,6 +37,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.app.Animations.GradientBackgroundPainter;
+
+import static android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
 
 public class Profile extends AppCompatActivity{
@@ -44,6 +55,7 @@ public class Profile extends AppCompatActivity{
     private static final int ANIM_DURATION_FAB = 400;
     public static final String ACTION_SHOW_LOADING_ITEM = "action_show_loading_item";
     private ViewGroup viewGroup;
+    private NavigationView navView;
     int n=0;
 
 
@@ -55,21 +67,50 @@ public class Profile extends AppCompatActivity{
         pref=getSharedPreferences("ABC", Context.MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.abs_layout);
+
         initFragment();
         initNavigationDrawer();
         navText();
         View backgroundImage = findViewById(R.id.drawer);
 
-        final int[] drawables = new int[3];
+        final int[] drawables = new int[11];
         drawables[0] = R.drawable.gradients_1;
         drawables[1] = R.drawable.gradients_2;
         drawables[2] = R.drawable.gradients_3;
+        drawables[3] = R.drawable.gradient_4;
+        drawables[4] = R.drawable.gradient_5;
+        drawables[5] = R.drawable.gradient_6;
+        drawables[6] = R.drawable.gradient_7;
+        drawables[7] = R.drawable.gradient_8;
+        drawables[8] = R.drawable.gradient_9;
+        drawables[9] = R.drawable.gradient_10;
+        drawables[10] = R.drawable.gradient_11;
 
         gradientBackgroundPainter = new GradientBackgroundPainter(backgroundImage, drawables);
         gradientBackgroundPainter.start();
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        navView = (NavigationView) findViewById(R.id.navigation_view);
+        Menu m = navView.getMenu();
+        for (int i=0;i<m.size();i++) {
+            MenuItem mi = m.getItem(i);
+
+            //for aapplying a font to subMenu ...
+            SubMenu subMenu = mi.getSubMenu();
+            if (subMenu!=null && subMenu.size() >0 ) {
+                for (int j=0; j <subMenu.size();j++) {
+                    MenuItem subMenuItem = subMenu.getItem(j);
+                    applyFontToMenuItem(subMenuItem);
+                }
+            }
+
+            //the method we have create in activity
+            applyFontToMenuItem(mi);
+        }
 
 
     }
@@ -106,28 +147,41 @@ public class Profile extends AppCompatActivity{
                         ft.replace(R.id.fragment_frame, fr);
                         ft.commit();
                         break;
+                    case R.id.our_poducts:
+                        drawerLayout.closeDrawers();
+                        fr = new ProductFragment();
+                        FragmentTransaction pf = getFragmentManager().beginTransaction();
+                        if(n==1) {
+                            pf.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
+                        }else{
+                            pf.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
+                        }
+                        n=2;
+                        pf.replace(R.id.fragment_frame, fr);
+                        pf.commit();
+                        break;
                     case R.id.transfer:
                         drawerLayout.closeDrawers();
                         fr = new Transfer_frag();
                         FragmentTransaction tf = getFragmentManager().beginTransaction();
-                        if(n<=1) {
+                        if(n<=2) {
                             tf.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
                         }else{
                             tf.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
                         }
-                        n=2;
+                        n=3;
                         tf.replace(R.id.fragment_frame, fr);
                         tf.commit();
                         break;
                     case R.id.profile:
                         fr = new Edit_profile_frag();
                         FragmentTransaction f = getFragmentManager().beginTransaction();
-                        if(n<=2) {
+                        if(n<=3) {
                             f.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
                         }else{
                             f.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
                         }
-                        n=3;
+                        n=4;
                         Log.d("Tag", String.valueOf(n));
                         f.replace(R.id.fragment_frame, fr);
                         f.addToBackStack(null);
@@ -137,12 +191,12 @@ public class Profile extends AppCompatActivity{
                     case R.id.change_password:
                         fr= new changepasswordfrag();
                         FragmentTransaction o= getFragmentManager().beginTransaction();
-                        if(n<=3) {
+                        if(n<=4) {
                             o.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
                         }else{
                             o.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
                         }
-                        n=4;
+                        n=5;
                         o.replace(R.id.fragment_frame,fr);
                         o.addToBackStack(null);
                         o.commit();
@@ -151,12 +205,12 @@ public class Profile extends AppCompatActivity{
                     case R.id.about_us:
                         fr = new AboutFragment();
                         FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                        if(n<=4) {
+                        if(n<=5) {
                             fragmentTransaction.setCustomAnimations(R.animator.slide_in_up, R.animator.slide_up_out);
                         }else{
                             fragmentTransaction.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
                         }
-                        n=5;;
+                        n=6;
                         fragmentTransaction.replace(R.id.fragment_frame, fr);
                         fragmentTransaction.addToBackStack(null);
                         fragmentTransaction.commit();
@@ -312,6 +366,13 @@ public class Profile extends AppCompatActivity{
                 .setDuration(ANIM_DURATION_FAB)
                 .start();
        // feedAdapter.updateItems(true);
+    }
+
+    private void applyFontToMenuItem(MenuItem mi) {
+        Typeface font = Typeface.createFromAsset(getAssets(), "billabong.ttf");
+        SpannableString mNewTitle = new SpannableString(mi.getTitle());
+        mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        mi.setTitle(mNewTitle);
     }
 
 

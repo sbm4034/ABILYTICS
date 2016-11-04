@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:textSize="22sp"
         android:layout_gravity="center"
         android:textColor="@color/accent"
@@ -50,26 +50,35 @@
         android:textSize="18sp"
         android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_width="match_parent"
-        android:textColorHint="@color/accent"
-        android:layout_height="wrap_content">
-    <EditText
-        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+
+        />
+
+        <TextView
+            android:id="@+id/text_promo_code"
+            android:textSize="18sp"
+            android:layout_marginTop="10dp"
+            android:text="Enter your Promo Code"
+            android:textColor="@color/accent"
+            android:textStyle="italic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+        <EditText
+
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:paddingLeft="5dp"
         android:id="@+id/redeem_text"
-        android:hint="Enter your Promo Code"
+        android:textStyle="bold"
         android:textColor="@color/accent"
         android:textColorHint="@color/accent"
         android:imeOptions="actionDone"
-        android:inputType="number"
+        android:inputType="phone"
+        android:background="@drawable/custom_edittext"
         android:layout_gravity="center_horizontal" />
-    </android.support.design.widget.TextInputLayout>
 
 
     <android.support.v7.widget.AppCompatButton
@@ -99,11 +108,13 @@
         <android.support.v7.widget.AppCompatTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="invisible"
             android:text="PRODUCTS"
             android:textSize="40sp"
             android:textColor="@color/accent"
             android:layout_marginTop="60dp"/>
         <ImageView
+            android:visibility="invisible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/house"

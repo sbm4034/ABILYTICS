@@ -4,6 +4,7 @@ package com.Wipocab.abilytics.app;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.Snackbar;
@@ -56,6 +57,10 @@ public class ResetPasswordFragment extends Fragment implements View.OnClickListe
         et_code.setVisibility(View.GONE);
         btn_reset.setOnClickListener(this);
         progress = (ProgressBar)view.findViewById(R.id.progress);
+        TextView textReset=(TextView)view.findViewById(R.id.textReset);
+        Typeface font2= Typeface.createFromAsset(getActivity().getAssets(),"billabong.ttf");
+        textReset.setTypeface(font2);
+
 
         materialDialog=new MaterialDialog.Builder(getActivity())
                 .content(R.string.loading)

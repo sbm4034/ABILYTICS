@@ -77,6 +77,9 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         greeting_login.setTypeface(font);
         Typeface font2= Typeface.createFromAsset(getActivity().getAssets(),"billabong.ttf");
         company_name.setTypeface(font2);
+        Typeface font3= Typeface.createFromAsset(getActivity().getAssets(),"Asiago.ttf");
+        tv_register.setTypeface(font3);
+        tv_reset.setTypeface(font3);
         keyBoard();
 
     }

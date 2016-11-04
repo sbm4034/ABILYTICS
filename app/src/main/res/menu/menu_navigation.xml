@@ -6,6 +6,14 @@
             android:title="Home"
             android:icon="@drawable/ic_home"
             />
+
+        <item
+            android:id="@+id/our_poducts"
+            android:title="Our Products"
+            android:icon="@drawable/ic_our_product"
+            />
+
+
         <item
             android:id="@+id/transfer"
             android:title="Transfer pts"

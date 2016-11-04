@@ -10,6 +10,7 @@
     >
 
     <TextView
+        android:id="@+id/textProfile"
         android:text="Edit Profile"
         android:textColor="@color/accent"
         android:textStyle="bold"

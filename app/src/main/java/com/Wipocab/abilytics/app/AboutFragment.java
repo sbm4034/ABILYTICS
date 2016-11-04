@@ -26,7 +26,9 @@ public class AboutFragment extends Fragment  implements View.OnClickListener{
 
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_about, container, false);
-        ((Profile) getActivity()).setActionBarTitle("Contact Us");
+       // ((Profile) getActivity()).setActionBarTitle("Contact Us");
+        TextView abs =(TextView)getActivity().findViewById(R.id.abs);
+        abs.setText("Contact us");
         initView(view);
         return  view;
     }

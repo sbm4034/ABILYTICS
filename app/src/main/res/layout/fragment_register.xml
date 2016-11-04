@@ -10,8 +10,9 @@
     >
 
     <TextView
+        android:id="@+id/txtregister"
         android:text="Register to Wipocab"
-        android:textSize="22sp"
+        android:textSize="30sp"
         android:layout_marginTop="20dp"
         android:textColor="@color/accent"
         android:textStyle="bold"

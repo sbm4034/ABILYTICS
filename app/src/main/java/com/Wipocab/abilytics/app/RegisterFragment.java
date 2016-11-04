@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.util.Log;
@@ -58,6 +59,12 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         et_dob.setOnClickListener(this);
 
         progress = (ProgressBar)view.findViewById(R.id.progress);
+        TextView textregister=(TextView)view.findViewById(R.id.txtregister);
+
+        Typeface font2= Typeface.createFromAsset(getActivity().getAssets(),"billabong.ttf");
+        textregister.setTypeface(font2);
+        Typeface font3= Typeface.createFromAsset(getActivity().getAssets(),"Asiago.ttf");
+        tv_login.setTypeface(font3);
 
         btn_register.setOnClickListener(this);
         tv_login.setOnClickListener(this);

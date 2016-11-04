@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
@@ -36,7 +38,9 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.edit_profile_fragment, container, false);
-        ((Profile) getActivity()).setActionBarTitle("Abilytics India Ltd.");
+        //((Profile) getActivity()).setActionBarTitle("Abilytics India Ltd.");
+        TextView abs =(TextView)getActivity().findViewById(R.id.abs);
+        abs.setText("Edit Profile");
         initViews(view);
         return view;
     }
@@ -65,7 +69,9 @@ public class Edit_profile_frag extends Fragment implements View.OnClickListener{
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
-
+        TextView texProfile=(TextView)view.findViewById(R.id.textProfile);
+        Typeface font= Typeface.createFromAsset(getActivity().getAssets(),"Asiago.ttf");
+        texProfile.setTypeface(font);
 
         pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
         et_name.setText(pref.getString(Constants.NAME,""));

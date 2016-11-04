@@ -8,8 +8,9 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textTransfer"
         android:layout_marginTop="70dp"
-        android:text="Transfer points"
+        android:text="Transfer points "
         android:textSize="22sp"
         android:layout_gravity="center"
         android:textColor="@color/accent"

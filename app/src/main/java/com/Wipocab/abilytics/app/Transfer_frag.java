@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
@@ -44,6 +45,8 @@ public class Transfer_frag extends Fragment  implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_transfer_frag, container, false);
+        TextView abs =(TextView)getActivity().findViewById(R.id.abs);
+        abs.setText("Transfer points");
         initViews(view);
         return view;
     }
@@ -51,8 +54,9 @@ public class Transfer_frag extends Fragment  implements View.OnClickListener{
     public void onViewCreated(View view, Bundle savedInstanceState) {
         pref = getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
         email= pref.getString(Constants.EMAIL,"");
-
-
+        TextView texTransfer=(TextView)view.findViewById(R.id.textTransfer);
+        Typeface font= Typeface.createFromAsset(getActivity().getAssets(),"Asiago.ttf");
+        texTransfer.setTypeface(font);
 
     }
 

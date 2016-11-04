@@ -50,6 +50,10 @@
         <item name="android:textColor">@color/color2</item>
         <item name="colorAccent">@color/red_light</item>
     </style>
+    <style name="NavigationTheme" >
+        <item name="android:textSize">20sp</item> <!-- menu item text size-->
+        <item name="android:listPreferredItemHeightSmall">40dp</item><!-- menu item height-->
+    </style>
 
 
 </resources>
