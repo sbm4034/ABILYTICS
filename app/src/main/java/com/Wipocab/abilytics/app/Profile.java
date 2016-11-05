@@ -2,28 +2,26 @@ package com.Wipocab.abilytics.app;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.LayoutTransition;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
@@ -37,6 +35,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.app.Animations.GradientBackgroundPainter;
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.GravityEnum;
+import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+import java.util.Set;
 
 import static android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
@@ -112,8 +116,17 @@ public class Profile extends AppCompatActivity{
             applyFontToMenuItem(mi);
         }
 
+        fabCreate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fabclicked();
+            }
+        });
+
 
     }
+
+
 
     private void navText() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
@@ -373,6 +386,35 @@ public class Profile extends AppCompatActivity{
         SpannableString mNewTitle = new SpannableString(mi.getTitle());
         mNewTitle.setSpan(new CustomTypefaceSpan("" , font), 0 , mNewTitle.length(),  Spannable.SPAN_INCLUSIVE_INCLUSIVE);
         mi.setTitle(mNewTitle);
+    }
+    private void fabclicked() {
+        SharedPreferences pref=getSharedPreferences("ABC",Context.MODE_PRIVATE);
+        Set<String> set= pref.getStringSet("wishlist",null);
+        for (String s:set){
+            Log.d("Fab",s);
+        }
+        ArrayList<String> setlist=new ArrayList<>();
+        CharSequence[] cs = setlist.toArray(new CharSequence[setlist.size()]);
+
+        setlist.addAll(set);
+        MaterialDialog.Builder builder = new MaterialDialog.Builder(this)
+               .neutralText("Place order")
+                .onNeutral(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .buttonsGravity(GravityEnum.CENTER)
+                .title("Your cart")
+                .titleGravity(GravityEnum.CENTER)
+                .items(setlist)
+                .backgroundColor(Color.GRAY);
+        Log.d("Fab","inside fab click");
+        MaterialDialog dialog =builder.build();
+        dialog.show();
+
+
     }
 
 

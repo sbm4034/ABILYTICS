@@ -2,11 +2,13 @@ package com.Wipocab.abilytics.app;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +18,10 @@ import com.Wipocab.abilytics.app.Adapters.DataAdapter;
 import com.Wipocab.abilytics.app.Model.ProductResponse;
 import com.Wipocab.abilytics.app.Model.ProductVersion;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -26,16 +29,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ProductFragment extends Fragment {
+public class ProductFragment extends Fragment  {
     private RecyclerView recyclerView;
     private ArrayList<ProductVersion> products;
     private DataAdapter adapter;
+    ArrayList<String> list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_product, container, false);
         initView(view);
+       list = new ArrayList<>();
 
         return view;
 
@@ -61,7 +66,24 @@ public class ProductFragment extends Fragment {
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 ProductResponse productResponse =response.body();
                 products =new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
-                adapter =new DataAdapter(products);
+                adapter =new DataAdapter(products,getActivity(), new DataAdapter.onClickWish() {
+                    @Override
+                    public void onClickWishlist(int pos) {
+
+                        String proname=products.get(pos).getP_name();
+                        list.add(proname);
+                        Toast.makeText(getActivity(),proname+" added  to cart",Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void onClickremovewish(int pos) {
+                        String proname=products.get(pos).getP_name();
+                        list.remove(proname);
+                        Toast.makeText(getActivity(), proname+" removed  from cart",Toast.LENGTH_SHORT).show();
+
+                    }
+                });
                 recyclerView.setAdapter(adapter);
                 Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
             }
@@ -74,5 +96,18 @@ public class ProductFragment extends Fragment {
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        for(String temp:list){
+            Log.d("Products",temp);
+        }
+        SharedPreferences pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor =pref.edit();
+         Set<String> set=new HashSet<>();
+        set.addAll(list);
+        editor.putStringSet("wishlist",set);
+        editor.commit();
 
+    }
 }
