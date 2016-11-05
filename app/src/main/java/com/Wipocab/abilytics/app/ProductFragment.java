@@ -34,6 +34,7 @@ public class ProductFragment extends Fragment  {
     private ArrayList<ProductVersion> products;
     private DataAdapter adapter;
     ArrayList<String> list;
+    SharedPreferences pref;Set<String> set; SharedPreferences.Editor editor;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,6 +42,9 @@ public class ProductFragment extends Fragment  {
         View view= inflater.inflate(R.layout.fragment_product, container, false);
         initView(view);
        list = new ArrayList<>();
+        pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
+       set =new HashSet<>();
+       editor =pref.edit();
 
         return view;
 
@@ -73,6 +77,9 @@ public class ProductFragment extends Fragment  {
                         String proname=products.get(pos).getP_name();
                         list.add(proname);
                         Toast.makeText(getActivity(),proname+" added  to cart",Toast.LENGTH_SHORT).show();
+                        set.addAll(list);
+                        editor.putStringSet("wishlist",set);
+                        editor.commit();
 
                     }
 
@@ -81,11 +88,15 @@ public class ProductFragment extends Fragment  {
                         String proname=products.get(pos).getP_name();
                         list.remove(proname);
                         Toast.makeText(getActivity(), proname+" removed  from cart",Toast.LENGTH_SHORT).show();
+                        set.addAll(list);
+                        editor.putStringSet("wishlist",set);
+                        editor.commit();
 
                     }
                 });
                 recyclerView.setAdapter(adapter);
                 Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -102,12 +113,12 @@ public class ProductFragment extends Fragment  {
         for(String temp:list){
             Log.d("Products",temp);
         }
-        SharedPreferences pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor =pref.edit();
-         Set<String> set=new HashSet<>();
-        set.addAll(list);
-        editor.putStringSet("wishlist",set);
-        editor.commit();
+       // SharedPreferences pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
+        //SharedPreferences.Editor editor =pref.edit();
+        // Set<String> set=new HashSet<>();
+        //set.addAll(list);
+        //editor.putStringSet("wishlist",set);
+        //editor.commit();
 
     }
 }
