@@ -132,7 +132,6 @@ public class LoginFragment  extends Fragment implements View.OnClickListener{
         request.setOperation(Constants.LOGIN_OPERATION);
         request.setUser(user);
         Call<ServerResponse> response = requestInterface.operation(request);
-
         response.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, retrofit2.Response<ServerResponse> response) {

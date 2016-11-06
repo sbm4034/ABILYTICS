@@ -1,5 +1,7 @@
 package com.Wipocab.abilytics.app.Model;
 
+import java.util.Set;
+
 public class User {
 
         private String name;
@@ -14,6 +16,7 @@ public class User {
         private String otp;
         private String dob;
         private String place,ptssend,nosend;
+        private String product;
 
 
     public void setPtssend(String ptssend) {
@@ -42,9 +45,6 @@ public class User {
 
     public void setDob(String dob){this.dob=dob;}
     public void setPlace(String place){this.place=place;}
-
-
-
 
     public String getMoney() {
         return money;
@@ -95,4 +95,5 @@ public class User {
         public void setcode(String promo_code) {
         this.promo_code = promo_code;
     }
+    public void setproduct(String product){this.product=product;}
 }

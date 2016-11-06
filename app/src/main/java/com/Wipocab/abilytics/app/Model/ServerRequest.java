@@ -6,6 +6,8 @@ package com.Wipocab.abilytics.app.Model;
 public class ServerRequest {
     private String operation;
     private User user;
+    private String query;
+
 
     public void setOperation(String operation) {
         this.operation = operation;
@@ -13,5 +15,10 @@ public class ServerRequest {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+
+    public void setquery(String query){
+        this.query=query;
     }
 }

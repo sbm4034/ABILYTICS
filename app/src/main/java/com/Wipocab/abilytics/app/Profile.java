@@ -16,6 +16,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -35,12 +36,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.app.Animations.GradientBackgroundPainter;
+import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.Wipocab.abilytics.app.Model.ServerResponse;
+import com.Wipocab.abilytics.app.Model.User;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.GravityEnum;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
 import java.util.Set;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
@@ -60,6 +69,7 @@ public class Profile extends AppCompatActivity{
     public static final String ACTION_SHOW_LOADING_ITEM = "action_show_loading_item";
     private ViewGroup viewGroup;
     private NavigationView navView;
+    MaterialDialog.Builder materialDialog; MaterialDialog dialog;
     int n=0;
 
 
@@ -122,6 +132,11 @@ public class Profile extends AppCompatActivity{
                 fabclicked();
             }
         });
+        materialDialog=new MaterialDialog.Builder(getApplicationContext())
+                .content(R.string.loading)
+                .widgetColor(Color.RED)
+                .progress(true, 0);
+        dialog=materialDialog.build();
 
 
     }
@@ -403,6 +418,8 @@ public class Profile extends AppCompatActivity{
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
 
+                    placeorder();
+
                     }
                 })
                 .buttonsGravity(GravityEnum.CENTER)
@@ -416,8 +433,62 @@ public class Profile extends AppCompatActivity{
 
 
     }
+    private void placeorder() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
 
+        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
 
+        User user = new User();
 
+        pref=getApplicationContext().getSharedPreferences("ABC", Context.MODE_PRIVATE);
+        Set<String> prod=pref.getStringSet("wishlist",null);
+        ArrayList<String> setlist=new ArrayList<>();
+        setlist.addAll(prod);
+
+        StringBuilder builder = new StringBuilder();
+        for(String temp:setlist){
+
+            builder.append(temp);
+            builder.append(",");
+
+        }
+        Log.d("hgbhsg",builder.toString());
+        user.setproduct(builder.toString());
+        user.setEmail(pref.getString(Constants.EMAIL,""));
+        Log.d("EMIAL",pref.getString(Constants.EMAIL,""));
+        ServerRequest request = new ServerRequest();
+        request.setUser(user);
+        request.setOperation(Constants.PLACE);
+
+        Call<ServerResponse> response = requestInterface.operation(request);
+
+        response.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, retrofit2.Response<ServerResponse> response) {
+
+                ServerResponse resp = response.body();
+                Snackbar.make(getCurrentFocus(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
+
+                if(resp.getResult().equals(Constants.SUCCESS)){
+                    Toast.makeText(getApplicationContext(),"succwe",Toast.LENGTH_LONG).show();
+                }
+                // progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+
+                //  progress.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+                Log.d(Constants.TAG,"failed");
+                Snackbar.make(getCurrentFocus(), "Connection Problem", Snackbar.LENGTH_LONG).show();
+
+            }
+        });
+    }
 
 }
