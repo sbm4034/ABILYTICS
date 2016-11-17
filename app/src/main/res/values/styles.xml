@@ -6,6 +6,8 @@
         <item name="colorPrimaryDark">@android:color/transparent</item>
         <item name="colorAccent">@color/accent</item>
 
+
+
     </style>
     <style name="AppTheme.ActionBar.Transparent" parent="AppTheme">
         <item name="android:windowContentOverlay">@null</item>
@@ -23,6 +25,8 @@
         <item name="colorControlActivated">@color/accent</item>
         <item name="colorControlHighlight">@color/accent</item>
         <item name="android:editTextStyle">@style/myEditText</item>
+        <item name="android:itemBackground">@color/color8</item>
+
 
     </style>
 

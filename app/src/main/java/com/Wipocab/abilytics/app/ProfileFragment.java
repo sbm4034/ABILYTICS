@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
@@ -27,6 +28,9 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -60,6 +64,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
     MaterialDialog.Builder materialDialog;
     MaterialDialog mdialog;
     Typeface font,font2,font3,font4;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,8 +76,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
        font2 = Typeface.createFromAsset(getActivity().getAssets(),"Asiago.ttf");
         font3 = Typeface.createFromAsset(getActivity().getAssets(),"Alex.ttf");
         font4 = Typeface.createFromAsset(getActivity().getAssets(),"CaviarDreams.ttf");
-
-
+        setHasOptionsMenu(true);
         initViews(view);
 
         return view;
@@ -99,6 +103,16 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
         tv_wallet = (TextView) view.findViewById(R.id.tv_wallet);
         btn_redeem = (AppCompatButton) view.findViewById(R.id.btn_redeem);
         redeeemText = (EditText) view.findViewById(R.id.redeem_text);
+        swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipe_layoutpro);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(true);
+                updatepts();
+            }
+        });
+        swipeRefreshLayout.setColorSchemeResources(R.color.color5,R.color.color1,R.color.color2,
+                R.color.color3,R.color.color4,R.color.color6);
         //btn_redeem.setTypeface(font4);
         btn_redeem.setOnClickListener(this);
         redeeemText.addTextChangedListener(new FourDigitCardFormatWatcher());
@@ -166,17 +180,19 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
                     Toast toast = Toast.makeText(getActivity(), "Points Added To Wallet:" + resp.getUser().getPromo_money(), Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 0);
                     toast.show();
-                } else {
+                }
+                else {
                     Log.d("kfkef", "fwfjkbsfkdsdfjk");
-                    Snackbar.make(getView(), "Redeem point does not exist", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<ServerResponse> call, Throwable t) {
-                Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(),"Connection problem", Snackbar.LENGTH_LONG).show();
                 //  progress.setVisibility(View.INVISIBLE);
                 mdialog.dismiss();
+                swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -256,6 +272,64 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
             }
         }
     }
+    //redeem code from server
+    private void updatepts() {
+        swipeRefreshLayout.setRefreshing(true);
+        String email = tv_email.getText().toString();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
+        final User user = new User();
+        user.setEmail(email);
+        Log.d("EMail",email);
+        ServerRequest request = new ServerRequest();
+
+        request.setUser(user);
+        request.setOperation(Constants.UPDATEPTS);
+        Call<ServerResponse> response = requestInterface.operation(request);
+        response.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                swipeRefreshLayout.setRefreshing(false);
+               // mdialog.dismiss();
+                Log.d("Response","COMEEEE");
+                ServerResponse resp = response.body();
+                if (resp.getResult().equals(Constants.SUCCESS)) {
+                    SharedPreferences.Editor editor = pref.edit();
+                    editor.putString(Constants.WALLET, resp.getUser().getMoney());
+                    editor.apply();
+                    tv_wallet.setText("Pts: " + pref.getString(Constants.WALLET, ""));
+                    Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
+                }
+                else {
+                    Snackbar.make(getView(), resp.getMessage(), Snackbar.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                Snackbar.make(getView(),"Connection problem!!!", Snackbar.LENGTH_LONG).show();
+                //  progress.setVisibility(View.INVISIBLE);
+                swipeRefreshLayout.setRefreshing(false);
+             //   mdialog.dismiss();
+            }
+        });
 
 
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.profilemenu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        updatepts();
+        return true;
+
+    }
+}

@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -38,12 +39,13 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ProductFragment extends Fragment  {
+public class ProductFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     private RecyclerView recyclerView;
     private ArrayList<ProductVersion> products;
     private DataAdapter adapter;
     MaterialDialog.Builder materialDialog; MaterialDialog dialog;
     ArrayList<String> list;
+    SwipeRefreshLayout swipeRefreshLayout;
     SharedPreferences pref;Set<String> set; SharedPreferences.Editor editor;
 
     @Override
@@ -62,10 +64,11 @@ public class ProductFragment extends Fragment  {
     }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.profilemenu,menu);
 
         // Implementing ActionBar Search inside a fragment
         MenuItem item = menu.add("Search");
-        item.setIcon(R.mipmap.ic_search); // sets icon
+        item.setIcon(R.drawable.ic_search); // sets icon
         item.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         SearchView sv = new SearchView(getActivity());
 
@@ -170,7 +173,11 @@ public void doSearch(String s){
 
 
     private void initView(View view) {
+        TextView abs =(TextView)getActivity().findViewById(R.id.abs);
+        abs.setText("Our Products");
         recyclerView=(RecyclerView)view.findViewById(R.id.recycler_view);
+        swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipe_layout);
+        swipeRefreshLayout.setOnRefreshListener(this) ;
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutmanager =new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutmanager);
@@ -180,10 +187,18 @@ public void doSearch(String s){
                 .progress(true, 0);
         dialog=materialDialog.build();
         loadJson();
+        //dialog.show();
+        swipeRefreshLayout.setColorSchemeResources(R.color.color5,R.color.color1,R.color.color2,
+                R.color.color3,R.color.color4,R.color.color6);
     }
 
+
+
+
+
     private void loadJson() {
-        dialog.show();
+        swipeRefreshLayout.setRefreshing(true);
+
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://abilytics.16mb.com/")
@@ -196,8 +211,8 @@ public void doSearch(String s){
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 ProductResponse productResponse =response.body();
                 products =new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
-                dialog.dismiss();
-
+               // dialog.dismiss();
+                swipeRefreshLayout.setRefreshing(false);
 
                 adapter =new DataAdapter(products,getActivity(), new DataAdapter.onClickWish() {
                     @Override
@@ -231,6 +246,8 @@ public void doSearch(String s){
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
+                swipeRefreshLayout.setRefreshing(false);
+
 
             }
         });
@@ -243,6 +260,23 @@ public void doSearch(String s){
             Log.d("Products",temp);
         }
 
+
+    }
+
+    @Override
+    public void onRefresh() {
+        loadJson();
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.refreshit:
+                loadJson();
+                return true;
+        }
+        return true;
 
     }
 }

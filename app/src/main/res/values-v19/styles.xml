@@ -14,8 +14,11 @@
                 <item name="colorControlActivated">@color/accent</item>
                 <item name="colorControlHighlight">@color/accent</item>
                 <item name="android:editTextStyle">@style/myEditText</item>
+            <item name="android:itemBackground">@color/color8</item>
 
         </style>
+
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
         <item name="colorPrimary">@color/accent</item>
         <item name="android:windowTranslucentStatus">true</item>

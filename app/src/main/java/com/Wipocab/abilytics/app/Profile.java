@@ -26,6 +26,7 @@ import android.text.SpannableString;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
@@ -381,7 +382,6 @@ public class Profile extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-         super.onCreateOptionsMenu(menu);
         startIntroAnimation();
         return true;
     }
@@ -490,5 +490,8 @@ public class Profile extends AppCompatActivity{
             }
         });
     }
+
+
+
 
 }
