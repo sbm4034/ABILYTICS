@@ -39,7 +39,7 @@ public class changepasswordfrag  extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
        View view= inflater.inflate(R.layout.frag_change_password,container,false);
-        ((Profile) getActivity()).setActionBarTitle("Wipocab");
+      //  ((Profile) getActivity()).setActionBarTitle("Wipocab");
         initViews(view);
 
         return view;

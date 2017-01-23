@@ -115,7 +115,7 @@ public class ProductFragment extends Fragment implements SwipeRefreshLayout.OnRe
 public void doSearch(String s){
     dialog.show();
     Retrofit retrofit = new Retrofit.Builder()
-            .baseUrl("http://abilytics.16mb.com/")
+            .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     RequestInterface requestInterface=retrofit.create(RequestInterface.class);
@@ -201,7 +201,7 @@ public void doSearch(String s){
 
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://abilytics.16mb.com/")
+                .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         RequestInterface requestInterface=retrofit.create(RequestInterface.class);

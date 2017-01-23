@@ -5,6 +5,7 @@ package com.Wipocab.abilytics.app;
  */
 public class Constants {
 
+
     public static final String BASE_URL = "http://abilytics.16mb.com/";
     public static final String REGISTER_OPERATION = "register";
     public static final String LOGIN_OPERATION = "login";

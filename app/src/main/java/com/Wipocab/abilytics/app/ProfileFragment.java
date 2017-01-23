@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
@@ -64,7 +65,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
     MaterialDialog.Builder materialDialog;
     MaterialDialog mdialog;
     Typeface font,font2,font3,font4;
-    SwipeRefreshLayout swipeRefreshLayout;
+  //  SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +79,6 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
         font4 = Typeface.createFromAsset(getActivity().getAssets(),"CaviarDreams.ttf");
         setHasOptionsMenu(true);
         initViews(view);
-
         return view;
     }
 
@@ -103,7 +103,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
         tv_wallet = (TextView) view.findViewById(R.id.tv_wallet);
         btn_redeem = (AppCompatButton) view.findViewById(R.id.btn_redeem);
         redeeemText = (EditText) view.findViewById(R.id.redeem_text);
-        swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipe_layoutpro);
+       /* swipeRefreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.swipe_layoutpro);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -112,7 +112,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
             }
         });
         swipeRefreshLayout.setColorSchemeResources(R.color.color5,R.color.color1,R.color.color2,
-                R.color.color3,R.color.color4,R.color.color6);
+                R.color.color3,R.color.color4,R.color.color6);*/
         //btn_redeem.setTypeface(font4);
         btn_redeem.setOnClickListener(this);
         redeeemText.addTextChangedListener(new FourDigitCardFormatWatcher());
@@ -192,7 +192,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
                 Snackbar.make(getView(),"Connection problem", Snackbar.LENGTH_LONG).show();
                 //  progress.setVisibility(View.INVISIBLE);
                 mdialog.dismiss();
-                swipeRefreshLayout.setRefreshing(false);
+               // swipeRefreshLayout.setRefreshing(false);
             }
         });
 
@@ -274,7 +274,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
     }
     //redeem code from server
     private void updatepts() {
-        swipeRefreshLayout.setRefreshing(true);
+       // swipeRefreshLayout.setRefreshing(true);
         String email = tv_email.getText().toString();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -293,7 +293,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
         response.enqueue(new Callback<ServerResponse>() {
             @Override
             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                swipeRefreshLayout.setRefreshing(false);
+              //  swipeRefreshLayout.setRefreshing(false);
                // mdialog.dismiss();
                 Log.d("Response","COMEEEE");
                 ServerResponse resp = response.body();
@@ -313,7 +313,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
             public void onFailure(Call<ServerResponse> call, Throwable t) {
                 Snackbar.make(getView(),"Connection problem!!!", Snackbar.LENGTH_LONG).show();
                 //  progress.setVisibility(View.INVISIBLE);
-                swipeRefreshLayout.setRefreshing(false);
+             //   swipeRefreshLayout.setRefreshing(false);
              //   mdialog.dismiss();
             }
         });
@@ -328,8 +328,18 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        updatepts();
+        switch (item.getItemId()){
+            case R.id.refreshit:
+                updatepts();
+                return  true;
+
+
+        }
+
         return true;
 
     }
+
+
+
 }

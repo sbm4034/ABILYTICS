@@ -14,10 +14,12 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -72,6 +74,7 @@ public class Profile extends AppCompatActivity{
     private NavigationView navView;
     MaterialDialog.Builder materialDialog; MaterialDialog dialog;
     int n=0;
+
 
 
     @Override
@@ -141,7 +144,6 @@ public class Profile extends AppCompatActivity{
 
 
     }
-
 
 
     private void navText() {
@@ -320,9 +322,9 @@ public class Profile extends AppCompatActivity{
 
     }
 
-    public void setActionBarTitle(String title) {
+   /* public void setActionBarTitle(String title) {
         getSupportActionBar().setTitle(title);
-    }
+    }*/
 
     private void logout() {
         SharedPreferences.Editor editor = pref.edit();
@@ -405,9 +407,10 @@ public class Profile extends AppCompatActivity{
     private void fabclicked() {
         SharedPreferences pref=getSharedPreferences("ABC",Context.MODE_PRIVATE);
         Set<String> set= pref.getStringSet("wishlist",null);
-        for (String s:set){
+/*        for (String s:set){
             Log.d("Fab",s);
         }
+        */
         ArrayList<String> setlist=new ArrayList<>();
         CharSequence[] cs = setlist.toArray(new CharSequence[setlist.size()]);
 
