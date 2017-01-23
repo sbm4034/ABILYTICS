@@ -1,8 +1,18 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/framepro"
+    >
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/linearfragmentProduct"
     tools:context="com.Wipocab.abilytics.app.ProductFragment">
     <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="wrap_content"
@@ -18,3 +28,4 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
+</FrameLayout>

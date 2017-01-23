@@ -1,12 +1,16 @@
 package com.Wipocab.abilytics.app;
 
+
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -130,31 +134,16 @@ public void doSearch(String s){
             if(productResponse.getResult().equals(Constants.SUCCESS)){
             products =new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
             dialog.dismiss();
-            adapter =new DataAdapter(products,getActivity(), new DataAdapter.onClickWish() {
+            adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
                 @Override
-                public void onClickWishlist(int pos) {
-
-                    String proname=products.get(pos).getP_name();
-                    list.add(proname);
-                    Toast.makeText(getActivity(),proname+" added  to cart",Toast.LENGTH_SHORT).show();
-                    set.addAll(list);
-                    editor.putStringSet("wishlist",set);
-                    editor.commit();
-
-                }
-
-                @Override
-                public void onClickremovewish(int pos) {
-                    String proname=products.get(pos).getP_name();
-                    list.remove(proname);
-                    Toast.makeText(getActivity(), proname+" removed  from cart",Toast.LENGTH_SHORT).show();
-                    set.addAll(list);
-                    editor.putStringSet("wishlist",set);
-                    editor.commit();
+                public void onClickprolistener(int pos) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        startChildFragment(pos);
+                    }
 
                 }
             });
-            recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
             Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
 
         }
@@ -214,30 +203,15 @@ public void doSearch(String s){
                // dialog.dismiss();
                 swipeRefreshLayout.setRefreshing(false);
 
-                adapter =new DataAdapter(products,getActivity(), new DataAdapter.onClickWish() {
+                adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
-                    public void onClickWishlist(int pos) {
-
-                        String proname=products.get(pos).getP_name();
-                        list.add(proname);
-                        Toast.makeText(getActivity(),proname+" added  to cart",Toast.LENGTH_SHORT).show();
-                        set.addAll(list);
-                        editor.putStringSet("wishlist",set);
-                        editor.commit();
-
-                    }
-
-                    @Override
-                    public void onClickremovewish(int pos) {
-                        String proname=products.get(pos).getP_name();
-                        list.remove(proname);
-                        Toast.makeText(getActivity(), proname+" removed  from cart",Toast.LENGTH_SHORT).show();
-                        set.remove(proname);
-                        editor.putStringSet("wishlist",set);
-                        editor.commit();
+                    public void onClickprolistener(int pos) {
+                        startChildFragment(pos);
 
                     }
                 });
+
                 recyclerView.setAdapter(adapter);
                 Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
 
@@ -251,6 +225,18 @@ public void doSearch(String s){
 
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void startChildFragment(int pos) {
+        recyclerView.setVisibility(View.INVISIBLE);
+        Fragment fr=SubProductFragment.newInstance(pos);
+        android.app.FragmentTransaction ft=getChildFragmentManager().beginTransaction();
+        ft.add(R.id.framepro,fr);
+        ft.addToBackStack("Child");
+        ft.commit();
+
+
     }
 
     @Override
@@ -279,4 +265,5 @@ public void doSearch(String s){
         return true;
 
     }
+
 }

@@ -17,7 +17,15 @@ public class User {
         private String dob;
         private String place,ptssend,nosend;
         private String product;
+        private String category;
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     public void setPtssend(String ptssend) {
         this.ptssend = ptssend;

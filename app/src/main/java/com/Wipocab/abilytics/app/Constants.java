@@ -16,6 +16,7 @@ public class Constants {
     public static final String UPDATE_OPERATION="updateProfile";
     public static final String TRANSFER_POINTS="transferpts";
     public static final String UPDATEPTS="updatepts";
+    public static final String getfromcategory="getfromcategory";
 
 
     public static final String SUCCESS = "success";

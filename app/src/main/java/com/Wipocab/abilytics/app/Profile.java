@@ -442,7 +442,7 @@ public class Profile extends AppCompatActivity{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
+        RequestInterface requestInterface = RequestInterface.retrofit.create(RequestInterface.class);
 
         User user = new User();
 

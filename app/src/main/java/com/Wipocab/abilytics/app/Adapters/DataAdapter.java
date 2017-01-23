@@ -33,10 +33,15 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     Context context;
     onClickWish listeners;
 
+    public DataAdapter(ArrayList<ProductVersion> products, Activity activity) {
+
+        this.products=products;
+        this.context=context;
+    }
+
 
     public interface onClickWish{
-        public void onClickWishlist(int pos);
-        void onClickremovewish(int pos);
+        public void onClickprolistener(int pos);
     }
 
     public DataAdapter(ArrayList<ProductVersion> products, Context context, onClickWish listeners) {
@@ -85,8 +90,9 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             int pos= getAdapterPosition();
+            listeners.onClickprolistener(pos);
            // Toast.makeText(view.getContext(),products.get(pos).getP_name(),Toast.LENGTH_SHORT).show();
-            if(products.get(pos).isliked()) {
+           /* if(products.get(pos).isliked()) {
                 products.get(pos).setIsliked(false);
                 listeners.onClickremovewish(pos);
             }else {
@@ -96,6 +102,7 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
             }
             btnLike.setImageResource(products.get(pos).isliked() ? R.drawable.ic_heart_red : R.drawable.ic_heart_outline_grey);
             //savetosharedpref(view,pos);
+            */
 
 
         }
