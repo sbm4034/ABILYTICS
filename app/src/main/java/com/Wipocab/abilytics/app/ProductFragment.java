@@ -44,7 +44,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ProductFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
-    private RecyclerView recyclerView;
+    static RecyclerView recyclerView;
     private ArrayList<ProductVersion> products;
     private DataAdapter adapter;
     MaterialDialog.Builder materialDialog; MaterialDialog dialog;
@@ -56,6 +56,7 @@ public class ProductFragment extends Fragment implements SwipeRefreshLayout.OnRe
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_product, container, false);
+
         initView(view);
        list = new ArrayList<>();
         pref=getActivity().getSharedPreferences("ABC", Context.MODE_PRIVATE);
@@ -215,6 +216,8 @@ public void doSearch(String s){
                 recyclerView.setAdapter(adapter);
                 Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
 
+
+
             }
 
             @Override
@@ -226,13 +229,13 @@ public void doSearch(String s){
             }
         });
     }
-
+//child fragment
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void startChildFragment(int pos) {
         recyclerView.setVisibility(View.INVISIBLE);
         Fragment fr=SubProductFragment.newInstance(pos);
         android.app.FragmentTransaction ft=getChildFragmentManager().beginTransaction();
-        ft.add(R.id.framepro,fr);
+        ft.replace(R.id.framepro,fr,"Child");
         ft.addToBackStack("Child");
         ft.commit();
 

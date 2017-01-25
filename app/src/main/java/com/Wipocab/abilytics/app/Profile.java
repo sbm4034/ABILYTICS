@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -39,6 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.app.Animations.GradientBackgroundPainter;
+import com.Wipocab.abilytics.app.Model.ProductVersion;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
 import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
@@ -188,7 +190,9 @@ public class Profile extends AppCompatActivity{
                             pf.setCustomAnimations(R.animator.slide_in_down,R.animator.slide_out_down);
                         }
                         n=2;
-                        pf.replace(R.id.fragment_frame, fr);
+
+                        pf.replace(R.id.fragment_frame, fr,"PF");
+                        pf.addToBackStack(null);
                         pf.commit();
                         break;
                     case R.id.transfer:
@@ -296,8 +300,12 @@ public class Profile extends AppCompatActivity{
     private Boolean exit = false;
     @Override
     public void onBackPressed() {
+
+
+
+
         int count = getFragmentManager().getBackStackEntryCount();
-        if(count==0) {
+       if(count==0) {
             if (exit) {
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
@@ -317,7 +325,16 @@ public class Profile extends AppCompatActivity{
             }
         }
         else {
-            getFragmentManager().popBackStack();
+           Fragment pf=getFragmentManager().findFragmentByTag("PF");
+           if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+               if (pf!= null && pf.getChildFragmentManager().getBackStackEntryCount() > 0){
+                   // Get the fragment fragment manager - and pop the backstack
+               pf.getChildFragmentManager().popBackStack();}
+           }
+           else
+           {
+           getFragmentManager().popBackStack();}
+
         }
 
     }

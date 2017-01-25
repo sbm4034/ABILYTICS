@@ -326,6 +326,7 @@ public class ProfileFragment  extends Fragment implements View.OnClickListener {
         inflater.inflate(R.menu.profilemenu,menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
