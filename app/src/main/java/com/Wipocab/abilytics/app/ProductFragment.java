@@ -5,12 +5,10 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -29,7 +27,6 @@ import com.Wipocab.abilytics.app.Adapters.DataAdapter;
 import com.Wipocab.abilytics.app.Model.ProductResponse;
 import com.Wipocab.abilytics.app.Model.ProductVersion;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
-import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -92,22 +89,16 @@ public class ProductFragment extends Fragment implements SwipeRefreshLayout.OnRe
         sv.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                if (s.length() < 4) {
-                    Toast.makeText(getActivity(),
-                            "Your search query must not be less than 3 characters",
-                            Toast.LENGTH_LONG).show();
-                    return true;
-                } else {
+
 
                     doSearch(s);
                     return false;
-                }
+
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
 
-                doSearch(newText);
                 return false;
             }
         }
@@ -137,12 +128,13 @@ public void doSearch(String s){
             dialog.dismiss();
             adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
                 @Override
-                public void onClickprolistener(int pos) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        startChildFragment(pos);
-                    }
+                public void onClickprolistener(int pos, int pid) {
+                    startChildFragment(pos,pid);
+                    Toast.makeText(getActivity(),pid,Toast.LENGTH_SHORT).show();
 
                 }
+
+
             });
                     recyclerView.setAdapter(adapter);
             Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
@@ -207,10 +199,13 @@ public void doSearch(String s){
                 adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
                     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
-                    public void onClickprolistener(int pos) {
-                        startChildFragment(pos);
+                    public void onClickprolistener(int pos, int pid) {
+                        startChildFragment(pos,pid);
+                        Log.d("LKKK",String.valueOf(pid));
+
 
                     }
+
                 });
 
                 recyclerView.setAdapter(adapter);
@@ -231,9 +226,9 @@ public void doSearch(String s){
     }
 //child fragment
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void startChildFragment(int pos) {
+    private void startChildFragment(int pos, int pid) {
         recyclerView.setVisibility(View.INVISIBLE);
-        Fragment fr=SubProductFragment.newInstance(pos);
+        Fragment fr=SubProductFragment.newInstance(pid);
         android.app.FragmentTransaction ft=getChildFragmentManager().beginTransaction();
         ft.replace(R.id.framepro,fr,"Child");
         ft.addToBackStack("Child");

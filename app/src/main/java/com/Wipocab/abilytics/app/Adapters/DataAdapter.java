@@ -33,15 +33,14 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     Context context;
     onClickWish listeners;
 
-    public DataAdapter(ArrayList<ProductVersion> products, Activity activity) {
-
+    public DataAdapter(ArrayList<ProductVersion> products, Context applicationContext) {
         this.products=products;
-        this.context=context;
+        this.context=applicationContext;
     }
 
 
     public interface onClickWish{
-        public void onClickprolistener(int pos);
+        public void onClickprolistener(int pos,int pid);
     }
 
     public DataAdapter(ArrayList<ProductVersion> products, Context context, onClickWish listeners) {
@@ -90,7 +89,8 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         @Override
         public void onClick(View view) {
             int pos= getAdapterPosition();
-            listeners.onClickprolistener(pos);
+            int pid= Integer.parseInt(products.get(pos).getP_id());
+            listeners.onClickprolistener(pos,pid);
            // Toast.makeText(view.getContext(),products.get(pos).getP_name(),Toast.LENGTH_SHORT).show();
            /* if(products.get(pos).isliked()) {
                 products.get(pos).setIsliked(false);

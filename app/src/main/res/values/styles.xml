@@ -58,6 +58,10 @@
         <item name="android:textSize">20sp</item> <!-- menu item text size-->
         <item name="android:listPreferredItemHeightSmall">40dp</item><!-- menu item height-->
     </style>
+    <style name="BrandButtonStyle" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/blue</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 
 
 </resources>

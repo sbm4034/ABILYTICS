@@ -13,6 +13,6 @@ import retrofit2.http.POST;
  */
 
 public interface RequestInterfaceProducts {
-    @POST("R/")
+    @POST("Abylitics/")
     Call<ProductResponse> operation(@Body ServerRequest request);
 }

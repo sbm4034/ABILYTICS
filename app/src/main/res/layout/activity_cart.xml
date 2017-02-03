@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/coordinator_cart"
+    >
+
+
+
+    <include layout="@layout/content_activity_cart" />
+
+   <Button
+       android:layout_gravity="bottom"
+       android:gravity="center"
+       android:id="@+id/order_btn"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:text="Order"
+       android:textAlignment="center"
+       android:textColor="@color/white"
+       android:textSize="18dp"
+       android:foregroundGravity="center"
+       android:background="@color/red_light"
+       >
+   </Button>
+
+
+</android.support.design.widget.CoordinatorLayout>

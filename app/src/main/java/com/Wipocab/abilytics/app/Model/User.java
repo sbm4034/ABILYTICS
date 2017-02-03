@@ -18,6 +18,17 @@ public class User {
         private String place,ptssend,nosend;
         private String product;
         private String category;
+        private int pid;
+        private int noi;
+    private String p_id;
+
+    public String getP_id() {
+        return p_id;
+    }
+
+    public void setP_id(String p_id) {
+        this.p_id = p_id;
+    }
 
     public String getCategory() {
         return category;
@@ -104,4 +115,17 @@ public class User {
         this.promo_code = promo_code;
     }
     public void setproduct(String product){this.product=product;}
+
+    public int getPid() {
+        return pid;
+    }
+
+
+    public void setNoi(int noi){this.noi=noi;
+    }
+
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
 }

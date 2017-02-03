@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:id="@+id/coordinator_product_info"
+   >
+
+
+    <include layout="@layout/content_act_product_info" />
+
+
+
+
+    <LinearLayout
+        android:layout_gravity="bottom"
+        android:gravity="bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <android.support.v7.widget.AppCompatButton
+        android:background="@color/blue"
+        android:textColor="@color/white"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:text="Add to Diet"
+        android:padding="0dp"
+        android:layout_weight="1"
+        android:layout_marginLeft="-10dip"
+        android:layout_marginTop="-5dip"
+        android:layout_marginBottom="-5dip"
+        android:id="@+id/btncart"
+        />
+    <android.support.v7.widget.AppCompatButton
+        android:textColor="@color/white"
+        android:background="@color/red_light"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:text="Diet"
+        android:padding="0dp"
+        android:layout_marginRight="-10dip"
+        android:layout_marginTop="-5dip"
+        android:layout_marginBottom="-5dip"
+        android:id="@+id/btngorder"
+        />
+
+    </LinearLayout>
+
+
+
+</android.support.design.widget.CoordinatorLayout>
+
+

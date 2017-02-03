@@ -13,14 +13,15 @@ import retrofit2.http.POST;
 
 public interface RequestInterface {
 
-    @POST("R/")
+    @POST("Abylitics/")
     Call<ServerResponse> operation(@Body ServerRequest request);
-    @POST("R/")
+    @POST("Abylitics/")
     Call<ProductResponse> query(@Body ServerRequest request);
 
 
 
-    @GET("R/")
+
+    @GET("Abylitics/")
     Call<ProductResponse> getProducts();
 
 

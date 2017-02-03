@@ -1,24 +1,24 @@
 package com.Wipocab.abilytics.app;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.Wipocab.abilytics.app.Adapters.DataAdapter;
+import com.Wipocab.abilytics.app.Adapters.DataAdapterForSubProducts;
 import com.Wipocab.abilytics.app.Model.ProductResponse;
 import com.Wipocab.abilytics.app.Model.ProductVersion;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
-import com.Wipocab.abilytics.app.Model.ServerResponse;
 import com.Wipocab.abilytics.app.Model.User;
 
 import java.util.ArrayList;
@@ -35,16 +35,16 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class SubProductFragment extends Fragment {
-    String cate;
+    int main_pro;
     ProgressBar progressBar;
     ArrayList<ProductVersion> products;
-    DataAdapter dataAdapter;
+    DataAdapterForSubProducts dataAdapter;
     RecyclerView recyclerview;
 
-    public static SubProductFragment newInstance(int pos) {
+    public static SubProductFragment newInstance(int pid) {
         SubProductFragment frag = new SubProductFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("product", String.valueOf(pos));
+        bundle.putString("product", String.valueOf(pid));
         frag.setArguments(bundle);
         return frag;
     }
@@ -53,10 +53,10 @@ public class SubProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subprofragment, container, false);
-        String position = getArguments().getString("product");
-        Toast.makeText(getActivity(), String.format("position %s clicked", position), Toast.LENGTH_SHORT).show();
+        String pid = getArguments().getString("product");
+        Toast.makeText(getActivity(), String.format("position %s clicked", pid), Toast.LENGTH_SHORT).show();
         initView(view);
-        cate="Non-Veg";
+        main_pro=Integer.parseInt(pid);
         loadJson();
         return view;
     }
@@ -88,9 +88,9 @@ public class SubProductFragment extends Fragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         User user = new User();
-        user.setCategory(cate);
+        user.setPid(main_pro);
         ServerRequest serverRequest = new ServerRequest();
-        serverRequest.setOperation(Constants.getfromcategory);
+        serverRequest.setOperation(Constants.getfromPid);
         serverRequest.setUser(user);
         RequestInterfaceProducts requestInterface = retrofit.create(RequestInterfaceProducts.class);
         Call<ProductResponse> call = requestInterface.operation(serverRequest);
@@ -100,8 +100,22 @@ public class SubProductFragment extends Fragment {
                 progressBar.setVisibility(View.INVISIBLE);
                 ProductResponse productResponse =response.body();
                 products=new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
-                dataAdapter=new DataAdapter(products,getActivity());
+                dataAdapter =new DataAdapterForSubProducts(products, getActivity(), new DataAdapterForSubProducts.onClickWish() {
+                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                    @Override
+                    public void onClickprolistener(int pos, int pid, int subpid) {
+
+                        Intent intent=new Intent(getActivity(),ActProductInfo.class);
+                        intent.putExtra("DATAINTENT",Integer.toString(subpid));
+                        startActivity(intent);
+                        Log.d("LKKK",String.valueOf(subpid));
+
+
+                    }
+
+                });
                 recyclerview.setAdapter(dataAdapter);
+
                 //Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
 
             }
@@ -116,4 +130,5 @@ public class SubProductFragment extends Fragment {
         });
 
     }
+
 }

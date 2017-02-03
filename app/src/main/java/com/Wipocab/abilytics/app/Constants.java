@@ -6,7 +6,7 @@ package com.Wipocab.abilytics.app;
 public class Constants {
 
 
-    public static final String BASE_URL = "http://abilytics.16mb.com/";
+    public static final String BASE_URL = "http://www.buildupcareer.com/";
     public static final String REGISTER_OPERATION = "register";
     public static final String LOGIN_OPERATION = "login";
     public static final String CHANGE_PASSWORD_OPERATION = "chgPass";
@@ -16,7 +16,12 @@ public class Constants {
     public static final String UPDATE_OPERATION="updateProfile";
     public static final String TRANSFER_POINTS="transferpts";
     public static final String UPDATEPTS="updatepts";
-    public static final String getfromcategory="getfromcategory";
+    public static final String getfromPid="getfromPid";
+    public static final String ordercart="orderCart";
+    public static final String getproductdetail="getproductdetail";
+
+
+
 
 
     public static final String SUCCESS = "success";
@@ -33,4 +38,8 @@ public class Constants {
     public static final String TAG = "ABILYTICS";
     public static final String RESET_PASSWORD_INITIATE = "forget";
     public static final String RESET_PASSWORD_FINISH = "checkOtpPassword";
+
+    public static final String addtocart="addtocart";
+    public static final String showcart="showcart";
+    public static final String removecart="removecart";
 }

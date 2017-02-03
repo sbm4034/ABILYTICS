@@ -10,6 +10,18 @@ public class ProductVersion {
     private String p_info;
     private String p_sold;
     private boolean isliked;
+    private String product_name;
+    private String length,diameter;
+
+    private String subproducts_id;
+
+    public String getSubproducts_id() {
+        return subproducts_id;
+    }
+
+    public void setSubproducts_id(String subproducts_id) {
+        this.subproducts_id = subproducts_id;
+    }
 
     public String getP_id() {
         return p_id;
@@ -25,6 +37,16 @@ public class ProductVersion {
 
     public void setP_name(String p_name) {
         this.p_name = p_name;
+    }
+
+    public String getProduct_name() {
+        return product_name;
+    }
+    public String getProduct_length() {
+        return length;
+    }
+    public String getProduct_diameter() {
+        return diameter;
     }
 
     public String getP_info() {
