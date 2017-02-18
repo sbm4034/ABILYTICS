@@ -134,8 +134,8 @@ public class ActProductInfo extends AppCompatActivity {
                 ProductResponse productResponse =response.body();
                 products=new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
                 A_name.setText(products.get(0).getProduct_name());
-                A_length.setText(products.get(0).getProduct_length());
-                A_diameter.setText(products.get(0).getProduct_diameter());
+              //  A_length.setText(products.get(0).getProduct_length());
+                //A_diameter.setText(products.get(0).getProduct_diameter());
 
 
                 plceCart();

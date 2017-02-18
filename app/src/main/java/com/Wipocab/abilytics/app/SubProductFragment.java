@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -35,16 +36,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class SubProductFragment extends Fragment {
-    int main_pro;
+    String  main_pro,length;
     ProgressBar progressBar;
     ArrayList<ProductVersion> products;
     DataAdapterForSubProducts dataAdapter;
     RecyclerView recyclerview;
 
-    public static SubProductFragment newInstance(int pid) {
+    public static SubProductFragment newInstance(String pid,String lenght) {
         SubProductFragment frag = new SubProductFragment();
         Bundle bundle = new Bundle();
         bundle.putString("product", String.valueOf(pid));
+        bundle.putString("length",String.valueOf(lenght));
+
         frag.setArguments(bundle);
         return frag;
     }
@@ -54,9 +57,10 @@ public class SubProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.subprofragment, container, false);
         String pid = getArguments().getString("product");
+       length= getArguments().getString("length");
         Toast.makeText(getActivity(), String.format("position %s clicked", pid), Toast.LENGTH_SHORT).show();
         initView(view);
-        main_pro=Integer.parseInt(pid);
+        main_pro=pid;
         loadJson();
         return view;
     }
@@ -72,7 +76,7 @@ public class SubProductFragment extends Fragment {
         progressBar = (ProgressBar) view.findViewById(R.id.progress_Spinner);
         recyclerview= (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerview.setHasFixedSize(true);
-        RecyclerView.LayoutManager layoutmanager=new GridLayoutManager(getActivity(),2);
+        RecyclerView.LayoutManager layoutmanager=new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(layoutmanager);
         progressBar=(ProgressBar)view.findViewById(R.id.progress_Spinner);
         progressBar.setVisibility(View.VISIBLE);
@@ -82,48 +86,55 @@ public class SubProductFragment extends Fragment {
 
 
     private void loadJson() {
+        Toast.makeText(getActivity(),length,Toast.LENGTH_SHORT).show();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         User user = new User();
-        user.setPid(main_pro);
+        user.setId(main_pro);
+        user.setLength(length);
         ServerRequest serverRequest = new ServerRequest();
-        serverRequest.setOperation(Constants.getfromPid);
+        serverRequest.setOperation(Constants.getsubproducts);
         serverRequest.setUser(user);
         RequestInterfaceProducts requestInterface = retrofit.create(RequestInterfaceProducts.class);
         Call<ProductResponse> call = requestInterface.operation(serverRequest);
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
-                progressBar.setVisibility(View.INVISIBLE);
-                ProductResponse productResponse =response.body();
-                products=new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
-                dataAdapter =new DataAdapterForSubProducts(products, getActivity(), new DataAdapterForSubProducts.onClickWish() {
-                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-                    @Override
-                    public void onClickprolistener(int pos, int pid, int subpid) {
+                if(response.body().getResult().equals("Failure")){
+                    Toast.makeText(getActivity(),"No product found of this length",Toast.LENGTH_LONG).show();
+                    progressBar.setVisibility(View.INVISIBLE);
+                }else {
 
-                        Intent intent=new Intent(getActivity(),ActProductInfo.class);
+                    progressBar.setVisibility(View.INVISIBLE);
+                    ProductResponse productResponse = response.body();
+                    products = new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
+                    dataAdapter = new DataAdapterForSubProducts(products, getActivity(), new DataAdapterForSubProducts.onClickWish() {
+                        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+                        @Override
+                        public void onClickprolistener(int pos, int pid, int subpid) {
+
+
+                       /* Intent intent=new Intent(getActivity(),ActProductInfo.class);
                         intent.putExtra("DATAINTENT",Integer.toString(subpid));
                         startActivity(intent);
                         Log.d("LKKK",String.valueOf(subpid));
+                        */
 
 
-                    }
+                        }
 
-                });
-                recyclerview.setAdapter(dataAdapter);
-
-                //Toast.makeText(getActivity(),"Products successfully loaded",Toast.LENGTH_SHORT).show();
+                    });
+                    recyclerview.setAdapter(dataAdapter);
+                }
 
             }
 
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
-                Toast.makeText(getActivity(),"Products failed",Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(getActivity()," Network connnection problem",Toast.LENGTH_SHORT).show();
                 progressBar.setVisibility(View.INVISIBLE);
 
             }

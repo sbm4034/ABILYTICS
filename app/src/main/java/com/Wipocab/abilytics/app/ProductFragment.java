@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -27,6 +28,7 @@ import com.Wipocab.abilytics.app.Adapters.DataAdapter;
 import com.Wipocab.abilytics.app.Model.ProductResponse;
 import com.Wipocab.abilytics.app.Model.ProductVersion;
 import com.Wipocab.abilytics.app.Model.ServerRequest;
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import java.util.ArrayList;
@@ -128,8 +130,8 @@ public void doSearch(String s){
             dialog.dismiss();
             adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
                 @Override
-                public void onClickprolistener(int pos, int pid) {
-                    startChildFragment(pos,pid);
+                public void onClickprolistener(int pos, String pid) {
+                   // startChildFragment(pos,pid);
                     Toast.makeText(getActivity(),pid,Toast.LENGTH_SHORT).show();
 
                 }
@@ -193,19 +195,15 @@ public void doSearch(String s){
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
                 ProductResponse productResponse =response.body();
                 products =new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
-               // dialog.dismiss();
+                // dialog.dismiss();
                 swipeRefreshLayout.setRefreshing(false);
 
                 adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
-                    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
                     @Override
-                    public void onClickprolistener(int pos, int pid) {
-                        startChildFragment(pos,pid);
-                        Log.d("LKKK",String.valueOf(pid));
-
+                    public void onClickprolistener(int pos, String pid) {
+                        ShowlengthDialog(pos,pid);
 
                     }
-
                 });
 
                 recyclerView.setAdapter(adapter);
@@ -217,18 +215,56 @@ public void doSearch(String s){
 
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
-                Snackbar.make(getView(), "Connection Problem", Snackbar.LENGTH_LONG).show();
+                Snackbar.make(getView(), t.toString(), Snackbar.LENGTH_LONG).show();
                 swipeRefreshLayout.setRefreshing(false);
 
 
             }
         });
     }
+
+
+    private void ShowlengthDialog( final int pos,final String  pid) {
+        String lengths[]={"45","90","180","450"};
+        MaterialDialog materialDialog=new MaterialDialog.Builder(getActivity())
+                .titleColor(getResources().getColor(R.color.white))
+                .itemsColor(getResources().getColor(R.color.white))
+                .widgetColor(getResources().getColor(R.color.primary_dark))
+                .backgroundColor(getResources().getColor(R.color.color8))
+                .items(lengths)
+                .itemsCallbackSingleChoice(-1, new MaterialDialog.ListCallbackSingleChoice() {
+                    @Override
+                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
+                        Toast.makeText(getActivity(),text,Toast.LENGTH_SHORT).show();
+                        startChildFragment(pos,pid, String.valueOf(text));
+
+                        return true;
+                    }
+                })
+                .positiveText("Search")
+                .positiveColor(getResources().getColor(R.color.red_light))
+                .onPositive(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .negativeText("Cancel")
+                .onNegative(new MaterialDialog.SingleButtonCallback() {
+                    @Override
+                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+
+                    }
+                })
+                .title("Pick Length of Product")
+                .build();
+        materialDialog.show();
+    }
 //child fragment
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    private void startChildFragment(int pos, int pid) {
+    private void startChildFragment(int pos, String pid,String length) {
         recyclerView.setVisibility(View.INVISIBLE);
-        Fragment fr=SubProductFragment.newInstance(pid);
+        Fragment fr=SubProductFragment.newInstance(pid,length);
         android.app.FragmentTransaction ft=getChildFragmentManager().beginTransaction();
         ft.replace(R.id.framepro,fr,"Child");
         ft.addToBackStack("Child");

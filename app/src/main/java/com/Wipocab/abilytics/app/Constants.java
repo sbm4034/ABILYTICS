@@ -4,8 +4,6 @@ package com.Wipocab.abilytics.app;
  * Created by gautam on 9/6/16.
  */
 public class Constants {
-
-
     public static final String BASE_URL = "http://www.buildupcareer.com/";
     public static final String REGISTER_OPERATION = "register";
     public static final String LOGIN_OPERATION = "login";
@@ -19,6 +17,7 @@ public class Constants {
     public static final String getfromPid="getfromPid";
     public static final String ordercart="orderCart";
     public static final String getproductdetail="getproductdetail";
+    public static final String getsubproducts="getsubproducts";
 
 
 

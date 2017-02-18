@@ -21,6 +21,33 @@ public class User {
         private int pid;
         private int noi;
     private String p_id;
+    private String id;
+    private String product_code;
+    private String Length;
+
+    public String getLength() {
+        return Length;
+    }
+
+    public void setLength(String length) {
+        Length = length;
+    }
+
+    public String getProduct_code() {
+        return product_code;
+    }
+
+    public void setProduct_code(String product_code) {
+        this.product_code = product_code;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getP_id() {
         return p_id;

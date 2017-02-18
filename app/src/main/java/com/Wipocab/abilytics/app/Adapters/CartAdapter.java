@@ -61,10 +61,7 @@ public interface onClickremove {
     }
 @Override
     public void onBindViewHolder(CartAdapter.ViewHolder holder, int position) {
-        holder.p_name.setText(products.get(position).getP_name());
-    Log.d("Name",products.get(position).getP_name());
-        holder.p_info.setText(products.get(position).getP_info());
-        holder.p_sold.setText(products.get(position).getP_sold());
+        holder.product_code.setText(products.get(position).getProduct_code());
      //   Picasso.with(context).load(products.get(position).getP_image()).into(holder.p_image);
         holder.spinner.setSelection(0);
     }
@@ -75,18 +72,16 @@ public interface onClickremove {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-        private TextView p_name, p_sold, p_info;
+        private TextView product_code;
         Button p_remove;
-        private ImageView p_image;Spinner spinner;  ArrayAdapter<Integer> adapter;
+         Spinner spinner;  ArrayAdapter<Integer> adapter;
         SharedPreferences pref;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            p_name = (TextView) itemView.findViewById(R.id.p_name);
-            p_info = (TextView) itemView.findViewById(R.id.p_info);
-            p_sold = (TextView) itemView.findViewById(R.id.p_sold);
-            p_image=(ImageView)itemView.findViewById(R.id.p_image);
+            product_code = (TextView) itemView.findViewById(R.id.product_code);
+
             spinner=(Spinner)itemView.findViewById(R.id.spinner_pickercart);
             Integer[] items = new Integer[]{1,2,3,4,5,6,7,8,9,10};
             adapter = new ArrayAdapter<Integer>(itemView.getContext(),android.R.layout.simple_spinner_item, items);

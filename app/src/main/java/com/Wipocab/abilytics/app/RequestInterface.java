@@ -21,10 +21,9 @@ public interface RequestInterface {
 
 
 
+
     @GET("Abylitics/")
     Call<ProductResponse> getProducts();
-
-
 
     public static final Retrofit retrofit=new Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)

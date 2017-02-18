@@ -422,12 +422,12 @@ public class Profile extends AppCompatActivity{
         mi.setTitle(mNewTitle);
     }
     private void fabclicked() {
-        SharedPreferences pref=getSharedPreferences("ABC",Context.MODE_PRIVATE);
+      /*  SharedPreferences pref=getSharedPreferences("ABC",Context.MODE_PRIVATE);
         Set<String> set= pref.getStringSet("wishlist",null);
-/*        for (String s:set){
+       for (String s:set){
             Log.d("Fab",s);
         }
-        */
+
         ArrayList<String> setlist=new ArrayList<>();
         CharSequence[] cs = setlist.toArray(new CharSequence[setlist.size()]);
 
@@ -450,6 +450,9 @@ public class Profile extends AppCompatActivity{
         Log.d("Fab","inside fab click");
         MaterialDialog dialog =builder.build();
         dialog.show();
+        */
+        Intent intent=new Intent(this,Activity_cart.class);
+        startActivity(intent);
 
 
     }

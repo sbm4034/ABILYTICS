@@ -34,34 +34,32 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     onClickWish listeners;
 
     public DataAdapter(ArrayList<ProductVersion> products, Context applicationContext) {
-        this.products=products;
-        this.context=applicationContext;
+        this.products = products;
+        this.context = applicationContext;
     }
 
 
-    public interface onClickWish{
-        public void onClickprolistener(int pos,int pid);
+    public interface onClickWish {
+        public void onClickprolistener(int pos, String pid);
     }
 
     public DataAdapter(ArrayList<ProductVersion> products, Context context, onClickWish listeners) {
 
-        this.products=products;
-        this.context=context;
-        this.listeners=listeners;
+        this.products = products;
+        this.context = context;
+        this.listeners = listeners;
     }
 
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.card_row,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_row, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.p_name.setText(products.get(position).getP_name());
-        holder.p_info.setText(products.get(position).getP_info());
-        holder.p_sold.setText(products.get(position).getP_sold());
+        holder.p_name.setText(products.get(position).getProduct_name());
 
 
     }
@@ -71,91 +69,27 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
         return products.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        private TextView p_name,p_sold,p_info;
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView p_name;
         private ImageButton btnLike;
 
 
         public ViewHolder(View itemView) {
             super(itemView);
             itemView.setOnClickListener(this);
-            p_name=(TextView)itemView.findViewById(R.id.p_name);
-            p_info=(TextView)itemView.findViewById(R.id.p_info);
-            p_sold=(TextView)itemView.findViewById(R.id.p_sold);
-            btnLike=(ImageButton) itemView.findViewById(R.id.btnLike);
+            p_name = (TextView) itemView.findViewById(R.id.p_name);
+
 
         }
 
         @Override
         public void onClick(View view) {
-            int pos= getAdapterPosition();
-            int pid= Integer.parseInt(products.get(pos).getP_id());
-            listeners.onClickprolistener(pos,pid);
-           // Toast.makeText(view.getContext(),products.get(pos).getP_name(),Toast.LENGTH_SHORT).show();
-           /* if(products.get(pos).isliked()) {
-                products.get(pos).setIsliked(false);
-                listeners.onClickremovewish(pos);
-            }else {
-                products.get(pos).setIsliked(true);
-                animateHeartButton();
-                listeners.onClickWishlist(pos);
-            }
-            btnLike.setImageResource(products.get(pos).isliked() ? R.drawable.ic_heart_red : R.drawable.ic_heart_outline_grey);
-            //savetosharedpref(view,pos);
-            */
-
+            int pos = getAdapterPosition();
+            String id = products.get(pos).getId();
+            listeners.onClickprolistener(pos, id);
 
         }
 
-        private void animateHeartButton() {
-             final DecelerateInterpolator DECCELERATE_INTERPOLATOR = new DecelerateInterpolator();
-              final AccelerateInterpolator ACCELERATE_INTERPOLATOR = new AccelerateInterpolator();
-             final OvershootInterpolator OVERSHOOT_INTERPOLATOR = new OvershootInterpolator(4);
-            AnimatorSet animatorSet = new AnimatorSet();
-
-            ObjectAnimator rotationAnim = ObjectAnimator.ofFloat(btnLike, "rotation", 0f, 360f);
-            rotationAnim.setDuration(300);
-            rotationAnim.setInterpolator(ACCELERATE_INTERPOLATOR);
-
-            ObjectAnimator bounceAnimX = ObjectAnimator.ofFloat(btnLike, "scaleX", 0.2f, 1f);
-            bounceAnimX.setDuration(300);
-            bounceAnimX.setInterpolator(OVERSHOOT_INTERPOLATOR);
-
-            ObjectAnimator bounceAnimY = ObjectAnimator.ofFloat(btnLike, "scaleY", 0.2f, 1f);
-            bounceAnimY.setDuration(300);
-            bounceAnimY.setInterpolator(OVERSHOOT_INTERPOLATOR);
-            bounceAnimY.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    btnLike.setImageResource(R.drawable.ic_heart_red);
-                }
-
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                }
-            });
-
-            animatorSet.play(bounceAnimX).with(bounceAnimY).after(rotationAnim);
-            animatorSet.start();
-        }
-    }
-
-    private void savetosharedpref(View view,int pos) throws IOException {
-        Context context=view.getContext();
-       SharedPreferences pref=context.getSharedPreferences("ABC", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor =pref.edit();
-        ArrayList<String> list  =new ArrayList<>();
-        list.add(products.get(pos).getP_name());
-      //  Set<String> set=new HashSet<>();
-        //set.addAll(list);
-        //editor.putStringSet("wishlist",set);
-        //editor.apply();
-
-     //   pref.getStringSet("ABC",set);
-       // for (String temp:set){
-         //   Toast.makeText(context,temp,Toast.LENGTH_SHORT).show();
-       // }
 
     }
-
 }
