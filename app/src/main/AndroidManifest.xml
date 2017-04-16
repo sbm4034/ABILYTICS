@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.Wipocab.abilytics.app">
+    package="com.Wipocab.abilytics.application">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
@@ -12,11 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
-            android:name="com.Wipocab.abilytics.app.MainActivity"
+            android:name="com.Wipocab.abilytics.application.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.Wipocab.abilytics.app.SplashActivity"
+            android:name="com.Wipocab.abilytics.application.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,16 +26,16 @@
         </activity>
 
         <activity
-            android:name="com.Wipocab.abilytics.app.Profile"
+            android:name="com.Wipocab.abilytics.application.Profile"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.Wipocab.abilytics.app.VerifyOtpActivity"
+            android:name="com.Wipocab.abilytics.application.VerifyOtpActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.Wipocab.abilytics.app.ActProductInfo"
+            android:name="com.Wipocab.abilytics.application.ActProductInfo"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.Wipocab.abilytics.app.Activity_cart"
+            android:name="com.Wipocab.abilytics.application.Activity_cart"
             android:screenOrientation="portrait" />
     </application>
 

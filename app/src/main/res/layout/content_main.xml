@@ -8,7 +8,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/profile"
     android:foreground="?android:attr/selectableItemBackground"
-    tools:context="com.Wipocab.abilytics.app.MainActivity">
+    tools:context="com.Wipocab.abilytics.application.MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_frame"

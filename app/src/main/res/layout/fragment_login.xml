@@ -10,7 +10,7 @@
     android:focusableInTouchMode="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.Wipocab.abilytics.app.MainActivity"
+    tools:context="com.Wipocab.abilytics.application.MainActivity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 

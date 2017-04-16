@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_marginTop="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    card_view:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:focusable="true"
+    android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/p_code"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:text="Product_code"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/p_noperdia"
+            android:textSize="17sp"
+            android:text="NoPerDiameter"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_noArea"
+            android:textSize="17sp"
+            android:text="NoArea"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NominalDiaofCond_04"
+            android:textSize="17sp"
+            android:text="NominalDiaofCond_04"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NominalDiaofCond_05"
+            android:textSize="17sp"
+            android:text="NominalDiaofCond_05"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NoofPair"
+            android:textSize="17sp"
+            android:text="NoofPair"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_Pricepermetre"
+            android:textSize="17sp"
+            android:text="Pricepermetre"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_Description"
+            android:textSize="17sp"
+            android:text="Description"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_Priceper100metre"
+            android:textSize="17sp"
+            android:text="Priceper100metre"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/p_Priceper300metre"
+            android:textSize="17sp"
+            android:text="Priceper300metre"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_Priceper305metre"
+            android:textSize="17sp"
+            android:text="Priceper305metre"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NominalAreaCond"
+            android:textSize="17sp"
+            android:text="NominalAreaCond"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NumberperDiaofWireinch"
+            android:textSize="17sp"
+            android:text="NominalAreaCond"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_one_core"
+            android:textSize="17sp"
+            android:text="one_core"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_two_core"
+            android:textSize="17sp"
+            android:text="two_core"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_three_core"
+            android:textSize="17sp"
+            android:text="three_core"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/p_noLength"
+            android:textSize="17sp"
+            android:text="NoLength"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_pkg"
+            android:textSize="17sp"
+            android:text="Pkg"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_price"
+            android:textSize="17sp"
+            android:text="Price"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:text="No. of items" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="@color/black"
+                android:id="@+id/abc"
+                android:layout_marginRight="5dp"
+                />
+
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/dec"
+                android:text="-"
+                android:textSize="20sp"
+                android:background="@color/color8"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/noiedit"
+                android:textColor="@color/black"
+                android:text="1"
+                android:layout_margin="3dp"
+                android:textSize="20sp"
+                />
+            <Button
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:id="@+id/inc"
+                android:text="+"
+                android:textSize="20sp"
+                android:background="@color/color8"
+                />
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/addtoCart"
+            android:background="@color/color7"
+            android:text="Add To Cart"
+            />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

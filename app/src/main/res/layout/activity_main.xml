@@ -12,11 +12,12 @@
     android:id="@+id/root_view"
     android:fitsSystemWindows="true"
     android:layout_height="match_parent"
-    tools:context="com.Wipocab.abilytics.app.MainActivity">
+    tools:context="com.Wipocab.abilytics.application.MainActivity">
 
     <FrameLayout
         android:id="@+id/fragment_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-</LinearLayout></android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
