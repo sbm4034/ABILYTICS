@@ -77,17 +77,17 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             holder.p_nodia.setVisibility(View.GONE);
 
         } else {holder.p_nodia.setText(String.format("Name : %s Sq mm", products.get(position).getNumberAreaofCond()));}
-        if(products.get(position).getNumberAreaofCond()==null){
+        if(products.get(position).getNumberperDiaofWire()==null){
             holder.p_noArea.setVisibility(View.GONE);
 
         }else{
-        holder.p_noArea.setText(String.format("Number/Dia of Wire \t: %s mm",products.get(position).getNumberperDiaofWire()));
+        holder.p_noArea.setText(String.format("Number/Dia of Wire : %s mm",products.get(position).getNumberperDiaofWire()));
         }
         if(products.get(position).getNumberperDiaofWireinch()==null){
             holder.p_NumberperDiaofWireinch.setVisibility(View.GONE);
 
         }else{
-            holder.p_NumberperDiaofWireinch.setText(String.format("Name \t: %Sq mm",products.get(position).getNumberperDiaofWireinch()));
+            holder.p_NumberperDiaofWireinch.setText(String.format("Name : %S inch",products.get(position).getNumberperDiaofWireinch()));
         }
 
         if(products.get(position).getPriceperCoil()==null){
@@ -104,7 +104,10 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
 
         }
         else{
-        holder.p_one_core.setText(String.format("One Core :  ₹ %s",products.get(position).getOne_Core()));}
+            holder.p_one_core.setVisibility(View.VISIBLE);
+        holder.p_one_core.setText(String.format("One Core :  ₹ %s",products.get(position).getOne_Core()));
+
+        }
         if(products.get(position).getTwo_Core()==null){
             holder.p_two_core.setVisibility(View.GONE);
 
@@ -130,12 +133,12 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             holder.p_NominalDiaofCond_04.setVisibility(View.GONE);
 
         }else{
-        holder.p_NominalDiaofCond_04.setText(String.format("Nominal Dia of Cond 0.4 : %s  ₹",products.get(position).getNominalAreaCond()));}
+        holder.p_NominalDiaofCond_04.setText(String.format("Nominal Dia of Cond 0.4 :₹ %s  ",products.get(position).getNominalDiaofCond_04()));}
         if(products.get(position).getNominalDiaofCond_05()==null){
             holder.p_NominalDiaofCond_05.setVisibility(View.GONE);
 
         }else{
-        holder.p_NominalDiaofCond_05.setText(String.format("Nominal Dia of Cond 0.5 : %s  ₹",products.get(position).getNominalDiaofCond_05()));}
+        holder.p_NominalDiaofCond_05.setText(String.format("Nominal Dia of Cond 0.5 : ₹ %s ",products.get(position).getNominalDiaofCond_05()));}
         if(products.get(position).getNoofPair()==null){
             holder.p_NoofPair.setVisibility(View.GONE);
 
@@ -145,27 +148,28 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             holder.p_Pricepermetre.setVisibility(View.GONE);
 
         }else{
-        holder.p_Pricepermetre.setText(String.format("Price per metre : %s ₹",products.get(position).getPricepermetre()));}
+        holder.p_Pricepermetre.setText(String.format("Price per metre :₹ %s ",products.get(position).getPricepermetre()));}
         if(products.get(position).getPriceper100mtrs()==null){
             holder.p_Priceper100metre.setVisibility(View.GONE);
 
         }else{
-        holder.p_Priceper100metre.setText(String.format("Price per 100 metre : %s ₹",products.get(position).getPriceper100mtrs()));}
+        holder.p_Priceper100metre.setText(String.format("Price per 100 metre :₹ %s ",products.get(position).getPriceper100mtrs()));}
         if(products.get(position).getPriceper300mtrs()==null){
             holder.p_Priceper300metre.setVisibility(View.GONE);
 
         }else{
-        holder.p_Priceper300metre.setText(String.format("Price per 300 metre : %s ₹",products.get(position).getPriceper300mtrs()));}
+        holder.p_Priceper300metre.setText(String.format("Price per 300 metre :₹ %s ",products.get(position).getPriceper300mtrs()));}
         if(products.get(position).getPriceper305mtrs()==null){
             holder.p_Priceper305metre.setVisibility(View.GONE);
 
         }else{
-        holder.p_Priceper305metre.setText(String.format("Price per 305 metre : %s ₹",products.get(position).getPriceper305mtrs()));}
+        holder.p_Priceper305metre.setText(String.format("Price per 305 metre :₹ %s ",products.get(position).getPriceper305mtrs()));}
         if(products.get(position).getDescription()==null){
             holder.p_Description.setVisibility(View.GONE);
 
         }else
         holder.p_Description.setText(String.format("Description : %s",products.get(position).getDescription()));
+
     }
 
     @Override
@@ -182,7 +186,8 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
         public ViewHolder(View itemView) {
             super(itemView);
             for (int i=0;i<products.size();i++){
-                noitext.add(i,0);
+                noitext.add(i,1);
+
             }
            // itemView.setOnClickListener(this);
             p_code=(TextView)itemView.findViewById(R.id.p_code);
@@ -247,10 +252,15 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
     }
     private void dec(int pos,View view) {
         int a= noitext.get(pos);
-        a=a-1;
-        noitext.set(pos,a);
-        products.get(pos).setNoi(noitext.get(pos));
-        notifyDataSetChanged();
+        if(a<2){
+          //  products.get(pos).setNoi(noitext.get(pos));
+            Toast.makeText(view.getContext(),"Invalid Quantity",Toast.LENGTH_SHORT).show();
+        }else {
+            a = a - 1;
+            noitext.set(pos, a);
+            products.get(pos).setNoi(noitext.get(pos));
+            notifyDataSetChanged();
+        }
         //listener.textChanged(pos,String.valueOf(noitext.get(pos)));
     }
 
@@ -312,13 +322,13 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
 
 
                         }
-                        else if(main_pid.equals("sub_9")||main_pid.equals("sub_12"))
+                        else if(main_pid.equals("sub_12"))
                         {
-                            if(which==0&products.get(pos).getPriceper100mtrs()==null){
+                            if(which==0&&products.get(pos).getPriceper100mtrs()==null){
                                 Toast.makeText(view.getContext(), "Select a valid option", Toast.LENGTH_SHORT).show();
                                 ShowlengthDialog(view,main_pid,pos);
                             }
-                            else if(which==1&products.get(pos).getPriceper300mtrs()==null){
+                            else if(which==1&&products.get(pos).getPriceper300mtrs()==null){
                                 Toast.makeText(view.getContext(), "Select a valid option", Toast.LENGTH_SHORT).show();
                                 ShowlengthDialog(view,main_pid,pos);
                             }
@@ -329,6 +339,28 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
                                     break;
                                 case 1:
                                     price=products.get(pos).getPriceper300mtrs();
+                                    addtooriginalcart(view,pos, price);
+                                    break;
+                            }
+
+                        }
+                        else if(main_pid.equals("sub_9"))
+                        {
+                            if(which==0&&products.get(pos).getNominalDiaofCond_04()==null){
+                                Toast.makeText(view.getContext(), "Select a valid option", Toast.LENGTH_SHORT).show();
+                                ShowlengthDialog(view,main_pid,pos);
+                            }
+                            else if(which==1&&products.get(pos).getNominalDiaofCond_05()==null){
+                                Toast.makeText(view.getContext(), "Select a valid option", Toast.LENGTH_SHORT).show();
+                                ShowlengthDialog(view,main_pid,pos);
+                            }
+                            switch (which){
+                                case  0:
+                                    price=products.get(pos).getNominalDiaofCond_04();
+                                    addtooriginalcart(view,pos, price);
+                                    break;
+                                case 1:
+                                    price=products.get(pos).getNominalDiaofCond_05();
                                     addtooriginalcart(view,pos, price);
                                     break;
                             }
@@ -378,14 +410,14 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
     }
     private void addtooriginalcart(View view, int pos, String price){
         SharedPreferences preferences=view.getContext().getApplicationContext().getSharedPreferences("ABC",Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
+        /*SharedPreferences.Editor editor = preferences.edit();
 
         StringBuilder str = new StringBuilder();
         for (int i = 0; i < products.size(); i++) {
             str.append(products.get(i).getNoi()).append(",");
         }
         editor.putString(Constants.cartnoi, str.toString());
-        editor.apply();
+        editor.apply();*/
 
 
        MaterialDialog.Builder   materialDialog = new MaterialDialog.Builder(view.getContext())
@@ -405,7 +437,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
         user.setEmail(preferences.getString(Constants.EMAIL," "));
         user.setId(products.get(pos).getMain_product_id());
         user.setPrice(price);
-        Toast.makeText(view.getContext(), price, Toast.LENGTH_SHORT).show();
+      //  Toast.makeText(view.getContext(), price, Toast.LENGTH_SHORT).show();
         Log.d("ID",products.get(pos).getMain_product_id());
         user.setNoi(products.get(pos).getNoi());
         final ServerRequest request=new ServerRequest();
@@ -424,7 +456,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             @Override
             public void onFailure(Call<ProductResponse> call, Throwable t) {
                 mdialg.dismiss();
-                Toast.makeText(context,"Failed ",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Product already exist ",Toast.LENGTH_SHORT).show();
 
 
             }

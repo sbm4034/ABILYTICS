@@ -36,7 +36,7 @@ public class ProductVersion {
     private String 	one_Core;
     private String two_Core;
     private String three_Core;
-    private int noi;
+    private int noi=1;
 
     public int getNoi() {
         return noi;

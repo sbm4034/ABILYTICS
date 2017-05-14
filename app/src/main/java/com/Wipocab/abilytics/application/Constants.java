@@ -44,4 +44,5 @@ public class Constants {
     public static final String showcart="showcart";
     public static final String removecart="removecart";
     public static final String search ="search";
+    public static final String noi="noi";
 }

@@ -136,7 +136,7 @@ public void doSearch(String s){
             adapter =new DataAdapter(products, getActivity(), new DataAdapter.onClickWish() {
                 @Override
                 public void onClickprolistener(int pos, String pid) {
-                    if(pid.equals("sub_1")||pid.equals("sub_2")||pid.equals("sub_3")||pid.equals("sub_4")||pid.equals("sub_5")||pid.equals("sub_6")||pid.equals("sub_7"))
+                    if(pid.equals("sub_1")||pid.equals("sub_2")||pid.equals("sub_3")||pid.equals("sub_4")||pid.equals("sub_5")||pid.equals("sub_6")||pid.equals("sub_7")||pid.equals("sub_55"))
                     {
                         ShowlengthDialog(pos, pid);
                     }
@@ -215,8 +215,13 @@ public void doSearch(String s){
                         {
                          startChildFragment(pos,pid,"io");
                         }
+                        else if(pos==14)
+                        {
+                            ShowlengthDialog(pos,pid);
+                        }
                        else{ ShowlengthDialog(pos,pid);
                         }
+
 
                     }
                 });

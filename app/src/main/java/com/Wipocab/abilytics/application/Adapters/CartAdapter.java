@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 
 import com.Wipocab.abilytics.application.Constants;
+import com.Wipocab.abilytics.application.Model.NoiVersion;
 import com.Wipocab.abilytics.application.Model.ProductResponse;
 import com.Wipocab.abilytics.application.Model.ProductVersion;
 import com.Wipocab.abilytics.application.Model.ServerRequest;
@@ -34,15 +35,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private ArrayList<ProductVersion> products;
+    private ArrayList<NoiVersion> noiVersions;
     Context context;
     onClickremove listener; ArrayList<String> ids,nois,price;
-    ArrayList<Integer> noitext=new ArrayList<>();
 
 
 
-    public CartAdapter(ArrayList<ProductVersion> products, Context context, onClickremove listener) {
 
+
+    public CartAdapter(ArrayList<ProductVersion> products,ArrayList<NoiVersion> noiVersions, Context context, onClickremove listener) {
         this.products = products;
+        this.noiVersions=noiVersions;
         this.context = context;
         this.listener=listener;
     }
@@ -65,19 +68,19 @@ public interface onClickremove {
 @Override
     public void onBindViewHolder(CartAdapter.ViewHolder holder, int position) {
 
-    holder.noi.setText(String.valueOf(products.get(position).getNoi()));
+    holder.noi.setText(String.valueOf(noiVersions.get(position).getNoi()));
     holder.abc.setText(String.format("%s x",products.get(position).getPkg()));
     holder.p_code.setText(String.format("Product Code: %s",products.get(position).getProduct_code()));
 
     if(products.get(position).getNominalAreaCond()==null){
         holder.p_nodia.setVisibility(View.GONE);
 
-    } else {holder.p_nodia.setText(String.format("Nominal Area : %s", products.get(position).getNominalAreaCond()));}
+    } else {holder.p_nodia.setText(String.format("Name : %s", products.get(position).getNominalAreaCond()));}
     if(products.get(position).getNumberAreaofCond()==null){
         holder.p_noArea.setVisibility(View.GONE);
 
     }else{
-        holder.p_noArea.setText(String.format("Area of Cond.\t: %s Sq mm",products.get(position).getNumberperDiaofWire()));}
+        holder.p_noArea.setText(String.format("Name \t: %s Sq mm",products.get(position).getNumberperDiaofWire()));}
 /*    if(products.get(position).getPriceperCoil()==null){
         holder.pricepercoil.setVisibility(View.GONE);
 
@@ -98,7 +101,7 @@ public interface onClickremove {
         holder.p_NominalAreaCond.setVisibility(View.GONE);
 
     }else{
-        holder.p_NominalAreaCond.setText(String.format("Nominal Area Cond. :%s",products.get(position).getNominalAreaCond()));}
+        holder.p_NominalAreaCond.setText(String.format("Name :%s",products.get(position).getNominalAreaCond()));}
 
 
     /*
@@ -211,16 +214,16 @@ public interface onClickremove {
             ids = new ArrayList<String>();
             nois = new ArrayList<String>();
             price = new ArrayList<String>();
-            for (int i = 0; i < products.size(); i++) {
-                nois.add(String.valueOf(products.get(i).getNoi()));
+            for (int i = 0; i < noiVersions.size(); i++) {
+                nois.add(String.valueOf(noiVersions.get(i).getNoi()));
             }
             pref = itemView.getContext().getSharedPreferences("ABC", Context.MODE_PRIVATE);
 
             String savedstring=pref.getString(Constants.cartnoi,"");
-            StringTokenizer st = new StringTokenizer(savedstring, ",");
+            /*StringTokenizer st = new StringTokenizer(savedstring, ",");
             for (int i = 0; i < products.size(); i++) {
                 products.get(i).setNoi(Integer.parseInt(st.nextToken()));
-            }
+            }*/
             listener.ordercart(ids ,nois,price);
 
 
@@ -291,23 +294,24 @@ public interface onClickremove {
     }
 
     private void inc(int pos,View view) {
-       int a= noitext.get(pos);
+       int a= Integer.parseInt(noiVersions.get(pos).getNoi());
         a=a+1;
-        noitext.set(pos,a);
+        noiVersions.get(pos).setNoi(String.valueOf(a));
+        nois.add(pos,String.valueOf(noiVersions.get(pos).getNoi()));
         notifyDataSetChanged();
-        products.get(pos).setNoi(noitext.get(pos));
-        nois.add(pos,String.valueOf(products.get(pos).getNoi()));
-        listener.textChanged(pos,String.valueOf(noitext.get(pos)));
+        listener.textChanged(pos,String.valueOf(noiVersions.get(pos).getNoi()));
 
     }
     private void dec(int pos,View view) {
-        int a= noitext.get(pos);
+        int a= Integer.parseInt(noiVersions.get(pos).getNoi());
+        if(a<2){
+            Toast.makeText(view.getContext(),"Invalid Quantity",Toast.LENGTH_SHORT).show();
+        }else{
         a=a-1;
-        noitext.set(pos,a);
+        noiVersions.get(pos).setNoi(String.valueOf(a));
+        nois.add(pos,String.valueOf(noiVersions.get(pos).getNoi()));
         notifyDataSetChanged();
-        products.get(pos).setNoi(noitext.get(pos));
-        nois.add(pos,String.valueOf(products.get(pos).getNoi()));
-
-        listener.textChanged(pos,String.valueOf(noitext.get(pos)));
+        listener.textChanged(pos,String.valueOf(noiVersions.get(pos).getNoi()));
+    }
     }
 }

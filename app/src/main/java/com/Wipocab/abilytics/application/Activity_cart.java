@@ -41,9 +41,10 @@ public class Activity_cart extends AppCompatActivity {
     RecyclerView recyclerview;
     ProgressBar progressBar;
     ArrayList<ProductVersion> products;
-    ArrayList<ArrayList<ProductVersion>> prod;
+    ArrayList<NoiVersion> noiS=new ArrayList<>();
     CartAdapter cartAdapter;
-    Toolbar ordertoolbar;  Button btnorder;CoordinatorLayout coordinatorLayout;ArrayList<String> idsA,noiA;Button p_inc;Button p_dec;
+    Toolbar ordertoolbar;  Button btnorder;CoordinatorLayout coordinatorLayout;ArrayList<String> idsA,noiA=new ArrayList<>();
+    Button p_inc;Button p_dec;
     SharedPreferences pref;
     ArrayList<String> price;
     MaterialDialog.Builder materialDialog;
@@ -116,7 +117,7 @@ public class Activity_cart extends AppCompatActivity {
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        User user =new User();
+        final User user =new User();
         user.setEmail(pref.getString(Constants.EMAIL," "));
         Log.d("Email",Constants.EMAIL);
         final ServerRequest request=new ServerRequest();
@@ -127,8 +128,68 @@ public class Activity_cart extends AppCompatActivity {
         call.enqueue(new Callback<ProductResponse>() {
             @Override
             public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(Constants.BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                final ServerRequest request1=new ServerRequest();
+                request1.setOperation(Constants.noi);
+                request1.setUser(user);
+                RequestInterfaceNoi requestInterface1=retrofit.create(RequestInterfaceNoi.class);
+                Call<NoiResponse> call1 =requestInterface1.operation(request1);
+                call1.enqueue(new Callback<NoiResponse>() {
+                    @Override
+                    public void onResponse(Call<NoiResponse> call1, Response<NoiResponse> response1) {
+                    NoiResponse noiresponse=response1.body();
+                        String b=noiresponse.toString();
+                        Log.d("ksn",b);
+                        try {
+                            noiS = new ArrayList<NoiVersion>(Arrays.asList(noiresponse.getNoi()));
+                            for (int i = 0; i < noiS.size(); i++) {
+                                noiA.add(noiS.get(i).getNoi());
+                            }
+                        }
+                        catch(Exception e){
+                          //  Toast.makeText(Activity_cart.this, "LOL", Toast.LENGTH_SHORT).show();
+                        }
+                        cartAdapter=new CartAdapter(products,noiS, getBaseContext(), new CartAdapter.onClickremove() {
+                            @Override
+                            public void onClickremovelist(int pos) {
+                                idsA.remove(pos);
+                                noiA.remove(pos);
+                                price.remove(pos);
+
+                            }
+
+                            @Override
+                            public void ordercart(ArrayList<String> ids, ArrayList<String> nois,ArrayList<String> price) {
+                                ordermycart(ids,nois,price);
+                            }
+
+                            @Override
+                            public void textChanged(int pos,String noip) {
+                                noiA.add(pos,noip);
+                                //Toast.makeText(getApplicationContext(),noip,Toast.LENGTH_LONG).show();
+
+                            }
+
+                        });
+                        recyclerview.setAdapter(cartAdapter);
+
+                //        Toast.makeText(getApplicationContext(),"Cart loaded ", Toast.LENGTH_SHORT).show();
+
+
+                    }
+                    @Override
+                    public void onFailure(Call<NoiResponse> call, Throwable t) {
+                        progressBar.setVisibility(View.INVISIBLE);
+                        Snackbar.make(coordinatorLayout,"Connection Problem", Snackbar.LENGTH_SHORT).show();
+
+
+
+                    }
+                });
                 idsA=new ArrayList<String>();
-                noiA=new ArrayList<String>();
                 price=new ArrayList<String>();
                progressBar.setVisibility(View.INVISIBLE);
                 ProductResponse productResponse =response.body();
@@ -136,44 +197,19 @@ public class Activity_cart extends AppCompatActivity {
                 Log.d("ksn",b);
                products=new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
                 pref = getSharedPreferences("ABC", Context.MODE_PRIVATE);
-                String savedstring=pref.getString(Constants.cartnoi,"");
+                /*String savedstring=pref.getString(Constants.cartnoi,"");
                 StringTokenizer st = new StringTokenizer(savedstring,"");
                 Log.d("UOOOOOOOOOOO", st.toString());
                 for (int k = 0; k < products.size(); k++) {
                     //products.get(k).setNoi();
                     noiA.add(st.nextToken());
-                }
+                }*/
                for(int i=0;i<products.size();i++){
                     idsA.add(products.get(i).getProduct_code());
                    price.add(products.get(i).getCart_price());
                    Log.d("PRICECCC", price.get(i));
 
                 }
-                cartAdapter=new CartAdapter(products, getBaseContext(), new CartAdapter.onClickremove() {
-                    @Override
-                    public void onClickremovelist(int pos) {
-                        idsA.remove(pos);
-                        noiA.remove(pos);
-                        price.remove(pos);
-
-                    }
-
-                    @Override
-                    public void ordercart(ArrayList<String> ids, ArrayList<String> nois,ArrayList<String> price) {
-                       ordermycart(ids,nois,price);
-                    }
-
-                    @Override
-                    public void textChanged(int pos,String noip) {
-                        noiA.add(pos,noip);
-                        //Toast.makeText(getApplicationContext(),noip,Toast.LENGTH_LONG).show();
-
-                    }
-
-                });
-                recyclerview.setAdapter(cartAdapter);
-
-                Toast.makeText(getApplicationContext(),"Cart loaded ", Toast.LENGTH_SHORT).show();
 
             }
 
@@ -194,21 +230,29 @@ public class Activity_cart extends AppCompatActivity {
             btnorder.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    if(recyclerview.getAdapter().getItemCount()==0){
+                        btnorder.setEnabled(false);
+                    }else {
+                        btnorder.setEnabled(true);
+                    }
                 int total=0;
               final ProgressDialog pd=new ProgressDialog(Activity_cart.this,R.style.AppCompatAlertDialogStyle);
                     pd.setMessage("Ordering your items");
                    pd.show();
                     StringBuffer buffer=new StringBuffer();
                     for (int i = 0; i < idsA.size(); i++) {
+                        buffer.append(" \n  ");
+                        buffer.append(i+1);
+                        buffer.append(". ");
                         buffer.append(idsA.get(i));
-                        buffer.append(" ("+noiA.get(i)+" )");
+                        buffer.append(" (QTY:-"+noiA.get(i)+" )");
                         buffer.append(" ");
-                        buffer.append("Price");
+                        buffer.append("Price:- ");
                         buffer.append(price.get(i));
                         total=total + Integer.parseInt(noiA.get(i))*Integer.parseInt(price.get(i));
 
                     }
-                    buffer.append(String.format("Total Price \n %s",String.valueOf(total)));
+                    buffer.append(String.format("\n Total Price \n %s",String.valueOf(total)));
                         Retrofit retrofit = new Retrofit.Builder()
                                 .baseUrl(Constants.BASE_URL)
                                 .addConverterFactory(GsonConverterFactory.create())
@@ -227,8 +271,11 @@ public class Activity_cart extends AppCompatActivity {
                             public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
                                // mdialog.dismiss();
                                 pd.dismiss();
+                                btnorder.setEnabled(false);
                                 response.message();
-                                Snackbar.make(coordinatorLayout, "order placed "+String.valueOf(finalTotal), Snackbar.LENGTH_SHORT).show();
+                               // Snackbar.make(coordinatorLayout, "order placed  Total Rs."+String.valueOf(finalTotal), Snackbar.LENGTH_SHORT).show();
+                                 Snackbar.make(coordinatorLayout, "Query submitted ", Snackbar.LENGTH_SHORT).show();
+
                                 loadJson();
 
 
