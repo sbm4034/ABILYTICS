@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.Wipocab.abilytics.application.Adapters.DataAdapterForSubProducts;
@@ -38,6 +39,7 @@ public class SubProductFragment extends Fragment {
     ArrayList<ProductVersion> products;
     DataAdapterForSubProducts dataAdapter;
     RecyclerView recyclerview;
+
 
     public static SubProductFragment newInstance(String pid,String lenght) {
         SubProductFragment frag = new SubProductFragment();
@@ -72,6 +74,7 @@ public class SubProductFragment extends Fragment {
     private void initView(View view) {
         progressBar = (ProgressBar) view.findViewById(R.id.progress_Spinner);
         recyclerview= (RecyclerView) view.findViewById(R.id.recycler_view);
+
         recyclerview.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutmanager=new LinearLayoutManager(getActivity());
         recyclerview.setLayoutManager(layoutmanager);

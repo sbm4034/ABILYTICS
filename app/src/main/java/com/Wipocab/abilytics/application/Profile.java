@@ -29,7 +29,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.Wipocab.abilytics.application.Animations.GradientBackgroundPainter;
+import com.Wipocab.abilytics.application.Model.ProductResponse;
+import com.Wipocab.abilytics.application.Model.ProductVersion;
+import com.Wipocab.abilytics.application.Model.ServerRequest;
+import com.Wipocab.abilytics.application.Model.User;
 import com.afollestad.materialdialogs.MaterialDialog;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.app.ActionBar.DISPLAY_SHOW_CUSTOM;
 
@@ -51,6 +64,8 @@ public class Profile extends AppCompatActivity{
     private NavigationView navView;
     MaterialDialog.Builder materialDialog; MaterialDialog dialog;
     int n=0;
+    TextView textviewitemsize;
+    ArrayList<ProductVersion > products=new ArrayList<>();
 
 
 
@@ -59,13 +74,16 @@ public class Profile extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
         fabCreate=(FloatingActionButton)findViewById(R.id.fab);
+        textviewitemsize=(TextView)findViewById(R.id.textitemsize);
         pref=getSharedPreferences("ABC", Context.MODE_PRIVATE);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayOptions(DISPLAY_SHOW_CUSTOM);
         getSupportActionBar().setCustomView(R.layout.abs_layout);
 
+
         initFragment();
+        LoadProductsize();
         initNavigationDrawer();
         navText();
         View backgroundImage = findViewById(R.id.drawer);
@@ -123,6 +141,8 @@ public class Profile extends AppCompatActivity{
     }
 
 
+
+
     private void navText() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.navigation_view);
         View headerView = navigationView.getHeaderView(0);
@@ -153,6 +173,7 @@ public class Profile extends AppCompatActivity{
                         }
                         n=1;
                         ft.replace(R.id.fragment_frame, fr);
+                        ft.addToBackStack(null);
                         ft.commit();
                         break;
                     case R.id.our_poducts:
@@ -377,6 +398,37 @@ public class Profile extends AppCompatActivity{
         startActivity(intent);
 
 
+    }
+    private void LoadProductsize() {
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        final User user = new User();
+        user.setEmail(pref.getString(Constants.EMAIL, " "));
+        Log.d("Email", Constants.EMAIL);
+        final ServerRequest request = new ServerRequest();
+        request.setOperation(Constants.showcart);
+        request.setUser(user);
+        RequestInterfaceProducts requestInterface = retrofit.create(RequestInterfaceProducts.class);
+        Call<ProductResponse> call = requestInterface.operation(request);
+        call.enqueue(new Callback<ProductResponse>() {
+            @Override
+            public void onResponse(Call<ProductResponse> call, Response<ProductResponse> response) {
+                ProductResponse productResponse =response.body();
+                products=new ArrayList<ProductVersion>(Arrays.asList(productResponse.getProducts()));
+               // textviewitemsize.setText(products.size());
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<ProductResponse> call, Throwable t) {
+
+            }
+
+        });
     }
 
 

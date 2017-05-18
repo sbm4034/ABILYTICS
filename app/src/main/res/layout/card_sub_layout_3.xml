@@ -9,7 +9,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:focusable="true"
-    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     >
     <LinearLayout
@@ -35,9 +34,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/p_noperdia1"
+            android:textSize="17sp"
+            android:text="NoPerDiameter"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NumberperDiaofWire"
+            android:textSize="17sp"
+            android:text="NoPerDiameter"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
             android:id="@+id/p_noArea"
             android:textSize="17sp"
             android:text="NoArea"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/p_NumberperDiaofWireinch"
+            android:textSize="17sp"
+            android:text="NominalAreaCond"
             android:textColor="@color/black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -82,27 +103,396 @@
             android:layout_height="wrap_content" />
         <LinearLayout
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textSize="20sp"
-                android:textColor="@color/black"
-                android:text="No. of items" />
+                android:orientation="horizontal"
+                android:id="@+id/lay_04">
+
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
+                android:text="Nominal Cond of Dia 04"
                 android:textColor="@color/black"
-                android:id="@+id/abc"
+                android:id="@+id/nomial_04"
                 android:layout_marginRight="5dp"
                 />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                <Button
+
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/dec_04"
+                    android:text="-"
+                    android:textSize="20sp"
+                    android:background="@color/color8"
+                    />
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/val_04"
+                    android:textColor="@color/black"
+                    android:layout_margin="3dp"
+                    android:textSize="20sp"
+                    />
+                <Button
+
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:id="@+id/inc_04"
+                    android:text="+"
+                    android:textSize="20sp"
+                    android:background="@color/color8"
+                    /></LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_05">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Nominal Cond of Dia 05"
+                    android:textColor="@color/black"
+                    android:id="@+id/nominal_05"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_05"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_05"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_05"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_100">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Qty for 100 mtr"
+                    android:textColor="@color/black"
+                    android:id="@+id/qty_100"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_100"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_100"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_100"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_300">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Qty for 300 mtr"
+                    android:textColor="@color/black"
+                    android:id="@+id/qty_300"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_300"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_300"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_300"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_one">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Qty of One Core"
+                    android:textColor="@color/black"
+                    android:id="@+id/one_core"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_one"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_one"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_one"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_two">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Qty for two Core"
+                    android:textColor="@color/black"
+                    android:id="@+id/two_core"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_two"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_two"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_two"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lay_three">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:text="Qty for three core"
+                    android:textColor="@color/black"
+                    android:id="@+id/three_core"
+                    android:layout_marginRight="5dp"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/dec_three"
+                        android:text="-"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        />
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/val_three"
+                        android:textColor="@color/black"
+                        android:layout_margin="3dp"
+                        android:textSize="20sp"
+                        />
+                    <Button
+
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:id="@+id/inc_three"
+                        android:text="+"
+                        android:textSize="20sp"
+                        android:background="@color/color8"
+                        /></LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                   android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:text="No. of items" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="20sp"
+                        android:textColor="@color/black"
+                        android:id="@+id/abc"
+                        android:layout_marginRight="5dp"
+                        />
 
             <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/dec"
                 android:text="-"
                 android:textSize="20sp"
@@ -118,13 +508,15 @@
                 android:textSize="20sp"
                 />
             <Button
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:id="@+id/inc"
                 android:text="+"
                 android:textSize="20sp"
                 android:background="@color/color8"
                 />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
         <TextView
             android:id="@+id/cart_price"

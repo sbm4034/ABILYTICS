@@ -24,6 +24,53 @@ public class User {
     private String Length;
     private String price;
     private String query;
+    private String noi_for_one_core;
+    private String noi_for_two_core;
+    private String noi_for_three_core;
+    private  String noi_for_04;
+    private String noi_for_05;
+
+    public String getNoi_for_04() {
+        return noi_for_04;
+    }
+
+    public void setNoi_for_04(String noi_for_04) {
+        this.noi_for_04 = noi_for_04;
+    }
+
+    public String getNoi_for_05() {
+        return noi_for_05;
+    }
+
+    public void setNoi_for_05(String noi_for_05) {
+        this.noi_for_05 = noi_for_05;
+    }
+
+    public String getNoi_for_one_core() {
+        return noi_for_one_core;
+    }
+
+    public void setNoi_for_one_core(String noi_for_one_core) {
+        this.noi_for_one_core = noi_for_one_core;
+    }
+
+    public String getNoi_for_two_core() {
+        return noi_for_two_core;
+    }
+
+    public void setNoi_for_two_core(String noi_for_two_core) {
+        this.noi_for_two_core = noi_for_two_core;
+    }
+
+    public String getNoi_for_three_core() {
+        return noi_for_three_core;
+    }
+
+    public void setNoi_for_three_core(String noi_for_three_core) {
+        this.noi_for_three_core = noi_for_three_core;
+    }
+
+
 
     public String getQuery() {
         return query;

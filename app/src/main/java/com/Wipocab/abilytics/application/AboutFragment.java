@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,8 @@ import android.widget.TextView;
 
 public class AboutFragment extends Fragment  implements View.OnClickListener{
 
-    TextView clickEmail,mbl;
+    TextView clickEmail,mbl,textviewitemsize;
+    String strtext="0";
 
 
     public AboutFragment() {
@@ -29,17 +31,17 @@ public class AboutFragment extends Fragment  implements View.OnClickListener{
        // ((Profile) getActivity()).setActionBarTitle("Contact Us");
         TextView abs =(TextView)getActivity().findViewById(R.id.abs);
         abs.setText("Contact us");
-        initView(view);
+
         return  view;
     }
 
     private void initView(View v) {
         clickEmail=(TextView) v.findViewById(R.id.clickEmail);
-
+        textviewitemsize=(TextView)v.findViewById(R.id.textitemsize);
         clickEmail.setOnClickListener(this);
         //clickEmail.setPaintFlags(clickEmail.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
         mbl=(TextView) v.findViewById(R.id.mbl);
-
+        textviewitemsize.setText(strtext);
         mbl.setOnClickListener(this);
 
     }

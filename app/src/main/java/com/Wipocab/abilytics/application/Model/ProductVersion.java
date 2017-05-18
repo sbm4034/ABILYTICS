@@ -37,6 +37,8 @@ public class ProductVersion {
     private String two_Core;
     private String three_Core;
     private int noi=1;
+    private String NominalAreaofCond;
+    private String NumberperDiaofWire1;
 
     public int getNoi() {
         return noi;
@@ -228,5 +230,13 @@ public class ProductVersion {
 
     public void setIsliked(boolean isliked) {
         this.isliked = isliked;
+    }
+
+    public String getNominalAreaofCond() {
+        return NominalAreaofCond;
+    }
+
+    public String getNumberAreaofCond1() {
+        return NumberperDiaofWire1;
     }
 }

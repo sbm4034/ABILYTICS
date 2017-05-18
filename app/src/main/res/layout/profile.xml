@@ -28,19 +28,37 @@
                 app:theme="@style/AppTheme.AppBarOverlay"/>
 
         <include layout="@layout/content_main"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_height="wrap_content">
+
+
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
             android:layout_marginBottom="16dp"
             android:layout_marginRight="16dp"
-            app:backgroundTint="#ccc"
             android:tint="@color/blue"
             app:borderWidth="0dp"
-            app:elevation="6dp"
-            app:pressedTranslationZ="12dp"
+            android:elevation="0dp"
+
             android:src="@drawable/ic_cart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#FFF"
+                android:textSize="10sp"
+                android:text="0"
+                android:elevation="7dp"
+                android:id="@+id/textitemsize"
+                android:textStyle="bold"
+                android:background="@drawable/badge_circle"/>
+
+        </RelativeLayout>
 
     </android.support.design.widget.CoordinatorLayout>
     <android.support.design.widget.NavigationView

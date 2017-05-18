@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -40,15 +41,18 @@ public class Activity_cart extends AppCompatActivity {
     GradientBackgroundPainter gradientBackgroundPainter;
     RecyclerView recyclerview;
     ProgressBar progressBar;
-    ArrayList<ProductVersion> products;
+    ArrayList<ProductVersion> products=new ArrayList<>();
     ArrayList<NoiVersion> noiS=new ArrayList<>();
     CartAdapter cartAdapter;
-    Toolbar ordertoolbar;  Button btnorder;CoordinatorLayout coordinatorLayout;ArrayList<String> idsA,noiA=new ArrayList<>();
+    Toolbar ordertoolbar;  Button btnorder;CoordinatorLayout coordinatorLayout;ArrayList<String> idsA,noiA=new ArrayList<>(),noiOneC=new ArrayList<>(),noiTwoC=new ArrayList<>(),noiThreeC=new ArrayList<>(),noi_05=new ArrayList<>(),noi_04=new ArrayList<>();
     Button p_inc;Button p_dec;
     SharedPreferences pref;
     ArrayList<String> price;
     MaterialDialog.Builder materialDialog;
      MaterialDialog mdialog;
+
+    TextView textcountproduct;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +95,7 @@ public class Activity_cart extends AppCompatActivity {
     private void initView() {
         pref=getApplicationContext().getSharedPreferences("ABC", Context.MODE_PRIVATE);
         btnorder=(Button)findViewById(R.id.order_btn);
+        textcountproduct=(TextView)findViewById(R.id.textcountproducts);
         p_inc=(Button)findViewById(R.id.inc);
         p_dec=(Button)findViewById(R.id.dec);
         coordinatorLayout=(CoordinatorLayout)findViewById(R.id.coordinator_cart);
@@ -105,6 +110,17 @@ public class Activity_cart extends AppCompatActivity {
                 .widgetColor(Color.RED)
                 .progress(true, 0);
    mdialog = materialDialog.build();
+        btnorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(products.isEmpty()){
+                    Toast.makeText(Activity_cart.this, "NO ITEMS IN CART", Toast.LENGTH_SHORT).show();
+
+
+
+                }
+            }
+        });
 
 
 
@@ -141,12 +157,18 @@ public class Activity_cart extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<NoiResponse> call1, Response<NoiResponse> response1) {
                     NoiResponse noiresponse=response1.body();
+                        textcountproduct.setText(String.format("TOTAL ITEMS :- %s",products.size()));
                         String b=noiresponse.toString();
                         Log.d("ksn",b);
                         try {
                             noiS = new ArrayList<NoiVersion>(Arrays.asList(noiresponse.getNoi()));
                             for (int i = 0; i < noiS.size(); i++) {
                                 noiA.add(noiS.get(i).getNoi());
+                                noiOneC.add(noiS.get(i).getNoi_for_one_core());
+                                noiTwoC.add(noiS.get(i).getNoi_for_two_core());
+                                noiThreeC.add(noiS.get(i).getNoi_for_three_core());
+                                noi_04.add(noiS.get(i).getNoi_for_04());
+                                noi_05.add(noiS.get(i).getNoi_for_05());
                             }
                         }
                         catch(Exception e){
@@ -158,6 +180,12 @@ public class Activity_cart extends AppCompatActivity {
                                 idsA.remove(pos);
                                 noiA.remove(pos);
                                 price.remove(pos);
+                                noiOneC.remove(pos);
+                                noiTwoC.remove(pos);
+                                noiThreeC.remove(pos);
+                                noi_04.remove(pos);
+                                noi_05.remove(pos);
+                                textcountproduct.setText(String.format("TOTAL ITEMS :- %s",idsA.size()));
 
                             }
 
@@ -167,16 +195,22 @@ public class Activity_cart extends AppCompatActivity {
                             }
 
                             @Override
-                            public void textChanged(int pos,String noip) {
-                                noiA.add(pos,noip);
-                                //Toast.makeText(getApplicationContext(),noip,Toast.LENGTH_LONG).show();
+                            public void textChanged(int pos,ArrayList<NoiVersion> noip) {
+                                noiA.add(pos,noip.get(pos).getNoi());
+                                noiOneC.add(noiS.get(pos).getNoi_for_one_core());
+                                noiTwoC.add(noiS.get(pos).getNoi_for_two_core());
+                                noiThreeC.add(noiS.get(pos).getNoi_for_three_core());
+                                noi_04.add(noiS.get(pos).getNoi_for_04());
+                                noi_05.add(noiS.get(pos).getNoi_for_05());
+
+
 
                             }
 
                         });
                         recyclerview.setAdapter(cartAdapter);
 
-                //        Toast.makeText(getApplicationContext(),"Cart loaded ", Toast.LENGTH_SHORT).show();
+
 
 
                     }
@@ -227,82 +261,108 @@ public class Activity_cart extends AppCompatActivity {
     }
 
     public void ordermycart(final ArrayList<String> ids, final ArrayList<String> nois,final ArrayList<String> pric){
-            btnorder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(recyclerview.getAdapter().getItemCount()==0){
-                        btnorder.setEnabled(false);
-                    }else {
-                        btnorder.setEnabled(true);
-                    }
-                int total=0;
-              final ProgressDialog pd=new ProgressDialog(Activity_cart.this,R.style.AppCompatAlertDialogStyle);
-                    pd.setMessage("Ordering your items");
-                   pd.show();
-                    StringBuffer buffer=new StringBuffer();
-                    for (int i = 0; i < idsA.size(); i++) {
-                        buffer.append(" \n  ");
-                        buffer.append(i+1);
-                        buffer.append(". ");
-                        buffer.append(idsA.get(i));
-                        buffer.append(" (QTY:-"+noiA.get(i)+" )");
-                        buffer.append(" ");
-                        buffer.append("Price:- ");
-                        buffer.append(price.get(i));
-                        total=total + Integer.parseInt(noiA.get(i))*Integer.parseInt(price.get(i));
 
-                    }
-                    buffer.append(String.format("\n Total Price \n %s",String.valueOf(total)));
-                        Retrofit retrofit = new Retrofit.Builder()
-                                .baseUrl(Constants.BASE_URL)
-                                .addConverterFactory(GsonConverterFactory.create())
-                                .build();
-                        User user = new User();
-                        user.setEmail(pref.getString(Constants.EMAIL," "));
-                        user.setProduct_code(String.valueOf(buffer));
-                        ServerRequest request = new ServerRequest();
-                        request.setOperation(Constants.ordercart);
-                        request.setUser(user);
-                        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
-                        Call<ServerResponse> call =requestInterface.operation(request);
-                    final int finalTotal = total;
-                    call.enqueue(new Callback<ServerResponse>() {
-                            @Override
-                            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
-                               // mdialog.dismiss();
-                                pd.dismiss();
-                                btnorder.setEnabled(false);
-                                response.message();
-                               // Snackbar.make(coordinatorLayout, "order placed  Total Rs."+String.valueOf(finalTotal), Snackbar.LENGTH_SHORT).show();
-                                 Snackbar.make(coordinatorLayout, "Query submitted ", Snackbar.LENGTH_SHORT).show();
+        btnorder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(recyclerview.getAdapter().getItemCount()<=0||(products.isEmpty()))
+                {
 
-                                loadJson();
-
-
-                            }
-
-
-                            @Override
-                            public void onFailure(Call<ServerResponse> call, Throwable t) {
-                             // mdialog.dismiss();
-                                pd.dismiss();
-                                Snackbar.make(coordinatorLayout, t.toString(), Snackbar.LENGTH_LONG).show();
-
-                            }
-                        });
-
-
-
+                    Toast.makeText(Activity_cart.this, "NO ITEMS IN CART", Toast.LENGTH_SHORT).show();
+                    //Snackbar.make(,"NO ITEMS IN CART",Snackbar.LENGTH_LONG).show();
+                }else {
+                    PROCEEDTOORDER();
                 }
-            });
+
+
+
+            }
+        });
+
+
+
+
+
+
 
 
 
     }
 
+    private void
+    PROCEEDTOORDER() {
+        int total=0;
+        final ProgressDialog pd=new ProgressDialog(Activity_cart.this,R.style.AppCompatAlertDialogStyle);
+        pd.setMessage("Ordering your items");
+        pd.show();
+        StringBuffer buffer=new StringBuffer();
+        for (int i = 0; i < idsA.size(); i++) {
+            buffer.append(" \n  ");
+            buffer.append(i+1);
+            buffer.append(". ");
+            buffer.append(idsA.get(i));
+            buffer.append(" (QTY:-"+noiA.get(i)+" )");
+            if(!(noiOneC.get(i).equals("0")))
+            {
+                buffer.append(" ");
+                buffer.append(" (Qty one Core:-"+noiOneC.get(i)+" )");
+            }
+            if(!(noiTwoC.get(i).equals("0")))
+            {
+                buffer.append(" ");
+                buffer.append(" (Qty two Core:-"+noiTwoC.get(i)+" )");
+            }
+            if(!(noiThreeC.get(i).equals("0")))
+            {
+                buffer.append(" ");
+                buffer.append(" (Qty three Core:-"+noiThreeC.get(i)+" )");
+            }
+            buffer.append(" ");
+            buffer.append("Price:- ");
+            buffer.append(price.get(i));
+            total=total + Integer.parseInt(noiA.get(i))*Integer.parseInt(price.get(i));
+
+        }
+        buffer.append(String.format("\n Total Price \n %s",String.valueOf(total)));
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        User user = new User();
+        user.setEmail(pref.getString(Constants.EMAIL," "));
+        user.setProduct_code(String.valueOf(buffer));
+        ServerRequest request = new ServerRequest();
+        request.setOperation(Constants.ordercart);
+        request.setUser(user);
+        RequestInterface requestInterface = retrofit.create(RequestInterface.class);
+        Call<ServerResponse> call =requestInterface.operation(request);
+        final int finalTotal = total;
+        call.enqueue(new Callback<ServerResponse>() {
+            @Override
+            public void onResponse(Call<ServerResponse> call, Response<ServerResponse> response) {
+                // mdialog.dismiss();
+                pd.dismiss();
+                btnorder.setEnabled(false);
+                response.message();
+                // Snackbar.make(coordinatorLayout, "order placed  Total Rs."+String.valueOf(finalTotal), Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(coordinatorLayout, "Query submitted ", Snackbar.LENGTH_SHORT).show();
+
+                loadJson();
 
 
+            }
 
+
+            @Override
+            public void onFailure(Call<ServerResponse> call, Throwable t) {
+                // mdialog.dismiss();
+                pd.dismiss();
+                Snackbar.make(coordinatorLayout, t.toString(), Snackbar.LENGTH_LONG).show();
+
+            }
+        });
+
+    }
 
 
     @Override

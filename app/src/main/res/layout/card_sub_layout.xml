@@ -35,6 +35,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/p_noperdia1"
+            android:textSize="17sp"
+            android:text="NoPerDiameter"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/p_NumberperDiaofWireinch"
+            android:textSize="17sp"
+            android:text="NominalAreaCond"
+            android:textColor="@color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
             android:id="@+id/p_noArea"
             android:textSize="17sp"
             android:text="NoArea"

@@ -10,6 +10,7 @@
         android:layout_gravity="center"
         android:id="@+id/progress_Spinner"
         />
+
     <android.support.v7.widget.RecyclerView
         android:layout_marginTop="50dp"
         android:layout_width="match_parent"

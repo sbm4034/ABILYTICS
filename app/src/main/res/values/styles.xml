@@ -70,4 +70,15 @@
     </style>
 
 
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/md_material_blue_600</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/red_light</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/white</item>
+    </style>
+
+
+
 </resources>

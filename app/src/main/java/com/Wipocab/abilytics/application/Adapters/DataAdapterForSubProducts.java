@@ -2,14 +2,21 @@ package com.Wipocab.abilytics.application.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +43,13 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
     Context context;
     onClickWish listeners;
     String price;
+    String noi_for_one_core="0";
+    String noi_for_two_core="0";
+    String noi_for_three_core="0";
+    String noi_for_04="0";
+    String noi_for_05="0";
+
+    EditText oneCore,twoCore,threeCore,noi_04,noi_05;
     ArrayList<Integer> noitext=new ArrayList<>();
     public DataAdapterForSubProducts(ArrayList<ProductVersion> products, Activity activity) {
 
@@ -72,7 +86,13 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
 
         holder.p_code.setText(String.format("Product Code: %s",products.get(position).getProduct_code()));
         holder.p_pkg.setText(String.format("Pkg: %s",products.get(position).getPkg()));
+        if(products.get(position).getNumberAreaofCond1()==null)
+        {
+            holder.p_nodia1.setVisibility(View.GONE);
 
+        }else{
+            holder.p_nodia1.setText(String.format("Name : %s Sq mm", products.get(position).getNumberAreaofCond1()));
+            }
         if(products.get(position).getNumberAreaofCond()==null){
             holder.p_nodia.setVisibility(View.GONE);
 
@@ -87,7 +107,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             holder.p_NumberperDiaofWireinch.setVisibility(View.GONE);
 
         }else{
-            holder.p_NumberperDiaofWireinch.setText(String.format("Name : %S inch",products.get(position).getNumberperDiaofWireinch()));
+            holder.p_NumberperDiaofWireinch.setText(String.format("Number/Dia of Wire : %S inch",products.get(position).getNumberperDiaofWireinch()));
         }
 
         if(products.get(position).getPriceperCoil()==null){
@@ -124,21 +144,24 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
 
         }else{
         holder.p_noLength.setText(String.format("Length: %s",products.get(position).getLength()));}
-        if(products.get(position).getNominalAreaCond()==null){
+        if(products.get(position).getNominalAreaofCond()==null){
             holder.p_NominalAreaCond.setVisibility(View.GONE);
 
         }else{
-        holder.p_NominalAreaCond.setText(String.format("Name :%s",products.get(position).getNominalAreaCond()));}
+            holder.p_NominalAreaCond.setVisibility(View.VISIBLE);
+        holder.p_NominalAreaCond.setText(String.format("Nominal Area of Cond :%s Sq mm",products.get(position).getNominalAreaofCond()));}
         if(products.get(position).getNominalDiaofCond_04()==null){
             holder.p_NominalDiaofCond_04.setVisibility(View.GONE);
 
         }else{
-        holder.p_NominalDiaofCond_04.setText(String.format("Nominal Dia of Cond 0.4 :₹ %s  ",products.get(position).getNominalDiaofCond_04()));}
+            holder.p_NominalDiaofCond_04.setVisibility(View.VISIBLE);
+        holder.p_NominalDiaofCond_04.setText(String.format("Nominal Dia of Cond 0.4 per 90 mtr:₹ %s  ",products.get(position).getNominalDiaofCond_04()));}
         if(products.get(position).getNominalDiaofCond_05()==null){
             holder.p_NominalDiaofCond_05.setVisibility(View.GONE);
 
         }else{
-        holder.p_NominalDiaofCond_05.setText(String.format("Nominal Dia of Cond 0.5 : ₹ %s ",products.get(position).getNominalDiaofCond_05()));}
+            holder.p_NominalDiaofCond_05.setVisibility(View.VISIBLE);
+        holder.p_NominalDiaofCond_05.setText(String.format("Nominal Dia of Cond 0.5 per 90 mtr: ₹ %s ",products.get(position).getNominalDiaofCond_05()));}
         if(products.get(position).getNoofPair()==null){
             holder.p_NoofPair.setVisibility(View.GONE);
 
@@ -148,26 +171,31 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             holder.p_Pricepermetre.setVisibility(View.GONE);
 
         }else{
+            holder.p_Pricepermetre.setVisibility(View.VISIBLE);
         holder.p_Pricepermetre.setText(String.format("Price per metre :₹ %s ",products.get(position).getPricepermetre()));}
         if(products.get(position).getPriceper100mtrs()==null){
             holder.p_Priceper100metre.setVisibility(View.GONE);
 
         }else{
+            holder.p_Priceper100metre.setVisibility(View.VISIBLE);
         holder.p_Priceper100metre.setText(String.format("Price per 100 metre :₹ %s ",products.get(position).getPriceper100mtrs()));}
         if(products.get(position).getPriceper300mtrs()==null){
             holder.p_Priceper300metre.setVisibility(View.GONE);
 
         }else{
+            holder.p_Priceper300metre.setVisibility(View.VISIBLE);
         holder.p_Priceper300metre.setText(String.format("Price per 300 metre :₹ %s ",products.get(position).getPriceper300mtrs()));}
         if(products.get(position).getPriceper305mtrs()==null){
             holder.p_Priceper305metre.setVisibility(View.GONE);
 
         }else{
+            holder.p_Priceper305metre.setVisibility(View.VISIBLE);
         holder.p_Priceper305metre.setText(String.format("Price per 305 metre :₹ %s ",products.get(position).getPriceper305mtrs()));}
         if(products.get(position).getDescription()==null){
             holder.p_Description.setVisibility(View.GONE);
 
         }else
+            holder.p_Description.setVisibility(View.VISIBLE);
         holder.p_Description.setText(String.format("Description : %s",products.get(position).getDescription()));
 
     }
@@ -178,7 +206,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView p_code, p_nodia,pricepercoil,p_one_core,p_NominalDiaofCond_04,noperdia,p_noArea,p_NominalDiaofCond_05,p_NoofPair,p_Pricepermetre,p_Description,p_Priceper100metre,p_Priceper300metre,p_Priceper305metre,p_NominalAreaCond,p_two_core,p_three_core,p_noLength,p_pkg,p_price,
+        private TextView p_code,p_nodia1,p_nodia,pricepercoil,p_one_core,p_NominalDiaofCond_04,noperdia,p_noArea,p_NominalDiaofCond_05,p_NoofPair,p_Pricepermetre,p_Description,p_Priceper100metre,p_Priceper300metre,p_Priceper305metre,p_NominalAreaCond,p_two_core,p_three_core,p_noLength,p_pkg,p_price,
                 p_NumberperDiaofWireinch,noi;
         private Button btnAddToCart,inc,dec;
 
@@ -193,6 +221,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
             p_code=(TextView)itemView.findViewById(R.id.p_code);
             noi=(TextView)itemView.findViewById(R.id.noiedit);
             p_nodia=(TextView)itemView.findViewById(R.id.p_noperdia);
+            p_nodia1=(TextView)itemView.findViewById(R.id.p_noperdia1);
             p_noArea=(TextView)itemView.findViewById(R.id.p_noArea);
            p_pkg=(TextView)itemView.findViewById(R.id.p_pkg);
             p_noLength=(TextView)itemView.findViewById(R.id.p_noLength);
@@ -264,23 +293,207 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
         //listener.textChanged(pos,String.valueOf(noitext.get(pos)));
     }
 
-    private void ShowlengthDialog(View view, final String main_pid, final int pos) {
+    private void ShowlengthDialog(final View view, final String main_pid, final int pos) {
         ArrayList<String> lengths=new ArrayList<>();
         if(main_pid.equals("sub_8")){
-            lengths.add("One core");
-            lengths.add("Two core");
-            lengths.add("Three core");
 
-        }else if(main_pid.equals("sub_9")){
-            lengths.add("Nominal Diameter of conductor 04");
-            lengths.add("Nominal Diameter of conductor 05");
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(),R.style.AlertDialogCustom));
+            dialog.setTitle("Set Target Title & Description");
+            dialog.setMessage("Enter qty for cores");
 
-    }
-        else if(main_pid.equals("sub_12")){
-            lengths.add("Price per 100 meter");
-            lengths.add("Price per 300 meter");
+            Context context = view.getContext();
+            LinearLayout layout = new LinearLayout(context);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            if(!(products.get(pos).getOne_Core()==null))
+            {
+            oneCore = new EditText(context);
+            oneCore.setHint("One core");
+            oneCore.setBackgroundColor(Color.BLUE);
+                oneCore.setInputType(InputType.TYPE_CLASS_NUMBER);
+            layout.addView(oneCore);
+            }
+
+            if (!(products.get(pos).getTwo_Core()==null))
+            {
+                twoCore = new EditText(context);
+            twoCore.setHint("two core");
+            twoCore.setBackgroundColor(Color.BLUE);
+                twoCore.setInputType(InputType.TYPE_CLASS_NUMBER);
+            layout.addView(twoCore);
+            }
+            if(!(products.get(pos).getThree_Core()==null))
+            {
+            threeCore = new EditText(context);
+            threeCore.setHint("three core");
+                threeCore.setInputType(InputType.TYPE_CLASS_NUMBER);
+            threeCore.setBackgroundColor(Color.BLUE);
+            layout.addView(threeCore);
+            }
+
+            /*final Button btn=new Button(context);
+            btn.setText("OK");
+            btn.setVisibility(View.VISIBLE);*/
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int one=0,two=0,three=0;
+
+                    if(products.get(pos).getOne_Core()==null){
+                        noi_for_one_core="0";
+                        one=0;
+
+                    }
+                    else {
+                        if(oneCore.getText()==null){
+                            noi_for_one_core="0";
+                            one=0;
+                        }else {
+                            noi_for_one_core = String.valueOf(oneCore.getText());
+                            one = Integer.parseInt(products.get(pos).getOne_Core());
+                        }
+
+                    }
+                    if(products.get(pos).getTwo_Core()==null){
+                        noi_for_two_core="0";
+                        two=0;
+                    }
+                    else {
+                        if(twoCore.getText()==null){
+                            noi_for_two_core="0";
+                            two=0;
+                        }else {
+                            noi_for_two_core = String.valueOf(twoCore.getText());
+                            two = Integer.parseInt(products.get(pos).getTwo_Core());
+                        }
+                        noi_for_two_core=String.valueOf(twoCore.getText());
+                        //two=Integer.parseInt(products.get(pos).getTwo_Core());
+                    }
+                    if(products.get(pos).getThree_Core()==null){
+                        noi_for_three_core="0";
+                        three=0;
+
+                    }
+                    else {
+                        if(threeCore.getText()==null){
+                            noi_for_three_core="0";
+                            three=0;
+                        }else {
+                            noi_for_three_core = String.valueOf(threeCore.getText());
+                            three = Integer.parseInt(products.get(pos).getThree_Core());
+                        }
+                        noi_for_three_core=String.valueOf(threeCore.getText());
+                        //three=Integer.parseInt(products.get(pos).getThree_Core());
+                    }
+                    int total =(one*Integer.parseInt(noi_for_one_core))+(two*Integer.parseInt(noi_for_two_core))+(three*Integer.parseInt(noi_for_three_core));
+                    price=String.valueOf(total);
+                    int a=Integer.parseInt(noi_for_one_core);
+                    int b=Integer.parseInt(noi_for_two_core);
+                    int c=Integer.parseInt(noi_for_three_core);
+                    products.get(pos).setNoi(a+b+c);
+                    notifyDataSetChanged();
+
+                    addtooriginalcart(view,pos,price);
+                    dialog.dismiss();
+
+                }
+            });
+
+
+
+            dialog.setView(layout);
+            dialog.show();
+
+
         }
-        MaterialDialog materialDialog=new MaterialDialog.Builder((view.getContext()))
+
+
+        else if(main_pid.equals("sub_9")){
+            final AlertDialog.Builder dialog = new AlertDialog.Builder(new ContextThemeWrapper(view.getContext(),R.style.AlertDialogCustom));
+            dialog.setTitle("Set Target Title & Description");
+            dialog.setMessage("Enter qty for nominal area");
+
+            Context context = view.getContext();
+            LinearLayout layout = new LinearLayout(context);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            if(!(products.get(pos).getNominalDiaofCond_04()==null))
+            {
+                noi_04 = new EditText(context);
+                noi_04.setHint("Nominal Dia of Cond 04");
+                noi_04.setBackgroundColor(Color.BLUE);
+                noi_04.setInputType(InputType.TYPE_CLASS_NUMBER);
+                layout.addView(noi_04);
+            }
+
+            if (!(products.get(pos).getNominalDiaofCond_05()==null))
+            {
+                noi_05 = new EditText(context);
+                noi_05.setHint("Nominal Dia of Cond 05");
+                noi_05.setBackgroundColor(Color.BLUE);
+                noi_05.setInputType(InputType.TYPE_CLASS_NUMBER);
+                layout.addView(noi_05);
+            }
+
+            dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int one=0,two=0;
+
+                    if(products.get(pos).getNominalDiaofCond_04()==null){
+                        noi_for_04="0";
+                        one=0;
+
+                    }
+                    else {
+                        if(noi_04.getText()==null){
+                            noi_for_04="0";
+                            one=0;
+                        }else {
+                            noi_for_04 = String.valueOf(noi_04.getText());
+                            one = Integer.parseInt(products.get(pos).getNominalDiaofCond_04());
+                        }
+
+                    }
+                    if(products.get(pos).getNominalDiaofCond_05()==null){
+                        noi_for_05="0";
+                        two=0;
+
+                    }
+                    else {
+                        if(noi_05.getText()==null){
+                            noi_for_05="0";
+                            two=0;
+                        }else {
+                            noi_for_05 = String.valueOf(noi_05.getText());
+                            two = Integer.parseInt(products.get(pos).getNominalDiaofCond_05());
+                        }
+
+                    }
+
+                    int total =(one*Integer.parseInt(noi_for_04))+(two*Integer.parseInt(noi_for_05));
+                    price=String.valueOf(total);
+                    int a=Integer.parseInt(noi_for_04);
+                    int b=Integer.parseInt(noi_for_05);
+
+                    products.get(pos).setNoi(a+b);
+                    notifyDataSetChanged();
+
+                    addtooriginalcart(view,pos,price);
+                    dialog.dismiss();
+
+                }
+            });
+
+
+
+            dialog.setView(layout);
+            dialog.show();
+
+        }
+        else if(main_pid.equals("sub_12")){
+
+        }
+
+       /* MaterialDialog materialDialog=new MaterialDialog.Builder((view.getContext()))
                 .titleColor(view.getResources().getColor(R.color.white))
                 .itemsColor(view.getResources().getColor(R.color.white))
                 .widgetColor(view.getResources().getColor(R.color.primary_dark))
@@ -292,7 +505,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
 
                         if(main_pid.equals("sub_8")){
-                            if(which==0 & products.get(pos).getOne_Core()==null){
+                            /*if(which==0 & products.get(pos).getOne_Core()==null){
                                 Toast.makeText(view.getContext(), "No such core exists", Toast.LENGTH_SHORT).show();
                                 ShowlengthDialog(view,main_pid,pos);
                             }
@@ -382,7 +595,7 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
 
                 .title("Pick Length of Product")
                 .build();
-        materialDialog.show();
+        materialDialog.show();*/
     }
 
     private void AddToCart(View view, int pos) {
@@ -437,6 +650,11 @@ public class DataAdapterForSubProducts extends RecyclerView.Adapter<DataAdapterF
         user.setEmail(preferences.getString(Constants.EMAIL," "));
         user.setId(products.get(pos).getMain_product_id());
         user.setPrice(price);
+        user.setNoi_for_04(noi_for_04);
+        user.setNoi_for_05(noi_for_05);
+        user.setNoi_for_one_core(noi_for_one_core);
+        user.setNoi_for_two_core(noi_for_two_core);
+        user.setNoi_for_three_core(noi_for_three_core);
       //  Toast.makeText(view.getContext(), price, Toast.LENGTH_SHORT).show();
         Log.d("ID",products.get(pos).getMain_product_id());
         user.setNoi(products.get(pos).getNoi());
